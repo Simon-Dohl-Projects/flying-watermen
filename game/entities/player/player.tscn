@@ -1,0 +1,327 @@
+[gd_scene load_steps=33 format=3 uid="uid://djmlmtr41m2ce"]
+
+[ext_resource type="Script" path="res://entities/player/Player.gd" id="1_n7144"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_dhjab"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_7lhhd"]
+[ext_resource type="Texture2D" uid="uid://ccn7pstgowf44" path="res://assets/prototype-assets/player.png" id="3_jqei2"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_klwk4"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_dadqm"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_aaxtf"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/expression_guard.gd" id="7_m5qsp"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="8_3t36e"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/not_guard.gd" id="9_qrtxb"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/all_of_guard.gd" id="10_ddq3l"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/any_of_guard.gd" id="11_5fhyj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w7iqa"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyyjl"]
+radius = 22.875
+height = 52.0
+
+[sub_resource type="Resource" id="Resource_r58ym"]
+script = ExtResource("7_m5qsp")
+expression = "crouching == true and over_slide_threshold"
+
+[sub_resource type="Resource" id="Resource_jk8u2"]
+script = ExtResource("7_m5qsp")
+expression = "crouching == true"
+
+[sub_resource type="Resource" id="Resource_8wh4l"]
+script = ExtResource("7_m5qsp")
+expression = "!over_slide_threshold"
+
+[sub_resource type="Resource" id="Resource_wu70w"]
+script = ExtResource("7_m5qsp")
+expression = "crouching != true"
+
+[sub_resource type="Resource" id="Resource_7ckxi"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Airborne")
+
+[sub_resource type="Resource" id="Resource_sktov"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_7ckxi")
+
+[sub_resource type="Resource" id="Resource_6pm8d"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Airborne")
+
+[sub_resource type="Resource" id="Resource_38wkj"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_6pm8d")
+
+[sub_resource type="Resource" id="Resource_unbhb"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Airborne")
+
+[sub_resource type="Resource" id="Resource_1o2au"]
+script = ExtResource("7_m5qsp")
+expression = "air_jumps_left > 0"
+
+[sub_resource type="Resource" id="Resource_b3ndv"]
+script = ExtResource("10_ddq3l")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_unbhb"), SubResource("Resource_1o2au")])
+
+[sub_resource type="Resource" id="Resource_hcnl0"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Airborne/FallingCoyote")
+
+[sub_resource type="Resource" id="Resource_se5vv"]
+script = ExtResource("11_5fhyj")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_38wkj"), SubResource("Resource_b3ndv"), SubResource("Resource_hcnl0")])
+
+[sub_resource type="Resource" id="Resource_cg3bt"]
+script = ExtResource("8_3t36e")
+state = NodePath("../WallSlide")
+
+[sub_resource type="Resource" id="Resource_6rl8s"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_cg3bt")
+
+[sub_resource type="Resource" id="Resource_p8ca0"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Grounded")
+
+[sub_resource type="Resource" id="Resource_c7udc"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_p8ca0")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srmds"]
+size = Vector2(39.3125, 28)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_n7144")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w7iqa")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(0, -23)
+scale = Vector2(0.5, 0.505376)
+texture = ExtResource("3_jqei2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -22.875)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_eyyjl")
+
+[node name="WallCheck" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(28, -45)
+target_position = Vector2(0, 44)
+
+[node name="ShootPosition" type="Marker2D" parent="."]
+position = Vector2(0, -23)
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_dhjab")
+
+[node name="Player" type="Node" parent="StateChart"]
+script = ExtResource("3_7lhhd")
+
+[node name="Inputs" type="Node" parent="StateChart/Player"]
+script = ExtResource("3_7lhhd")
+
+[node name="W" type="Node" parent="StateChart/Player/Inputs"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("Not")
+
+[node name="Pressed" type="Node" parent="StateChart/Player/Inputs/W"]
+script = ExtResource("5_dadqm")
+
+[node name="Delay" type="Node" parent="StateChart/Player/Inputs/W/Pressed"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Not")
+delay_seconds = 0.1
+
+[node name="Not" type="Node" parent="StateChart/Player/Inputs/W"]
+script = ExtResource("5_dadqm")
+
+[node name="On Press" type="Node" parent="StateChart/Player/Inputs/W"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Pressed")
+event = &"wPressed"
+
+[node name="Shooting" type="Node" parent="StateChart/Player/Inputs"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("CanShoot")
+
+[node name="CanShoot" type="Node" parent="StateChart/Player/Inputs/Shooting"]
+script = ExtResource("5_dadqm")
+
+[node name="OnShot" type="Node" parent="StateChart/Player/Inputs/Shooting/CanShoot"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../CantShoot")
+event = &"_on_shot"
+
+[node name="CantShoot" type="Node" parent="StateChart/Player/Inputs/Shooting"]
+script = ExtResource("5_dadqm")
+
+[node name="Cooldown" type="Node" parent="StateChart/Player/Inputs/Shooting/CantShoot"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../CanShoot")
+delay_seconds = 0.5
+
+[node name="Mechanics" type="Node" parent="StateChart/Player"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("Movement")
+
+[node name="Movement" type="Node" parent="StateChart/Player/Mechanics"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("Grounded")
+
+[node name="Grounded" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("Standing")
+
+[node name="Standing" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded"]
+script = ExtResource("5_dadqm")
+
+[node name="On Slide" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Standing"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Crouching/Sliding")
+event = &"tick"
+guard = SubResource("Resource_r58ym")
+
+[node name="On Crouch" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Standing"]
+process_priority = 1
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Crouching")
+event = &"tick"
+guard = SubResource("Resource_jk8u2")
+
+[node name="Crouching" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("Crouch")
+
+[node name="Crouch" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Crouching"]
+script = ExtResource("5_dadqm")
+
+[node name="Sliding" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Crouching"]
+script = ExtResource("5_dadqm")
+
+[node name="On Slide End" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Crouching/Sliding"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Crouch")
+event = &"tick"
+guard = SubResource("Resource_8wh4l")
+
+[node name="On Crouch End" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Crouching"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Standing")
+event = &"tick"
+guard = SubResource("Resource_wu70w")
+
+[node name="onAtk" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../../Combat/MeeleAttacks/GAtk")
+event = &"attackpressed"
+
+[node name="Airborne" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("Falling")
+
+[node name="Jumping" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne"]
+script = ExtResource("5_dadqm")
+
+[node name="On Falling" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne/Jumping"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Falling")
+event = &"falling"
+
+[node name="FallingCoyote" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne"]
+script = ExtResource("5_dadqm")
+
+[node name="CoyoteDelay" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne/FallingCoyote"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Falling")
+delay_seconds = 0.2
+
+[node name="Falling" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne"]
+script = ExtResource("5_dadqm")
+
+[node name="onAtk" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../../Combat/MeeleAttacks/AAtk")
+event = &"attackpressed"
+
+[node name="WallSlide" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+script = ExtResource("5_dadqm")
+
+[node name="On FallingCoyote" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Airborne/FallingCoyote")
+event = &"falling"
+guard = SubResource("Resource_sktov")
+
+[node name="On Jump" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Airborne/Jumping")
+event = &"jump"
+guard = SubResource("Resource_se5vv")
+
+[node name="On WallSlide" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../WallSlide")
+event = &"wall_slide"
+guard = SubResource("Resource_6rl8s")
+
+[node name="On Grounded" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Grounded")
+event = &"grounded"
+guard = SubResource("Resource_c7udc")
+
+[node name="Combat" type="Node" parent="StateChart/Player/Mechanics"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("MeeleAttacks")
+
+[node name="MeeleAttacks" type="Node" parent="StateChart/Player/Mechanics/Combat"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("GAtk")
+
+[node name="GAtk" type="Node" parent="StateChart/Player/Mechanics/Combat/MeeleAttacks"]
+script = ExtResource("5_dadqm")
+
+[node name="AAtk" type="Node" parent="StateChart/Player/Mechanics/Combat/MeeleAttacks"]
+script = ExtResource("5_dadqm")
+
+[node name="onAtk" type="Node" parent="StateChart/Player/Mechanics/Combat/MeeleAttacks"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../../Movement/Grounded")
+delay_seconds = 0.3
+
+[node name="AtkShape" type="Area2D" parent="."]
+position = Vector2(0, -23)
+rotation = -6.28319
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AtkShape"]
+position = Vector2(39.6563, 1.90735e-06)
+shape = SubResource("RectangleShape2D_srmds")
+disabled = true
+
+[connection signal="state_physics_processing" from="StateChart/Player/Inputs/W/Pressed" to="." method="_on_pressed_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Player/Inputs/Shooting/CantShoot" to="." method="_on_cant_shoot_state_entered"]
+[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Movement" to="." method="_on_movement_child_state_exited"]
+[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Movement/Grounded" to="." method="_on_movement_child_state_exited"]
+[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Movement/Grounded/Crouching" to="." method="_on_movement_child_state_exited"]
+[connection signal="state_entered" from="StateChart/Player/Mechanics/Movement/Grounded/Crouching" to="." method="_on_crouching_state_entered"]
+[connection signal="state_entered" from="StateChart/Player/Mechanics/Movement/Grounded/Crouching/Sliding" to="." method="_on_sliding_state_entered"]
+[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Movement/Airborne" to="." method="_on_movement_child_state_exited"]
+[connection signal="state_entered" from="StateChart/Player/Mechanics/Movement/Airborne/Jumping" to="." method="_on_jumping_state_entered"]
+[connection signal="state_input" from="StateChart/Player/Mechanics/Movement/Airborne/Jumping" to="." method="_on_airborn_not_coyote_state_input"]
+[connection signal="state_input" from="StateChart/Player/Mechanics/Movement/Airborne/Falling" to="." method="_on_airborn_not_coyote_state_input"]
+[connection signal="state_entered" from="StateChart/Player/Mechanics/Movement/WallSlide" to="." method="_on_wall_slide_state_entered"]
+[connection signal="child_state_entered" from="StateChart/Player/Mechanics/Combat/MeeleAttacks" to="." method="_on_meele_attacks_child_state_entered"]
+[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Combat/MeeleAttacks" to="." method="_on_movement_child_state_exited"]
+[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Combat/MeeleAttacks" to="." method="_on_meele_attacks_child_state_exited"]
+[connection signal="body_entered" from="AtkShape" to="." method="_on_area_2d_body_entered"]

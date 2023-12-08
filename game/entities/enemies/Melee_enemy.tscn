@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2mdlfdoukqoq"]
+
+[ext_resource type="Script" path="res://entities/enemies/health.gd" id="1_1ce82"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="1_yxerx"]
+[ext_resource type="Script" path="res://entities/enemies/melee_enemy.gd" id="2_r07kk"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="2_toklf"]
+[ext_resource type="Texture2D" uid="uid://ca55500apap66" path="res://assets/prototype-assets/enemy.PNG" id="3_4jtid"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="3_kb0mq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_xw2om"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_86clg"]
+radius = 13.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ol33t"]
+radius = 499.025
+
+[node name="Melee_enemy" type="Node2D"]
+script = ExtResource("1_1ce82")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("2_r07kk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_86clg")
+
+[node name="Dummy_body" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(0, -12)
+scale = Vector2(0.0964117, 0.0875117)
+texture = ExtResource("3_4jtid")
+
+[node name="Aggro_collider" type="Area2D" parent="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Aggro_collider"]
+shape = SubResource("CircleShape2D_ol33t")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("1_yxerx")
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("2_toklf")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("3_kb0mq")
+
+[node name="To_Attacking" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("5_xw2om")
+to = NodePath("../../Attacking")
+event = &"player_detected"
+
+[node name="Attacking" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("3_kb0mq")
+
+[node name="To_Idle" type="Node" parent="StateChart/CompoundState/Attacking"]
+script = ExtResource("5_xw2om")
+to = NodePath("../../Idle")
+event = &"deaggro"
+
+[connection signal="body_entered" from="CharacterBody2D/Aggro_collider" to="CharacterBody2D" method="_on_aggro_collider_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/Aggro_collider" to="CharacterBody2D" method="_on_aggro_collider_body_exited"]

@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://w6jot4hm1u0n"]
+
+[ext_resource type="Script" path="res://scenes/test/ui_healthbar.gd" id="1_4so7k"]
+[ext_resource type="Script" path="res://scenes/test/Healthbar.gd" id="2_51hj1"]
+[ext_resource type="Texture2D" uid="uid://bd0dnm2tkxxth" path="res://assets/prototype-assets/healthbar_PROGRESS.png" id="2_cd67y"]
+[ext_resource type="Texture2D" uid="uid://b7jx8lf3ku7ft" path="res://assets/prototype-assets/healthbar_BORDER.png" id="3_rutjs"]
+[ext_resource type="Script" path="res://scenes/test/Heatbar.gd" id="5_swq50"]
+
+[node name="UI_Healthbar" type="CanvasLayer"]
+script = ExtResource("1_4so7k")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 170.0
+offset_bottom = 28.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Healthbar" type="TextureProgressBar" parent="Panel"]
+texture_filter = 1
+layout_mode = 1
+offset_right = 170.0
+offset_bottom = 28.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("2_cd67y")
+texture_over = ExtResource("3_rutjs")
+texture_progress = ExtResource("2_cd67y")
+script = ExtResource("2_51hj1")
+metadata/_edit_use_anchors_ = true
+
+[node name="HEALTH_Lable" type="Label" parent="Panel/Healthbar"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1.0
+offset_right = 168.0
+offset_bottom = 27.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel2" type="Panel" parent="."]
+offset_left = 1.0
+offset_top = 31.0
+offset_right = 170.0
+offset_bottom = 59.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Heatbar" type="TextureProgressBar" parent="Panel2"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 169.0
+offset_bottom = 27.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("2_cd67y")
+texture_over = ExtResource("3_rutjs")
+texture_progress = ExtResource("2_cd67y")
+script = ExtResource("5_swq50")
+metadata/_edit_use_anchors_ = true
+
+[node name="Heat_Lable" type="Label" parent="Panel2/Heatbar"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 1.0
+offset_right = 168.0
+offset_bottom = 27.0
+metadata/_edit_use_anchors_ = true

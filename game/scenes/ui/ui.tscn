@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cihcop35erg48"]
+
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="1_hgyi1"]
+[ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_rfa25"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_rfa25")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("1_hgyi1")]
+offset_left = 902.0
+offset_top = 6.0
+offset_right = 237.0
+offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)

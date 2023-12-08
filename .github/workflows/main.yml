@@ -1,0 +1,12 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request for main and dev branch
+  pull_request:
+    branches: [ "main", "dev" ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  branch-name-check:
+    uses: ./.github/workflows/branch-name-check.yml

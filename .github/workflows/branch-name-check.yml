@@ -1,0 +1,32 @@
+# This script should check whether files are in the folder they are supposed to be in by filetype
+
+name: Check branch name
+
+on:
+  workflow_call:
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout project # to gain access to the branch names
+      uses: actions/checkout@v2
+      
+    - name: Check Branch Name
+      env:
+        BRANCH: ${{github.event.pull_request.head.ref}}
+      run: |
+        if [ "$BRANCH" == "dev" ]; then
+            echo "Test OK!"
+            echo "This is the dev branch"
+            exit 0
+        elif [[ "$BRANCH" == "feat"* ]] || [[ "$BRANCH" == "bug"* ]] || [[ "$BRANCH" == "wip"* ]] || [[ "$BRANCH" == "junk"* ]]; then
+            echo "Test OK!"
+            echo "Branch is categorized"
+            exit 0
+        else 
+            echo "Bad branchname: '$BRANCH'"
+            echo "The branchname should include a category: 'feat/', 'bug/', 'wip/' 'junk/'"
+            echo "See 'Git conventions' in our wiki for more info"
+            exit 1
+        fi
