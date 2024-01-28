@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdd1tf68cvllb"]
+
+[ext_resource type="Shader" path="res://shader/windShader.gdshader" id="1_jgyrd"]
+[ext_resource type="Texture2D" uid="uid://ca5sokld4u2id" path="res://assets/forest-assets/Baum_1.png" id="2_ajg77"]
+[ext_resource type="Script" path="res://assets/forest-assets/scenes/tree.gd" id="3_n71us"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vsd5k"]
+resource_local_to_scene = true
+shader = ExtResource("1_jgyrd")
+shader_parameter/speed = 2.0
+shader_parameter/minStrength = 0.188
+shader_parameter/maxStrength = 0.47
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 1.0
+shader_parameter/heightOffset = 0.667
+shader_parameter/offset = 0.0
+
+[node name="GreenTree01" type="Sprite2D"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_vsd5k")
+texture = ExtResource("2_ajg77")
+region_enabled = true
+region_rect = Rect2(131.533, 232.261, 555.19, 473.733)
+script = ExtResource("3_n71us")

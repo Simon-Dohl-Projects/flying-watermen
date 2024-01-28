@@ -1,14 +1,16 @@
 extends CanvasLayer
 
 @onready var debugger: Control = $StateChartDebugger
+@onready var player: Player = get_tree().get_first_node_in_group("player")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	var player = get_tree().get_first_node_in_group("player")
-	debugger.debug_node(player)
+	debugger.debug_node(player.state_chart)
+	debugger.visible = false
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_just_pressed("f3"):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("f3"):
 		debugger.visible = !debugger.visible
+
+func _physics_process(_delta):
+	player.state_chart.set_expression_property("velocity_x", player.velocity.x)
+	player.state_chart.set_expression_property("is_on_wall", player.is_on_wall())

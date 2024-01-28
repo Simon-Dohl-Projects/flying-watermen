@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddpdvns3j7c71"]
+
+[ext_resource type="Shader" path="res://shader/windShader.gdshader" id="1_lv6vy"]
+[ext_resource type="Texture2D" uid="uid://dvmsy0ldlhqme" path="res://assets/forest-assets/Baum_Rot_02.png" id="1_sjpe3"]
+[ext_resource type="Script" path="res://assets/forest-assets/scenes/tree.gd" id="3_txxwj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_demst"]
+shader = ExtResource("1_lv6vy")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.01
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[node name="redTree02" type="Sprite2D"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_demst")
+texture = ExtResource("1_sjpe3")
+region_enabled = true
+region_rect = Rect2(129.906, 222.455, 555.46, 487.745)
+script = ExtResource("3_txxwj")

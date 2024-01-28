@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0calein2l24s"]
+
+[ext_resource type="Texture2D" uid="uid://b512uc1ksnlnc" path="res://entities/traps/thorn/thorn.jpg" id="1_u5pu3"]
+[ext_resource type="Script" path="res://entities/traps/thorn/thorn.gd" id="2_cq3n1"]
+
+[node name="thorn" type="Sprite2D"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_u5pu3")
+script = ExtResource("2_cq3n1")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-137.5, 137.5, -75, 157.5, -15, 137.5, -25, 115, 15, 95, -20, 70, 37.5, 47.5, 55, 70, 75, 42.5, 152.5, 7.5, 150, -85, 152.5, -122.5, 120, -110, 57.5, -115, 42.5, -132.5, 37.5, -97.5, -12.5, -45, -27.5, -70, -32.5, -102.5, -55, -137.5, -57.5, -165, -75, -145, -122.5, -127.5, -152.5, -132.5, -145, -107.5, -152.5, -50, -102.5, 0, -47.5, 0, -105, 52.5, -147.5, 55, -132.5, 102.5)
+
+[node name="Timer" type="Timer" parent="Area2D"]
+wait_time = 0.5
+
+[connection signal="frame_changed" from="." to="." method="_on_frame_changed"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Area2D/Timer" to="." method="_on_timer_timeout"]

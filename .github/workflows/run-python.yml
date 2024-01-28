@@ -1,0 +1,18 @@
+# This script will call the python scripts
+
+name: Run Python
+
+on:
+  workflow_call:
+
+jobs:
+  run-python:
+    name: Run Python Style Checks
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check-out repository
+      uses: actions/checkout@v2
+
+    - name: Run Python Style Checks
+      run: python ./.github/workflows/python/main.py
+      shell: sh

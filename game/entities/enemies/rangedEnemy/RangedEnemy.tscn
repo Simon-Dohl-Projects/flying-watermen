@@ -1,0 +1,112 @@
+[gd_scene load_steps=16 format=3 uid="uid://dmeutg1f6t7sl"]
+
+[ext_resource type="Script" path="res://entities/enemies/rangedEnemy/RangedEnemy.gd" id="1_itytb"]
+[ext_resource type="PackedScene" uid="uid://bxtfkclrv3vwa" path="res://entities/components/health/HealthComponent.tscn" id="1_otr82"]
+[ext_resource type="Texture2D" uid="uid://32uxotk6128m" path="res://entities/enemies/assets/healthbar_under.png" id="2_n8t0v"]
+[ext_resource type="Texture2D" uid="uid://drqht0p82ryru" path="res://entities/enemies/assets/healthbar_progress.png" id="3_wwf3b"]
+[ext_resource type="Texture2D" uid="uid://b7lolmn4dqxpj" path="res://assets/ranged_enemy_assets/flyingEnemy01.png" id="3_yusil"]
+[ext_resource type="Texture2D" uid="uid://btb7dof6qg0tl" path="res://assets/ranged_enemy_assets/flyingEnemy02.png" id="4_v2pk0"]
+[ext_resource type="Texture2D" uid="uid://cq3nc2hweblcp" path="res://assets/ranged_enemy_assets/flyingEnemy03.png" id="5_2h1aa"]
+[ext_resource type="PackedScene" path="res://entities/components/heat/HeatArea.tscn" id="6_5vado"]
+[ext_resource type="PackedScene" uid="uid://bkweew02mcaim" path="res://entities/components/enemyComponents/enemyAggro/AggroComponent.tscn" id="8_axj65"]
+[ext_resource type="PackedScene" uid="uid://61g8e7mlxwj" path="res://entities/components/enemyComponents/movement/MovementComponent.tscn" id="9_of3xe"]
+[ext_resource type="PackedScene" uid="uid://d71bkm5ic0tt" path="res://entities/components/ranged/RangedComponent.tscn" id="11_uinxd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rm63b"]
+size = Vector2(74, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wvcrx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yusil")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v2pk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2h1aa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5bvq1"]
+radius = 414.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gkbmv"]
+radius = 75.0267
+
+[node name="RangedEnemy" type="CharacterBody2D" node_paths=PackedStringArray("movement_component")]
+collision_layer = 4
+script = ExtResource("1_itytb")
+movement_component = NodePath("MovementComponent")
+
+[node name="EnemyShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11.5)
+shape = SubResource("RectangleShape2D_rm63b")
+debug_color = Color(0.109804, 0.564706, 0.847059, 0.419608)
+
+[node name="EnemyGraphics" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyGraphics"]
+unique_name_in_owner = true
+position = Vector2(0, -24)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_wvcrx")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.312619
+
+[node name="ViewArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewArea"]
+shape = SubResource("CircleShape2D_5bvq1")
+debug_color = Color(0.0196078, 0.639216, 0.360784, 0.419608)
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("_health_bar") instance=ExtResource("1_otr82")]
+_health_bar = NodePath("HealthBar")
+
+[node name="HealthBar" type="TextureProgressBar" parent="HealthComponent"]
+offset_left = -51.0
+offset_top = -69.0
+offset_right = 149.0
+offset_bottom = -29.0
+scale = Vector2(0.5, 0.5)
+value = 100.0
+texture_under = ExtResource("2_n8t0v")
+texture_progress = ExtResource("3_wwf3b")
+
+[node name="GroundDistance" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(0, 200)
+
+[node name="EnemyHeatArea" parent="." instance=ExtResource("6_5vado")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHeatArea"]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_gkbmv")
+debug_color = Color(0.878431, 0.333333, 0.2, 0.419608)
+
+[node name="AggroComponent" parent="." node_paths=PackedStringArray("view_area", "health_component") instance=ExtResource("8_axj65")]
+view_area = NodePath("../ViewArea")
+health_component = NodePath("../HealthComponent")
+
+[node name="RangedComponent" parent="." instance=ExtResource("11_uinxd")]
+use_cooldown = true
+base_cooldown = 1.0
+
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("nodes_to_flip") instance=ExtResource("9_of3xe")]
+jump_force = -120
+can_fly = true
+weight = 0.2
+nodes_to_flip = [NodePath("../EnemyGraphics")]
+
+[node name="MovementOscillation" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="MovementOscillation" to="." method="_on_movement_oscillation_timeout"]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://tdd5ci5su0wo"]
+
+[ext_resource type="Script" path="res://entities/components/meleeCombat/MeleeComponent.gd" id="1_ot37t"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_k38f0"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_e06kd"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_sngxa"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_hspqm"]
+
+[node name="MeleeComponent" type="Area2D"]
+rotation = -6.28319
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_ot37t")
+
+[node name="AttackStateChart" type="Node" parent="."]
+script = ExtResource("2_k38f0")
+
+[node name="Root" type="Node" parent="AttackStateChart"]
+script = ExtResource("3_e06kd")
+initial_state = NodePath("CanAttack")
+
+[node name="CannotAttack" type="Node" parent="AttackStateChart/Root"]
+script = ExtResource("4_sngxa")
+
+[node name="ToCanAttack" type="Node" parent="AttackStateChart/Root/CannotAttack"]
+script = ExtResource("5_hspqm")
+to = NodePath("../../CanAttack")
+delay_seconds = 0.1
+
+[node name="CanAttack" type="Node" parent="AttackStateChart/Root"]
+script = ExtResource("4_sngxa")
+
+[node name="ToAttack" type="Node" parent="AttackStateChart/Root/CanAttack"]
+script = ExtResource("5_hspqm")
+to = NodePath("../../Attack")
+event = &"attack"
+
+[node name="Attack" type="Node" parent="AttackStateChart/Root"]
+script = ExtResource("4_sngxa")
+
+[node name="ToCannotAttack" type="Node" parent="AttackStateChart/Root/Attack"]
+script = ExtResource("5_hspqm")
+to = NodePath("../../CannotAttack")
+delay_seconds = 0.2
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(0.380392, 0.721569, 1, 1)
+offset_right = 68.0
+offset_bottom = 45.0
+value = 100.0
+show_percentage = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="state_entered" from="AttackStateChart/Root/Attack" to="." method="_on_attack_state_entered"]
+[connection signal="state_exited" from="AttackStateChart/Root/Attack" to="." method="_on_attack_state_exited"]

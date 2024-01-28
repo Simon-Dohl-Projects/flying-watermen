@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0x70uo3ar3yc"]
+
+[ext_resource type="Script" path="res://entities/components/enemyComponents/combat/EnemyRangedCombat.gd" id="1_8owh5"]
+
+[node name="EnemyRangedCombat" type="Node2D"]
+script = ExtResource("1_8owh5")
+
+[node name="FireRate" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

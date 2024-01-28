@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://4lea60a43ia6"]
+
+[ext_resource type="Script" path="res://scenes/ui/ReadStoneTablet.gd" id="1_m5k42"]
+[ext_resource type="Texture2D" uid="uid://dcw2xybxiknk0" path="res://entities/objects/stone-tablet/stone_tablet_open.png" id="1_pu7pc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhais"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hx4wf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74f1l"]
+
+[node name="ReadStoneTablet" type="CanvasLayer"]
+script = ExtResource("1_m5k42")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1153.0
+offset_bottom = 651.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 289.0
+offset_top = 1.0
+offset_right = 873.0
+offset_bottom = 651.0
+texture = ExtResource("1_pu7pc")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1099.0
+offset_top = 11.0
+offset_right = 1139.0
+offset_bottom = 50.0
+text = "X"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 408.0
+offset_top = 157.0
+offset_right = 730.0
+offset_bottom = 564.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qhais")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hx4wf")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_74f1l")
+text = "Long ago aqua nation lived 
+peacefully in their forest home.
+Everything changed when the 
+fire flames attacked. 
+
+The heroes of aqua used their
+abilities to fight against the 
+malicious fire flames.
+
+Saving their forest by 
+filling the springs of life.
+
+It is our duty to keep 
+the forest safe and
+ the springs alive."
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

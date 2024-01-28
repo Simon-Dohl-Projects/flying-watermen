@@ -1,0 +1,154 @@
+[gd_scene load_steps=16 format=3 uid="uid://bgaxka266oy83"]
+
+[ext_resource type="Script" path="res://entities/enemies/bossEnemy/BossEnemy.gd" id="1_qajqb"]
+[ext_resource type="PackedScene" uid="uid://de1lxor656te5" path="res://entities/enemies/bossEnemy/FireWave.tscn" id="2_bgprt"]
+[ext_resource type="Texture2D" uid="uid://ui1gfleyoupx" path="res://assets/prototype-assets/Boss (Prototype).png" id="2_i2mnn"]
+[ext_resource type="PackedScene" uid="uid://bxtfkclrv3vwa" path="res://entities/components/health/HealthComponent.tscn" id="3_ma8q6"]
+[ext_resource type="Texture2D" uid="uid://32uxotk6128m" path="res://entities/enemies/assets/healthbar_under.png" id="4_lbjiu"]
+[ext_resource type="Texture2D" uid="uid://drqht0p82ryru" path="res://entities/enemies/assets/healthbar_progress.png" id="5_06bnl"]
+[ext_resource type="PackedScene" uid="uid://bkweew02mcaim" path="res://entities/components/enemyComponents/enemyAggro/AggroComponent.tscn" id="6_2uwjm"]
+[ext_resource type="PackedScene" uid="uid://61g8e7mlxwj" path="res://entities/components/enemyComponents/movement/MovementComponent.tscn" id="7_lt55y"]
+[ext_resource type="PackedScene" path="res://entities/components/heat/HeatArea.tscn" id="9_oyriq"]
+[ext_resource type="PackedScene" uid="uid://tdd5ci5su0wo" path="res://entities/components/meleeCombat/MeleeComponent.tscn" id="10_7eh7u"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tk2cp"]
+radius = 12.1
+height = 31.8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b6d2v"]
+radius = 590.001
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rq7qr"]
+radius = 324.025
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_73n7s"]
+radius = 214.021
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecmqa"]
+size = Vector2(322.023, 128.817)
+
+[node name="BossEnemy" type="CharacterBody2D" node_paths=PackedStringArray("aggro_component", "melee_attack_low_component", "melee_attack_high_component", "movement_component", "wall_detection", "fire_wave_cooldown", "melee_cooldown")]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_qajqb")
+aggro_component = NodePath("EnemyAggro")
+melee_attack_low_component = NodePath("MeleeAttackLow")
+melee_attack_high_component = NodePath("MeleeAttackHigh")
+movement_component = NodePath("MovementComponent")
+wall_detection = NodePath("WallDetection/RayCast2d")
+fire_wave_cooldown = NodePath("FireWaveCooldown")
+melee_cooldown = NodePath("MeleeCooldown")
+fire_wave_scene = ExtResource("2_bgprt")
+
+[node name="BossGraphics" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="BossGraphics"]
+scale = Vector2(6, 6)
+texture = ExtResource("2_i2mnn")
+metadata/_edit_lock_ = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 29)
+scale = Vector2(10, 10)
+shape = SubResource("CapsuleShape2D_tk2cp")
+metadata/_edit_lock_ = true
+
+[node name="WallDetection" type="Node2D" parent="."]
+
+[node name="RayCast2d" type="RayCast2D" parent="WallDetection"]
+position = Vector2(125, -96)
+target_position = Vector2(0, 274)
+metadata/_edit_lock_ = true
+
+[node name="ViewArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewArea"]
+shape = SubResource("CircleShape2D_b6d2v")
+metadata/_edit_lock_ = true
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("_health_bar") instance=ExtResource("3_ma8q6")]
+scale = Vector2(2, 1)
+max_health = 400
+_health_bar = NodePath("HealthBar")
+
+[node name="HealthBar" type="TextureProgressBar" parent="HealthComponent"]
+offset_left = -50.5
+offset_top = -166.0
+offset_right = 149.5
+offset_bottom = -126.0
+scale = Vector2(0.5, 0.5)
+value = 100.0
+texture_under = ExtResource("4_lbjiu")
+texture_progress = ExtResource("5_06bnl")
+
+[node name="EnemyAggro" parent="." node_paths=PackedStringArray("view_area", "health_component") instance=ExtResource("6_2uwjm")]
+view_area = NodePath("../ViewArea")
+health_component = NodePath("../HealthComponent")
+
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("nodes_to_flip") instance=ExtResource("7_lt55y")]
+weight = 100.0
+nodes_to_flip = [NodePath("../BossGraphics"), NodePath("../WallDetection"), NodePath("../MeleeAttackLow"), NodePath("../MeleeAttackHigh")]
+
+[node name="FireWaveCooldown" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="MeleeCooldown" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="HeatAreaFar" parent="." instance=ExtResource("9_oyriq")]
+collision_mask = 3
+max_heat_applied = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeatAreaFar"]
+position = Vector2(0, 13)
+shape = SubResource("CircleShape2D_rq7qr")
+debug_color = Color(0.92549, 0.203922, 0.45098, 0.419608)
+metadata/_edit_lock_ = true
+
+[node name="HeatAreaClose" parent="." instance=ExtResource("9_oyriq")]
+collision_mask = 3
+min_heat_applied = 2
+max_heat_applied = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeatAreaClose"]
+position = Vector2(0, 13)
+shape = SubResource("CircleShape2D_73n7s")
+debug_color = Color(0.960784, 0.14902, 0.341176, 0.419608)
+metadata/_edit_lock_ = true
+
+[node name="MeleeAttackLow" parent="." node_paths=PackedStringArray("attack_shape") instance=ExtResource("10_7eh7u")]
+position = Vector2(21, 4)
+collision_mask = 3
+damage = 30
+element = 1
+attack_shape = NodePath("AttackShape")
+attack_color = Color(0.764706, 0.262745, 0.25098, 1)
+
+[node name="AttackShape" type="CollisionShape2D" parent="MeleeAttackLow"]
+position = Vector2(190, 89.001)
+shape = SubResource("RectangleShape2D_ecmqa")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="MeleeAttackHigh" parent="." node_paths=PackedStringArray("attack_shape") instance=ExtResource("10_7eh7u")]
+position = Vector2(21, -56)
+collision_mask = 3
+damage = 30
+element = 1
+attack_shape = NodePath("AttackShape")
+attack_color = Color(0.764706, 0.262745, 0.25098, 1)
+
+[node name="AttackShape" type="CollisionShape2D" parent="MeleeAttackHigh"]
+position = Vector2(190, -13.999)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_ecmqa")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[connection signal="body_entered" from="ViewArea" to="." method="_on_view_area_body_entered"]
+[connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]
+[connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[connection signal="value_changed" from="HealthComponent/HealthBar" to="." method="_on_health_bar_value_changed"]
+[connection signal="timeout" from="FireWaveCooldown" to="." method="_on_fire_wave_cooldown_timeout"]
+[connection signal="timeout" from="MeleeCooldown" to="." method="_on_melee_cooldown_timeout"]

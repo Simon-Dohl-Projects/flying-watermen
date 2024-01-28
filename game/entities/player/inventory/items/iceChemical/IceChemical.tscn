@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp6qth5jvcdhd"]
+
+[ext_resource type="Resource" uid="uid://pwcbidt3iwb8" path="res://entities/player/inventory/items/iceChemical/iceChemical.tres" id="2_m2hpk"]
+[ext_resource type="Texture2D" uid="uid://dtu5d0pbeohjx" path="res://entities/player/inventory/items/iceChemical/ice.png" id="3_chve4"]
+[ext_resource type="PackedScene" uid="uid://b0df4rsgrbola" path="res://entities/components/collectable/CollectableComponent.tscn" id="4_8qp6q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d4i5v"]
+radius = 15.0
+
+[node name="IceChemical" type="RigidBody2D"]
+top_level = true
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d4i5v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.439216, 0.831373, 1, 1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_chve4")
+
+[node name="CollectableComponent" parent="." instance=ExtResource("4_8qp6q")]
+item = ExtResource("2_m2hpk")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bree81gljy661"]
+
+[ext_resource type="Script" path="res://entities/player/inventory/Item.gd" id="2_76ofw"]
+[ext_resource type="Texture2D" uid="uid://h1li5gc4qqx6" path="res://entities/player/inventory/items/foamChemical/foam.png" id="2_j8yf0"]
+[ext_resource type="PackedScene" uid="uid://b0df4rsgrbola" path="res://entities/components/collectable/CollectableComponent.tscn" id="4_c5kef"]
+
+[sub_resource type="Resource" id="Resource_ak4rk"]
+resource_local_to_scene = true
+script = ExtResource("2_76ofw")
+name = "foam"
+max_amount = 50
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit3e"]
+size = Vector2(28, 16)
+
+[node name="FoamChemical" type="RigidBody2D"]
+collision_layer = 0
+
+[node name="CollectableComponent" parent="." instance=ExtResource("4_c5kef")]
+item = SubResource("Resource_ak4rk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hit3e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("2_j8yf0")

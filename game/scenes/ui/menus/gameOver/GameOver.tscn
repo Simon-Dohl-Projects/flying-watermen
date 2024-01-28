@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://v02odff5nyxo"]
+
+[ext_resource type="Texture2D" uid="uid://bwcm0n72t2xgp" path="res://assets/prototype-assets/GameOverBG.jpg" id="1_4hrlb"]
+[ext_resource type="Texture2D" uid="uid://bio4rf0meadhh" path="res://entities/player/assets/idleanimation/01Idle.png" id="2_ypsss"]
+[ext_resource type="Texture2D" uid="uid://bgd8x87u7urvs" path="res://entities/player/assets/idleanimation/02Idle.png" id="3_q3xq6"]
+[ext_resource type="Texture2D" uid="uid://b2o02fvn5tkcp" path="res://entities/player/assets/deathanimation/death01.png" id="4_3w7as"]
+[ext_resource type="Texture2D" uid="uid://dn55maekx6gbb" path="res://entities/player/assets/deathanimation/death02.png" id="5_le6ld"]
+[ext_resource type="Texture2D" uid="uid://ci06bonu1fcuj" path="res://entities/player/assets/deathanimation/death03.png" id="6_ducy1"]
+[ext_resource type="Texture2D" uid="uid://dhdyqc1oe0j4w" path="res://entities/player/assets/deathanimation/death04.png" id="7_hd5aa"]
+[ext_resource type="Texture2D" uid="uid://b40f5avor3q0p" path="res://entities/player/assets/deathanimation/death05.png" id="8_ploqm"]
+
+[sub_resource type="GDScript" id="GDScript_1rgib"]
+script/source = "extends Node2D
+
+func _on_button_pressed():
+	$AnimatedSprite2D.play(\"death\")
+	get_tree().change_scene_to_file(Globals.main_scene)
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsqi3"]
+animations = [{
+"frames": [{
+"duration": 1.75,
+"texture": ExtResource("2_ypsss")
+}, {
+"duration": 1.75,
+"texture": ExtResource("3_q3xq6")
+}, {
+"duration": 1.75,
+"texture": ExtResource("4_3w7as")
+}, {
+"duration": 1.75,
+"texture": ExtResource("5_le6ld")
+}, {
+"duration": 1.75,
+"texture": ExtResource("6_ducy1")
+}, {
+"duration": 1.75,
+"texture": ExtResource("7_hd5aa")
+}, {
+"duration": 1.75,
+"texture": ExtResource("8_ploqm")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}]
+
+[node name="GameOver" type="Node2D"]
+script = SubResource("GDScript_1rgib")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = -6.0
+offset_right = 1152.0
+offset_bottom = 646.0
+texture = ExtResource("1_4hrlb")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = 462.0
+offset_top = 279.0
+offset_right = 671.0
+offset_bottom = 352.0
+text = "Respawn
+"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(569, 529)
+sprite_frames = SubResource("SpriteFrames_jsqi3")
+animation = &"death"
+autoplay = "death"
+frame = 2
+frame_progress = 0.452528
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

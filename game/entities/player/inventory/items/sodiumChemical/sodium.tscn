@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvv2sij5v2epd"]
+
+[ext_resource type="Texture2D" uid="uid://hhsacwg46joi" path="res://entities/player/inventory/items/sodiumChemical/sodium.png" id="1_u02hw"]
+[ext_resource type="Resource" uid="uid://b66pv4sdtkiyw" path="res://entities/player/inventory/items/sodiumChemical/sodium.tres" id="2_h61t5"]
+[ext_resource type="PackedScene" uid="uid://b0df4rsgrbola" path="res://entities/components/collectable/CollectableComponent.tscn" id="2_n2dkp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8x5s"]
+size = Vector2(24, 24)
+
+[node name="Sodium" type="RigidBody2D"]
+top_level = true
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o8x5s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 0.294118, 1)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_u02hw")
+
+[node name="CollectableComponent" parent="." instance=ExtResource("2_n2dkp")]
+item = ExtResource("2_h61t5")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b22gqpw2lilbg"]
+
+[ext_resource type="Script" path="res://entities/components/health/DamageArea.gd" id="1_s1itm"]
+
+[node name="DamageArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("1_s1itm")
+
+[node name="DamageTick" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="DamageTick" to="." method="_on_damage_tick_timeout"]

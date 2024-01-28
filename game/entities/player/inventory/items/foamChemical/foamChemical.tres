@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://nvvgxuilpt4g"]
+
+[ext_resource type="Script" path="res://entities/player/inventory/Item.gd" id="1_jdhnv"]
+[ext_resource type="PackedScene" uid="uid://bree81gljy661" path="res://entities/player/inventory/items/foamChemical/FoamChemical.tscn" id="1_x284x"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_jdhnv")
+name = "foam"
+max_amount = 50
+collectable = ExtResource("1_x284x")

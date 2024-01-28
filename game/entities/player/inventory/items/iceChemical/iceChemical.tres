@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://pwcbidt3iwb8"]
+
+[ext_resource type="Script" path="res://entities/player/inventory/Item.gd" id="1_8y0ub"]
+
+[resource]
+script = ExtResource("1_8y0ub")
+name = "ice"
+max_amount = 1

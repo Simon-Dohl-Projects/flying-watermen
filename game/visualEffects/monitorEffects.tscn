@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch6xnk5tnb5k8"]
+
+[ext_resource type="Shader" uid="uid://lgcclfjhfc51" path="res://shader/freezeShader.tres" id="1_ujvot"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5uqg"]
+shader = ExtResource("1_ujvot")
+shader_parameter/DistortionScale = 3.0
+shader_parameter/Power = 3.0
+shader_parameter/DistortionBlend = 1.0
+shader_parameter/Intensity = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Freeze" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_s5uqg")
+offset_right = 1152.0
+offset_bottom = 648.0

@@ -1,0 +1,96 @@
+[gd_scene load_steps=12 format=3 uid="uid://o5qajbk6mfjn"]
+
+[ext_resource type="Script" path="res://entities/objects/well/Well.gd" id="1_ryms2"]
+[ext_resource type="Texture2D" uid="uid://cxe6hu7quuq4d" path="res://entities/objects/well/assets/wellEmpty.png" id="2_gdx0v"]
+[ext_resource type="Texture2D" uid="uid://4qlm6ho7173m" path="res://assets/light_noise/offset_glow.png" id="3_lodbv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_amob8"]
+radius = 95.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_msmji"]
+radius = 65.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2wsyv"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_puv8v"]
+offsets = PackedFloat32Array(0.0430464, 0.337748, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e7xoi"]
+gradient = SubResource("Gradient_puv8v")
+
+[sub_resource type="Curve" id="Curve_3c8ug"]
+_data = [Vector2(0, 0.502392), 0.0, 0.0, 0, 0, Vector2(0.515152, 0.782297), 0.0, 0.0, 0, 0, Vector2(1, 0.455742), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xmhfi"]
+curve = SubResource("Curve_3c8ug")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j1tol"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.15
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+angular_velocity_min = -250.0
+angular_velocity_max = 250.0
+gravity = Vector3(0, -150, 0)
+scale_min = 0.4
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_xmhfi")
+color_ramp = SubResource("GradientTexture1D_e7xoi")
+
+[node name="Well" type="Node2D"]
+script = ExtResource("1_ryms2")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(3, -20)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(1, -22)
+shape = SubResource("CircleShape2D_amob8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_msmji")
+
+[node name="Texture" type="Sprite2D" parent="."]
+position = Vector2(0, -33)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_gdx0v")
+region_enabled = true
+region_rect = Rect2(234.355, 263.688, 918.995, 736.313)
+
+[node name="FillLabel" type="Panel" parent="."]
+visible = false
+offset_left = -22.0
+offset_top = -140.0
+offset_right = 25.0
+offset_bottom = -116.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="FillLabel"]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 48.0
+offset_bottom = 24.0
+text = "Fill 'E'"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+modulate = Color(0.3, 1.5, 4, 1)
+material = SubResource("CanvasItemMaterial_2wsyv")
+position = Vector2(0, -70)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_j1tol")
+texture = ExtResource("3_lodbv")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

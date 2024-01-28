@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkweew02mcaim"]
+
+[ext_resource type="Script" path="res://entities/components/enemyComponents/enemyAggro/AggroComponent.gd" id="1_42b0s"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_56q8n"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_xslxw"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_pensb"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_8muec"]
+
+[node name="AggroComponent" type="Node2D"]
+script = ExtResource("1_42b0s")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_56q8n")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("3_xslxw")
+initial_state = NodePath("Calm")
+
+[node name="Calm" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_pensb")
+
+[node name="ToAggro" type="Node" parent="StateChart/Root/Calm"]
+script = ExtResource("5_8muec")
+to = NodePath("../../Aggro")
+event = &"enter_aggro"
+
+[node name="Aggro" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_pensb")
+
+[node name="ToCalm" type="Node" parent="StateChart/Root/Aggro"]
+script = ExtResource("5_8muec")
+to = NodePath("../../Calm")
+event = &"enter_calm"
+
+[node name="AggroCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="state_entered" from="StateChart/Root/Calm" to="." method="_on_calm_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Aggro" to="." method="_on_aggro_state_entered"]
+[connection signal="timeout" from="AggroCooldown" to="." method="_on_aggro_cooldown_timeout"]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkkpqorhtu7si"]
+
+[ext_resource type="Texture2D" uid="uid://c6heqk533k4t0" path="res://assets/forest-assets/stone02.png" id="1_3ap21"]
+[ext_resource type="Shader" path="res://shader/wobbleEffect.gdshader" id="1_ehl5a"]
+[ext_resource type="Script" path="res://assets/forest-assets/scenes/stone.gd" id="2_872mp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5bvjw"]
+shader = ExtResource("1_ehl5a")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.01
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[node name="Stone02" type="Sprite2D"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_5bvjw")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_3ap21")
+region_enabled = true
+region_rect = Rect2(20.9972, 17.9093, 1101.91, 680.28)
+script = ExtResource("2_872mp")

@@ -1,29 +1,495 @@
-[gd_scene load_steps=33 format=3 uid="uid://djmlmtr41m2ce"]
+[gd_scene load_steps=113 format=3 uid="uid://djmlmtr41m2ce"]
 
 [ext_resource type="Script" path="res://entities/player/Player.gd" id="1_n7144"]
+[ext_resource type="PackedScene" uid="uid://d71bkm5ic0tt" path="res://entities/components/ranged/RangedComponent.tscn" id="2_32y2k"]
+[ext_resource type="Texture2D" uid="uid://b2o02fvn5tkcp" path="res://entities/player/assets/deathanimation/death01.png" id="2_288p0"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_dhjab"]
+[ext_resource type="Texture2D" uid="uid://5cvhucuvdfj7" path="res://entities/player/assets/dashanimation/dash01.png" id="2_o30bq"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_7lhhd"]
-[ext_resource type="Texture2D" uid="uid://ccn7pstgowf44" path="res://assets/prototype-assets/player.png" id="3_jqei2"]
+[ext_resource type="Texture2D" uid="uid://dn55maekx6gbb" path="res://entities/player/assets/deathanimation/death02.png" id="3_gotyv"]
+[ext_resource type="PackedScene" uid="uid://bvq77pvlf1qxo" path="res://entities/components/heat/HeatComponent.tscn" id="3_kjfn2"]
+[ext_resource type="Texture2D" uid="uid://dghemaohtfy28" path="res://entities/player/assets/dashanimation/dash02.png" id="3_nvxda"]
+[ext_resource type="Texture2D" uid="uid://b20bbevdqp7yx" path="res://entities/player/assets/dashanimation/dash03.png" id="4_cvtf2"]
+[ext_resource type="Texture2D" uid="uid://ci06bonu1fcuj" path="res://entities/player/assets/deathanimation/death03.png" id="4_hrgps"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_klwk4"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_dadqm"]
+[ext_resource type="Texture2D" uid="uid://dhdyqc1oe0j4w" path="res://entities/player/assets/deathanimation/death04.png" id="5_o1qs4"]
+[ext_resource type="Texture2D" uid="uid://b40f5avor3q0p" path="res://entities/player/assets/deathanimation/death05.png" id="6_5ni3t"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_aaxtf"]
+[ext_resource type="Texture2D" uid="uid://bio4rf0meadhh" path="res://entities/player/assets/idleanimation/01Idle.png" id="6_oqgpa"]
+[ext_resource type="Texture2D" uid="uid://bgd8x87u7urvs" path="res://entities/player/assets/idleanimation/02Idle.png" id="7_56lpd"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/expression_guard.gd" id="7_m5qsp"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="8_3t36e"]
+[ext_resource type="Texture2D" uid="uid://chvamghhunu33" path="res://entities/player/assets/idleanimation/03Idle.png" id="8_f6dh4"]
+[ext_resource type="Texture2D" uid="uid://c3ud4e5o0vqo6" path="res://entities/player/assets/idleanimation/04Idle.png" id="9_osul0"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/not_guard.gd" id="9_qrtxb"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/all_of_guard.gd" id="10_ddq3l"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/any_of_guard.gd" id="11_5fhyj"]
+[ext_resource type="Texture2D" uid="uid://d3hryufhplx0j" path="res://entities/player/assets/ice_state.png" id="10_e65dn"]
+[ext_resource type="Texture2D" uid="uid://b30cxaxbgma1c" path="res://entities/player/assets/idleanimation/05Idle.png" id="10_hxh2n"]
+[ext_resource type="Texture2D" uid="uid://ly7ncnf6nm55" path="res://entities/player/assets/idleanimation/06Idle.png" id="11_q30fb"]
+[ext_resource type="Texture2D" uid="uid://cvvp4gjgefq83" path="res://entities/player/assets/idleanimation/07Idle.png" id="12_dkws2"]
+[ext_resource type="Texture2D" uid="uid://pgs5r3uofktn" path="res://entities/player/assets/runanimation/run01.png" id="13_cmf1i"]
+[ext_resource type="PackedScene" uid="uid://tdd5ci5su0wo" path="res://entities/components/meleeCombat/MeleeComponent.tscn" id="14_pebxf"]
+[ext_resource type="Texture2D" uid="uid://bdx1n6tq3o1hk" path="res://entities/player/assets/runanimation/run02.png" id="14_yriy6"]
+[ext_resource type="Script" path="res://entities/player/inventory/Inventory.gd" id="15_8nkrm"]
+[ext_resource type="Texture2D" uid="uid://c5muck5tqvr2h" path="res://entities/player/assets/jumpanimation/jump01.png" id="15_g31ue"]
+[ext_resource type="Texture2D" uid="uid://d28s0u7fqmj55" path="res://entities/player/assets/runanimation/run03.png" id="15_ts3rj"]
+[ext_resource type="Texture2D" uid="uid://bclv232x30j6p" path="res://entities/player/assets/runanimation/run04.png" id="16_53equ"]
+[ext_resource type="Texture2D" uid="uid://bapbxbns4gx0s" path="res://entities/player/assets/jumpanimation/jump02.png" id="16_ib6b8"]
+[ext_resource type="PackedScene" uid="uid://bxtfkclrv3vwa" path="res://entities/components/health/HealthComponent.tscn" id="16_vgsyb"]
+[ext_resource type="Texture2D" uid="uid://c063w7tkbbsga" path="res://entities/player/assets/jumpanimation/jump03.png" id="17_emnmv"]
+[ext_resource type="Texture2D" uid="uid://cyyuge8ad2eo0" path="res://assets/light_noise/light2.png" id="17_h1pkd"]
+[ext_resource type="Texture2D" uid="uid://ccinytw5v5utw" path="res://entities/player/assets/runanimation/run05.png" id="17_l5f8l"]
+[ext_resource type="Texture2D" uid="uid://dlqflbkf2pg2c" path="res://entities/player/assets/jumpanimation/jump4.png" id="18_dqgwl"]
+[ext_resource type="Texture2D" uid="uid://dmyx2mk6fjoud" path="res://assets/light_noise/waterParticle.png" id="18_l2hsd"]
+[ext_resource type="Texture2D" uid="uid://bmdj5hq4wtspu" path="res://entities/player/assets/jumpanimation/jump05.png" id="19_daquo"]
+[ext_resource type="Script" path="res://entities/player/PlayerParticles.gd" id="19_kqys4"]
+[ext_resource type="Texture2D" uid="uid://0n04oh1rheg8" path="res://entities/player/assets/fliped_walk_test.png" id="20_l5uo2"]
+[ext_resource type="Texture2D" uid="uid://crr3ie3vth84m" path="res://entities/player/assets/jumpanimation/jump06.png" id="20_wfuat"]
+[ext_resource type="Texture2D" uid="uid://b4setwdaw2rbn" path="res://entities/player/assets/jumpanimation/jump07.png" id="21_elgpx"]
+[ext_resource type="AudioStream" uid="uid://bbxhs7f4v3t41" path="res://assets/SFX/dash.wav" id="31_e7ort"]
+[ext_resource type="Texture2D" uid="uid://fv775xqmgpmo" path="res://assets/light_noise/white.jpg" id="32_b04or"]
+[ext_resource type="PackedScene" uid="uid://ch6xnk5tnb5k8" path="res://visualEffects/monitorEffects.tscn" id="36_hryvp"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/animation_tree_state.gd" id="42_m0dwi"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/all_of_guard.gd" id="43_c4ing"]
+[ext_resource type="PackedScene" uid="uid://c5yieglatmln5" path="res://entities/player/chemicalEffects/chemicalEffectsManager.tscn" id="51_52a8d"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_w7iqa"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fuycp"]
+radius = 15.25
+height = 49.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obf3n"]
+size = Vector2(67.9998, 44.5003)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pbewx"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.5,
+"texture": ExtResource("2_o30bq")
+}, {
+"duration": 1.5,
+"texture": ExtResource("3_nvxda")
+}, {
+"duration": 1.5,
+"texture": ExtResource("4_cvtf2")
+}],
+"loop": false,
+"name": &"dash",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_288p0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gotyv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hrgps")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o1qs4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5ni3t")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_e65dn")
+}],
 "loop": true,
-"name": &"default",
+"name": &"ice",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_oqgpa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_56lpd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f6dh4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_osul0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hxh2n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_q30fb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_dkws2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 0.7,
+"texture": ExtResource("15_g31ue")
+}, {
+"duration": 0.7,
+"texture": ExtResource("16_ib6b8")
+}, {
+"duration": 0.7,
+"texture": ExtResource("17_emnmv")
+}, {
+"duration": 0.7,
+"texture": ExtResource("18_dqgwl")
+}, {
+"duration": 0.7,
+"texture": ExtResource("19_daquo")
+}, {
+"duration": 0.7,
+"texture": ExtResource("20_wfuat")
+}, {
+"duration": 0.7,
+"texture": ExtResource("21_elgpx")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_cmf1i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_yriy6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ts3rj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_53equ")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_l5f8l")
+}],
+"loop": true,
+"name": &"run",
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyyjl"]
-radius = 22.875
-height = 52.0
+[sub_resource type="Animation" id="Animation_m8twy"]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["dash"]
+}
+
+[sub_resource type="Animation" id="Animation_qf5mt"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["death"]
+}
+
+[sub_resource type="Animation" id="Animation_by2ts"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["ice"]
+}
+
+[sub_resource type="Animation" id="Animation_d84i6"]
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+
+[sub_resource type="Animation" id="Animation_gieuj"]
+length = 0.49
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.14, 0.21, 0.28, 0.35, 0.42),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["jump"]
+}
+
+[sub_resource type="Animation" id="Animation_kbvwp"]
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["run"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u65v8"]
+_data = {
+"dash": SubResource("Animation_m8twy"),
+"death": SubResource("Animation_qf5mt"),
+"ice": SubResource("Animation_by2ts"),
+"idle": SubResource("Animation_d84i6"),
+"jump": SubResource("Animation_gieuj"),
+"run": SubResource("Animation_kbvwp")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b5g3e"]
+animation = &"dash"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kv7oy"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hnrrm"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_denoe"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_rocsi"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_kv7oy")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_hnrrm")
+blend_point_1/pos = 0.8
+blend_point_2/node = SubResource("AnimationNodeAnimation_denoe")
+blend_point_2/pos = -0.8
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c2nnl"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wlofg"]
+animation = &"death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dmnx8"]
+animation = &"ice"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7fmv2"]
+animation = &"ice"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b1nr5"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v43ie"]
+advance_mode = 2
+advance_condition = &"entered_ice"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e6j7h"]
+advance_mode = 2
+advance_condition = &"exited_ice"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_arr00"]
+states/Dash/node = SubResource("AnimationNodeAnimation_b5g3e")
+states/Dash/position = Vector2(475, 224)
+states/Default/node = SubResource("AnimationNodeBlendSpace1D_rocsi")
+states/Default/position = Vector2(298, 152)
+states/End/position = Vector2(926, 152)
+states/Jump/node = SubResource("AnimationNodeAnimation_c2nnl")
+states/Jump/position = Vector2(494, 152)
+states/Start/position = Vector2(96, 152)
+states/death/node = SubResource("AnimationNodeAnimation_wlofg")
+states/death/position = Vector2(733, 122)
+states/ice/node = SubResource("AnimationNodeAnimation_7fmv2")
+states/ice/position = Vector2(503, 25)
+"states/ice 2/node" = SubResource("AnimationNodeAnimation_dmnx8")
+"states/ice 2/position" = Vector2(298, 230)
+transitions = ["Start", "Default", SubResource("AnimationNodeStateMachineTransition_b1nr5"), "Default", "ice 2", SubResource("AnimationNodeStateMachineTransition_v43ie"), "ice 2", "Default", SubResource("AnimationNodeStateMachineTransition_e6j7h")]
+graph_offset = Vector2(-23, 95)
+
+[sub_resource type="Gradient" id="Gradient_5hdqj"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_re58v"]
+gradient = SubResource("Gradient_5hdqj")
+
+[sub_resource type="Curve" id="Curve_cxabh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.33134), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_62g15"]
+curve = SubResource("Curve_cxabh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sivy7"]
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 14.5
+direction = Vector3(-1, -0.8, 0)
+spread = 25.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_62g15")
+color = Color(0.384314, 0.792157, 1, 0.364706)
+color_ramp = SubResource("GradientTexture1D_re58v")
+turbulence_noise_strength = 10.72
+turbulence_noise_speed_random = 2.45
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tf7cu"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_wlt04"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 1, Vector2(1, 0), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1otxm"]
+curve = SubResource("Curve_wlt04")
+
+[sub_resource type="Curve" id="Curve_5xcv8"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_iiniv"]
+curve = SubResource("Curve_5xcv8")
+
+[sub_resource type="Gradient" id="Gradient_6upf0"]
+offsets = PackedFloat32Array(0, 0.942177)
+colors = PackedColorArray(1, 1, 1, 0.486275, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bci05"]
+gradient = SubResource("Gradient_6upf0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nqcf6"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+angular_velocity_curve = SubResource("CurveTexture_1otxm")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+color = Color(0.717647, 0.717647, 0.717647, 0.752941)
+color_ramp = SubResource("GradientTexture1D_bci05")
+anim_speed_curve = SubResource("CurveTexture_iiniv")
 
 [sub_resource type="Resource" id="Resource_r58ym"]
 script = ExtResource("7_m5qsp")
@@ -49,33 +515,9 @@ state = NodePath("../Airborne")
 script = ExtResource("9_qrtxb")
 guard = SubResource("Resource_7ckxi")
 
-[sub_resource type="Resource" id="Resource_6pm8d"]
-script = ExtResource("8_3t36e")
-state = NodePath("../Airborne")
-
-[sub_resource type="Resource" id="Resource_38wkj"]
-script = ExtResource("9_qrtxb")
-guard = SubResource("Resource_6pm8d")
-
-[sub_resource type="Resource" id="Resource_unbhb"]
-script = ExtResource("8_3t36e")
-state = NodePath("../Airborne")
-
-[sub_resource type="Resource" id="Resource_1o2au"]
+[sub_resource type="Resource" id="Resource_y14vn"]
 script = ExtResource("7_m5qsp")
-expression = "air_jumps_left > 0"
-
-[sub_resource type="Resource" id="Resource_b3ndv"]
-script = ExtResource("10_ddq3l")
-guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_unbhb"), SubResource("Resource_1o2au")])
-
-[sub_resource type="Resource" id="Resource_hcnl0"]
-script = ExtResource("8_3t36e")
-state = NodePath("../Airborne/FallingCoyote")
-
-[sub_resource type="Resource" id="Resource_se5vv"]
-script = ExtResource("11_5fhyj")
-guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_38wkj"), SubResource("Resource_b3ndv"), SubResource("Resource_hcnl0")])
+expression = "jumps_left > 0"
 
 [sub_resource type="Resource" id="Resource_cg3bt"]
 script = ExtResource("8_3t36e")
@@ -93,235 +535,408 @@ state = NodePath("../Grounded")
 script = ExtResource("9_qrtxb")
 guard = SubResource("Resource_p8ca0")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_srmds"]
-size = Vector2(39.3125, 28)
+[sub_resource type="Resource" id="Resource_scptp"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../../Cooldowns/Dash/Useable")
+
+[sub_resource type="Resource" id="Resource_323lm"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../../Movement/Interruptible/Airborne/Jumping")
+
+[sub_resource type="Resource" id="Resource_gs6bx"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_323lm")
+
+[sub_resource type="Resource" id="Resource_5bgcs"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../../Movement/Dash")
+
+[sub_resource type="Resource" id="Resource_c33nr"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_5bgcs")
+
+[sub_resource type="Resource" id="Resource_04r6y"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../Movement/Interruptible/Airborne/Jumping")
+
+[sub_resource type="Resource" id="Resource_vg6qh"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Jump")
+
+[sub_resource type="Resource" id="Resource_ffb1w"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_vg6qh")
+
+[sub_resource type="Resource" id="Resource_jt7qo"]
+script = ExtResource("43_c4ing")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_04r6y"), SubResource("Resource_ffb1w")])
+
+[sub_resource type="Resource" id="Resource_8q6k4"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../Movement/Dash")
+
+[sub_resource type="Resource" id="Resource_djar4"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Dash")
+
+[sub_resource type="Resource" id="Resource_xgmgk"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_djar4")
+
+[sub_resource type="Resource" id="Resource_wmonw"]
+script = ExtResource("43_c4ing")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_8q6k4"), SubResource("Resource_xgmgk")])
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 5
+floor_constant_speed = true
+floor_snap_length = 23.0
 script = ExtResource("1_n7144")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_w7iqa")
-
-[node name="Player" type="Sprite2D" parent="."]
-position = Vector2(0, -23)
-scale = Vector2(0.5, 0.505376)
-texture = ExtResource("3_jqei2")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -22.875)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_eyyjl")
+show_behind_parent = true
+position = Vector2(0, -15.5)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_fuycp")
+debug_color = Color(0.917647, 0.172549, 0.568627, 0.419608)
 
-[node name="WallCheck" type="RayCast2D" parent="."]
+[node name="RangedComponent" parent="." instance=ExtResource("2_32y2k")]
+position = Vector2(11.51, -21.28)
+use_cooldown = true
+
+[node name="HeatComponent" parent="." node_paths=PackedStringArray("health_component", "heat_reduction_delay", "heat_tick") instance=ExtResource("3_kjfn2")]
+health_component = NodePath("../HealthComponent")
+heat_reduction_delay = NodePath("../Timers/HeatReductionDelay")
+heat_tick = NodePath("../Timers/HeatTick")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("_heal_tick") instance=ExtResource("16_vgsyb")]
+element = 0
+_heal_tick = NodePath("../Timers/HealTick")
+use_damage_effect = true
+
+[node name="MeleeComponent" parent="." node_paths=PackedStringArray("attack_shape") instance=ExtResource("14_pebxf")]
+collision_mask = 4
+attack_shape = NodePath("AttackShape")
+attack_color = Color(0.188235, 0.560784, 0.709804, 1)
+
+[node name="AttackShape" type="CollisionShape2D" parent="MeleeComponent"]
+position = Vector2(45.5001, -16.9998)
+shape = SubResource("RectangleShape2D_obf3n")
+debug_color = Color(1, 1, 1, 0.419608)
+
+[node name="ChemicalEffectsManager" parent="." instance=ExtResource("51_52a8d")]
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("15_8nkrm")
+
+[node name="Animation" type="Node2D" parent="."]
+position = Vector2(0, -14.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animation"]
+unique_name_in_owner = true
+position = Vector2(1, -0.125001)
+scale = Vector2(0.3, 0.303125)
+sprite_frames = SubResource("SpriteFrames_pbewx")
+animation = &"dash"
+autoplay = "idle"
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animation"]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_u65v8")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Animation"]
+active = false
+root_node = NodePath("%AnimatedSprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_u65v8")
+}
+tree_root = SubResource("AnimationNodeStateMachine_arr00")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/entered_ice = false
+parameters/conditions/exited_ice = false
+parameters/Default/blend_position = -0.810732
+
+[node name="Light" type="Node2D" parent="."]
 visible = false
-position = Vector2(28, -45)
-target_position = Vector2(0, 44)
 
-[node name="ShootPosition" type="Marker2D" parent="."]
-position = Vector2(0, -23)
+[node name="PointLight2D" type="PointLight2D" parent="Light"]
+color = Color(0.666667, 1, 1, 1)
+energy = 0.4
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 8.0
+texture = ExtResource("17_h1pkd")
+texture_scale = 1.2
+
+[node name="White" type="Sprite2D" parent="Light"]
+visible = false
+modulate = Color(0.109804, 0.109804, 0.109804, 1)
+show_behind_parent = true
+position = Vector2(60.5, -12.5)
+texture = ExtResource("32_b04or")
+
+[node name="Particles" type="Node2D" parent="."]
+show_behind_parent = true
+script = ExtResource("19_kqys4")
+
+[node name="WalkingParticles" type="GPUParticles2D" parent="Particles"]
+modulate = Color(0.1, 0.9, 100, 1)
+show_behind_parent = true
+position = Vector2(0, -14.5)
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_sivy7")
+texture = ExtResource("18_l2hsd")
+lifetime = 0.35
+
+[node name="DashTrail" type="GPUParticles2D" parent="Particles"]
+material = SubResource("CanvasItemMaterial_tf7cu")
+position = Vector2(0, -14.5)
+emitting = false
+amount = 10
+sub_emitter = NodePath(".")
+process_material = SubResource("ParticleProcessMaterial_nqcf6")
+texture = ExtResource("20_l5uo2")
+lifetime = 0.4
+one_shot = true
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="HeatTick" type="Timer" parent="Timers"]
+autostart = true
+
+[node name="HeatReductionDelay" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="HealTick" type="Timer" parent="Timers"]
+autostart = true
 
 [node name="StateChart" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("2_dhjab")
 
-[node name="Player" type="Node" parent="StateChart"]
+[node name="Mechanics" type="Node" parent="StateChart"]
 script = ExtResource("3_7lhhd")
 
-[node name="Inputs" type="Node" parent="StateChart/Player"]
-script = ExtResource("3_7lhhd")
-
-[node name="W" type="Node" parent="StateChart/Player/Inputs"]
+[node name="Movement" type="Node" parent="StateChart/Mechanics"]
 script = ExtResource("4_klwk4")
-initial_state = NodePath("Not")
+initial_state = NodePath("Interruptible")
 
-[node name="Pressed" type="Node" parent="StateChart/Player/Inputs/W"]
-script = ExtResource("5_dadqm")
-
-[node name="Delay" type="Node" parent="StateChart/Player/Inputs/W/Pressed"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../Not")
-delay_seconds = 0.1
-
-[node name="Not" type="Node" parent="StateChart/Player/Inputs/W"]
-script = ExtResource("5_dadqm")
-
-[node name="On Press" type="Node" parent="StateChart/Player/Inputs/W"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../Pressed")
-event = &"wPressed"
-
-[node name="Shooting" type="Node" parent="StateChart/Player/Inputs"]
+[node name="Interruptible" type="Node" parent="StateChart/Mechanics/Movement"]
 script = ExtResource("4_klwk4")
-initial_state = NodePath("CanShoot")
+initial_state = NodePath("Airborne")
 
-[node name="CanShoot" type="Node" parent="StateChart/Player/Inputs/Shooting"]
-script = ExtResource("5_dadqm")
-
-[node name="OnShot" type="Node" parent="StateChart/Player/Inputs/Shooting/CanShoot"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../CantShoot")
-event = &"_on_shot"
-
-[node name="CantShoot" type="Node" parent="StateChart/Player/Inputs/Shooting"]
-script = ExtResource("5_dadqm")
-
-[node name="Cooldown" type="Node" parent="StateChart/Player/Inputs/Shooting/CantShoot"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../CanShoot")
-delay_seconds = 0.5
-
-[node name="Mechanics" type="Node" parent="StateChart/Player"]
-script = ExtResource("4_klwk4")
-initial_state = NodePath("Movement")
-
-[node name="Movement" type="Node" parent="StateChart/Player/Mechanics"]
-script = ExtResource("4_klwk4")
-initial_state = NodePath("Grounded")
-
-[node name="Grounded" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+[node name="Grounded" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
 script = ExtResource("4_klwk4")
 initial_state = NodePath("Standing")
 
-[node name="Standing" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded"]
+[node name="Standing" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Grounded"]
 script = ExtResource("5_dadqm")
 
-[node name="On Slide" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Standing"]
+[node name="On Slide" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Grounded/Standing"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../../Crouching/Sliding")
 event = &"tick"
 guard = SubResource("Resource_r58ym")
 
-[node name="On Crouch" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Standing"]
+[node name="On Crouch" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Grounded/Standing"]
 process_priority = 1
 script = ExtResource("6_aaxtf")
 to = NodePath("../../Crouching")
 event = &"tick"
 guard = SubResource("Resource_jk8u2")
 
-[node name="Crouching" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded"]
+[node name="Crouching" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Grounded"]
 script = ExtResource("4_klwk4")
 initial_state = NodePath("Crouch")
 
-[node name="Crouch" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Crouching"]
+[node name="Crouch" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Grounded/Crouching"]
 script = ExtResource("5_dadqm")
 
-[node name="Sliding" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Crouching"]
+[node name="Sliding" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Grounded/Crouching"]
 script = ExtResource("5_dadqm")
 
-[node name="On Slide End" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Crouching/Sliding"]
+[node name="On Slide End" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Grounded/Crouching/Sliding"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../../Crouch")
 event = &"tick"
 guard = SubResource("Resource_8wh4l")
 
-[node name="On Crouch End" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded/Crouching"]
+[node name="On Crouch End" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Grounded/Crouching"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../../Standing")
 event = &"tick"
 guard = SubResource("Resource_wu70w")
 
-[node name="onAtk" type="Node" parent="StateChart/Player/Mechanics/Movement/Grounded"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../../Combat/MeeleAttacks/GAtk")
-event = &"attackpressed"
-
-[node name="Airborne" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+[node name="Airborne" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
 script = ExtResource("4_klwk4")
 initial_state = NodePath("Falling")
 
-[node name="Jumping" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne"]
+[node name="Jumping" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Airborne"]
 script = ExtResource("5_dadqm")
 
-[node name="On Falling" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne/Jumping"]
+[node name="On Falling" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Airborne/Jumping"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../../Falling")
 event = &"falling"
 
-[node name="FallingCoyote" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne"]
+[node name="FallingCoyote" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Airborne"]
 script = ExtResource("5_dadqm")
 
-[node name="CoyoteDelay" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne/FallingCoyote"]
+[node name="CoyoteDelay" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Airborne/FallingCoyote"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../../Falling")
 delay_seconds = 0.2
 
-[node name="Falling" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne"]
+[node name="Falling" type="Node" parent="StateChart/Mechanics/Movement/Interruptible/Airborne"]
 script = ExtResource("5_dadqm")
 
-[node name="onAtk" type="Node" parent="StateChart/Player/Mechanics/Movement/Airborne"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../../Combat/MeeleAttacks/AAtk")
-event = &"attackpressed"
-
-[node name="WallSlide" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+[node name="WallSlide" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
 script = ExtResource("5_dadqm")
 
-[node name="On FallingCoyote" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+[node name="On FallingCoyote" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../Airborne/FallingCoyote")
 event = &"falling"
 guard = SubResource("Resource_sktov")
 
-[node name="On Jump" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+[node name="On Jump" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../Airborne/Jumping")
 event = &"jump"
-guard = SubResource("Resource_se5vv")
+guard = SubResource("Resource_y14vn")
 
-[node name="On WallSlide" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+[node name="On WallSlide" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../WallSlide")
 event = &"wall_slide"
 guard = SubResource("Resource_6rl8s")
 
-[node name="On Grounded" type="Node" parent="StateChart/Player/Mechanics/Movement"]
+[node name="On Grounded" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
 script = ExtResource("6_aaxtf")
 to = NodePath("../Grounded")
 event = &"grounded"
 guard = SubResource("Resource_c7udc")
 
-[node name="Combat" type="Node" parent="StateChart/Player/Mechanics"]
-script = ExtResource("4_klwk4")
-initial_state = NodePath("MeeleAttacks")
-
-[node name="MeeleAttacks" type="Node" parent="StateChart/Player/Mechanics/Combat"]
-script = ExtResource("4_klwk4")
-initial_state = NodePath("GAtk")
-
-[node name="GAtk" type="Node" parent="StateChart/Player/Mechanics/Combat/MeeleAttacks"]
-script = ExtResource("5_dadqm")
-
-[node name="AAtk" type="Node" parent="StateChart/Player/Mechanics/Combat/MeeleAttacks"]
-script = ExtResource("5_dadqm")
-
-[node name="onAtk" type="Node" parent="StateChart/Player/Mechanics/Combat/MeeleAttacks"]
+[node name="On Dash" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
 script = ExtResource("6_aaxtf")
-to = NodePath("../../../Movement/Grounded")
+to = NodePath("../../Dash")
+event = &"dash"
+guard = SubResource("Resource_scptp")
+
+[node name="Dash" type="Node" parent="StateChart/Mechanics/Movement"]
+script = ExtResource("5_dadqm")
+
+[node name="On End Dash" type="Node" parent="StateChart/Mechanics/Movement/Dash"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../..")
 delay_seconds = 0.3
 
-[node name="AtkShape" type="Area2D" parent="."]
-position = Vector2(0, -23)
-rotation = -6.28319
+[node name="Disabled" type="Node" parent="StateChart/Mechanics/Movement"]
+script = ExtResource("5_dadqm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AtkShape"]
-position = Vector2(39.6563, 1.90735e-06)
-shape = SubResource("RectangleShape2D_srmds")
-disabled = true
+[node name="On Enable" type="Node" parent="StateChart/Mechanics/Movement/Disabled"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../..")
+event = &"enable"
 
-[connection signal="state_physics_processing" from="StateChart/Player/Inputs/W/Pressed" to="." method="_on_pressed_state_physics_processing"]
-[connection signal="state_entered" from="StateChart/Player/Inputs/Shooting/CantShoot" to="." method="_on_cant_shoot_state_entered"]
-[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Movement" to="." method="_on_movement_child_state_exited"]
-[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Movement/Grounded" to="." method="_on_movement_child_state_exited"]
-[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Movement/Grounded/Crouching" to="." method="_on_movement_child_state_exited"]
-[connection signal="state_entered" from="StateChart/Player/Mechanics/Movement/Grounded/Crouching" to="." method="_on_crouching_state_entered"]
-[connection signal="state_entered" from="StateChart/Player/Mechanics/Movement/Grounded/Crouching/Sliding" to="." method="_on_sliding_state_entered"]
-[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Movement/Airborne" to="." method="_on_movement_child_state_exited"]
-[connection signal="state_entered" from="StateChart/Player/Mechanics/Movement/Airborne/Jumping" to="." method="_on_jumping_state_entered"]
-[connection signal="state_input" from="StateChart/Player/Mechanics/Movement/Airborne/Jumping" to="." method="_on_airborn_not_coyote_state_input"]
-[connection signal="state_input" from="StateChart/Player/Mechanics/Movement/Airborne/Falling" to="." method="_on_airborn_not_coyote_state_input"]
-[connection signal="state_entered" from="StateChart/Player/Mechanics/Movement/WallSlide" to="." method="_on_wall_slide_state_entered"]
-[connection signal="child_state_entered" from="StateChart/Player/Mechanics/Combat/MeeleAttacks" to="." method="_on_meele_attacks_child_state_entered"]
-[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Combat/MeeleAttacks" to="." method="_on_movement_child_state_exited"]
-[connection signal="child_state_exited" from="StateChart/Player/Mechanics/Combat/MeeleAttacks" to="." method="_on_meele_attacks_child_state_exited"]
-[connection signal="body_entered" from="AtkShape" to="." method="_on_area_2d_body_entered"]
+[node name="On Disable" type="Node" parent="StateChart/Mechanics/Movement"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Disabled")
+event = &"disable"
+
+[node name="Cooldowns" type="Node" parent="StateChart/Mechanics"]
+script = ExtResource("3_7lhhd")
+
+[node name="Dash" type="Node" parent="StateChart/Mechanics/Cooldowns"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("Useable")
+
+[node name="Cooldown" type="Node" parent="StateChart/Mechanics/Cooldowns/Dash"]
+script = ExtResource("5_dadqm")
+
+[node name="On Cooldown" type="Node" parent="StateChart/Mechanics/Cooldowns/Dash/Cooldown"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Useable")
+delay_seconds = 1.0
+
+[node name="Useable" type="Node" parent="StateChart/Mechanics/Cooldowns/Dash"]
+script = ExtResource("5_dadqm")
+
+[node name="On Dash" type="Node" parent="StateChart/Mechanics/Cooldowns/Dash/Useable"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Cooldown")
+event = &"dash"
+
+[node name="Animation" type="Node" parent="StateChart/Mechanics"]
+script = ExtResource("4_klwk4")
+initial_state = NodePath("Default")
+
+[node name="Default" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("42_m0dwi")
+animation_tree = NodePath("../../../../Animation/AnimationTree")
+
+[node name="Jump" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("42_m0dwi")
+animation_tree = NodePath("../../../../Animation/AnimationTree")
+
+[node name="OnDefault" type="Node" parent="StateChart/Mechanics/Animation/Jump"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Default")
+event = &"tick"
+guard = SubResource("Resource_gs6bx")
+
+[node name="Dash" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("42_m0dwi")
+animation_tree = NodePath("../../../../Animation/AnimationTree")
+
+[node name="OnDefault" type="Node" parent="StateChart/Mechanics/Animation/Dash"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Default")
+event = &"tick"
+guard = SubResource("Resource_c33nr")
+
+[node name="OnJump" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Jump")
+event = &"tick"
+guard = SubResource("Resource_jt7qo")
+
+[node name="OnDash" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Dash")
+event = &"tick"
+guard = SubResource("Resource_wmonw")
+
+[node name="MonitorEffects" parent="." instance=ExtResource("36_hryvp")]
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="dash" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("31_e7ort")
+volume_db = -15.0
+pitch_scale = 0.81
+
+[connection signal="death" from="HealthComponent" to="." method="_on_death"]
+[connection signal="timeout" from="Timers/HeatTick" to="." method="_on_heat_tick_timeout"]
+[connection signal="timeout" from="Timers/HealTick" to="." method="_on_heal_tick_timeout"]
+[connection signal="child_state_exited" from="StateChart/Mechanics/Movement" to="." method="reset_variables"]
+[connection signal="child_state_exited" from="StateChart/Mechanics/Movement/Interruptible" to="." method="_on_movement_child_state_exited"]
+[connection signal="child_state_exited" from="StateChart/Mechanics/Movement/Interruptible/Grounded" to="." method="_on_movement_child_state_exited"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Grounded" to="." method="_on_grounded_state_entered"]
+[connection signal="child_state_exited" from="StateChart/Mechanics/Movement/Interruptible/Grounded/Crouching" to="." method="_on_movement_child_state_exited"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Grounded/Crouching" to="." method="_on_crouching_state_entered"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Grounded/Crouching/Sliding" to="." method="_on_sliding_state_entered"]
+[connection signal="child_state_exited" from="StateChart/Mechanics/Movement/Interruptible/Airborne" to="." method="_on_movement_child_state_exited"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Airborne" to="." method="_on_airborne_state_entered"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Airborne/Jumping" to="." method="_on_jumping_state_entered"]
+[connection signal="state_input" from="StateChart/Mechanics/Movement/Interruptible/Airborne/Jumping" to="." method="_on_airborn_not_coyote_state_input"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Airborne/Falling" to="." method="_on_falling_state_entered"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/WallSlide" to="." method="_on_wall_slide_state_entered"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Dash" to="." method="_on_dash_state_entered"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Disabled" to="." method="_on_disabled_state_entered"]

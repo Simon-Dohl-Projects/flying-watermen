@@ -1,14 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccfj1eejs6m1o"]
+[gd_scene load_steps=10 format=3 uid="uid://ccfj1eejs6m1o"]
 
-[ext_resource type="Script" path="res://scenes/test/test.gd" id="1_ps2k6"]
 [ext_resource type="TileSet" uid="uid://duhrxcu81mi7" path="res://assets/prototype-assets/tileset.tres" id="1_wy44c"]
-[ext_resource type="Script" path="res://scenes/test/Collider.gd" id="3_7pie0"]
 [ext_resource type="Texture2D" uid="uid://ihorffrdym4j" path="res://icon.svg" id="3_n53fm"]
 [ext_resource type="PackedScene" uid="uid://djmlmtr41m2ce" path="res://entities/player/player.tscn" id="5_wejlo"]
 [ext_resource type="PackedScene" uid="uid://cihcop35erg48" path="res://scenes/ui/ui.tscn" id="6_rwr2e"]
-[ext_resource type="PackedScene" uid="uid://w6jot4hm1u0n" path="res://scenes/test/ui_healthbar.tscn" id="7_7fnkh"]
-[ext_resource type="PackedScene" uid="uid://c2mdlfdoukqoq" path="res://entities/enemies/Melee_enemy.tscn" id="7_qvsmb"]
-[ext_resource type="Script" path="res://entities/pfuetze.gd" id="8_rjvbh"]
+[ext_resource type="PackedScene" uid="uid://c2mdlfdoukqoq" path="res://entities/enemies/meleeEnemy/MeleeEnemy.tscn" id="7_qvsmb"]
+[ext_resource type="Script" path="res://entities/objects/pfuetze.gd" id="8_rjvbh"]
 [ext_resource type="Texture2D" uid="uid://utp3bloip30k" path="res://assets/prototype-assets/pfuetze.png" id="9_6g48k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5bb0u"]
@@ -18,7 +15,6 @@ size = Vector2(128, 127)
 size = Vector2(223, 20)
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_ps2k6")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_wy44c")
@@ -31,7 +27,6 @@ collision_layer = 0
 collision_mask = 3
 max_contacts_reported = 10
 contact_monitor = true
-script = ExtResource("3_7pie0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("RectangleShape2D_5bb0u")
@@ -48,22 +43,10 @@ position = Vector2(155, 434)
 process_callback = 0
 metadata/_edit_lock_ = true
 
-[node name="Heal_over_time_Timer" type="Timer" parent="Player"]
-process_callback = 0
-one_shot = true
-
-[node name="Reduce_Heat" type="Timer" parent="Player"]
-process_callback = 0
-wait_time = 0.5
-autostart = true
-
 [node name="UI" parent="." instance=ExtResource("6_rwr2e")]
 
 [node name="Melee_enemy" parent="." instance=ExtResource("7_qvsmb")]
 position = Vector2(1222.72, 325)
-
-[node name="UI_Healthbar" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_7fnkh")]
-player = NodePath("../Player")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(1285, 473)
@@ -78,7 +61,3 @@ shape = SubResource("RectangleShape2D_g11q0")
 position = Vector2(1, 48)
 scale = Vector2(0.171875, 0.0726732)
 texture = ExtResource("9_6g48k")
-
-[connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
-[connection signal="timeout" from="Player/Heal_over_time_Timer" to="Player" method="_on_heal_over_time_timer_timeout"]
-[connection signal="timeout" from="Player/Reduce_Heat" to="Player" method="_on_reduce_heat_timeout"]

@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://c5yieglatmln5"]
+
+[ext_resource type="Script" path="res://entities/player/chemicalEffects/ChemicalStateManager.gd" id="1_2rtau"]
+[ext_resource type="Script" path="res://entities/player/chemicalEffects/IceState.gd" id="2_06vjv"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_aywlr"]
+[ext_resource type="Script" path="res://entities/player/chemicalEffects/FoamState.gd" id="3_bjb28"]
+[ext_resource type="Script" path="res://entities/player/chemicalEffects/Sodium.gd" id="4_mfvf2"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_qh1hq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_wf780"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_llpey"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/expression_guard.gd" id="7_538kr"]
+
+[sub_resource type="Resource" id="Resource_ir01r"]
+script = ExtResource("7_538kr")
+expression = "active_chemical == \"ice\""
+
+[sub_resource type="Resource" id="Resource_ovjda"]
+script = ExtResource("7_538kr")
+expression = "active_chemical == \"foam\""
+
+[sub_resource type="Resource" id="Resource_r1xv3"]
+script = ExtResource("7_538kr")
+expression = "active_chemical == \"sodium\""
+
+[node name="ChemicalEffectsManager" type="Node2D"]
+script = ExtResource("1_2rtau")
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="Ice" type="Node2D" parent="Effects"]
+script = ExtResource("2_06vjv")
+
+[node name="Foam" type="Node2D" parent="Effects"]
+script = ExtResource("3_bjb28")
+
+[node name="Sodium" type="Node2D" parent="Effects"]
+script = ExtResource("4_mfvf2")
+
+[node name="StateChart" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_aywlr")
+
+[node name="Chemicals" type="Node" parent="StateChart"]
+script = ExtResource("4_qh1hq")
+initial_state = NodePath("Water")
+
+[node name="Water" type="Node" parent="StateChart/Chemicals"]
+unique_name_in_owner = true
+script = ExtResource("5_wf780")
+
+[node name="On Default" type="Node" parent="StateChart/Chemicals"]
+script = ExtResource("6_llpey")
+to = NodePath("../Water")
+event = &"to_default"
+
+[node name="Ice" type="Node" parent="StateChart/Chemicals"]
+unique_name_in_owner = true
+script = ExtResource("5_wf780")
+
+[node name="On Melt" type="Node" parent="StateChart/Chemicals/Ice"]
+script = ExtResource("6_llpey")
+to = NodePath("../../Water")
+event = &"melt"
+
+[node name="On Ice" type="Node" parent="StateChart/Chemicals"]
+script = ExtResource("6_llpey")
+to = NodePath("../Ice")
+event = &"to_chemical"
+guard = SubResource("Resource_ir01r")
+
+[node name="Foam" type="Node" parent="StateChart/Chemicals"]
+script = ExtResource("5_wf780")
+
+[node name="On Foam" type="Node" parent="StateChart/Chemicals"]
+script = ExtResource("6_llpey")
+to = NodePath("../Foam")
+event = &"to_chemical"
+guard = SubResource("Resource_ovjda")
+
+[node name="Sodium" type="Node" parent="StateChart/Chemicals"]
+script = ExtResource("5_wf780")
+
+[node name="On Sodium" type="Node" parent="StateChart/Chemicals"]
+script = ExtResource("6_llpey")
+to = NodePath("../Sodium")
+event = &"to_chemical"
+guard = SubResource("Resource_r1xv3")
+
+[connection signal="state_entered" from="StateChart/Chemicals/Ice" to="Effects/Ice" method="_on_ice_state_entered"]
+[connection signal="state_exited" from="StateChart/Chemicals/Ice" to="Effects/Ice" method="_on_ice_state_exited"]
+[connection signal="state_entered" from="StateChart/Chemicals/Foam" to="Effects/Foam" method="_on_foam_state_entered"]
+[connection signal="state_exited" from="StateChart/Chemicals/Foam" to="Effects/Foam" method="_on_foam_state_exited"]
+[connection signal="state_processing" from="StateChart/Chemicals/Foam" to="Effects/Foam" method="_on_foam_state_processing"]
+[connection signal="state_entered" from="StateChart/Chemicals/Sodium" to="Effects/Sodium" method="_on_sodium_state_entered"]
+[connection signal="state_exited" from="StateChart/Chemicals/Sodium" to="Effects/Sodium" method="_on_sodium_state_exited"]
+[connection signal="state_input" from="StateChart/Chemicals/Sodium" to="Effects/Sodium" method="_on_sodium_state_input"]

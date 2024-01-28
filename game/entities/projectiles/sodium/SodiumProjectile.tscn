@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1pa7ehe5sfkb"]
+
+[ext_resource type="Script" path="res://entities/projectiles/sodium/SodiumProjectile.gd" id="1_0e1yc"]
+[ext_resource type="Texture2D" uid="uid://dvyvxar3r85sh" path="res://entities/projectiles/sodium/assets/projectile.png" id="1_uam28"]
+[ext_resource type="PackedScene" uid="uid://ckxjw27a061ub" path="res://entities/projectiles/Projectile.tscn" id="2_4sre5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cjdrv"]
+radius = 16.0
+
+[node name="SodiumProjectile" type="Node2D"]
+script = ExtResource("1_0e1yc")
+
+[node name="Projectile" parent="." node_paths=PackedStringArray("sprite", "collision_shape") instance=ExtResource("2_4sre5")]
+speed = 1400
+damage = 0
+sprite = NodePath("ProjectileSprite")
+collision_shape = NodePath("CollisionShape2D")
+life_time_seconds = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile"]
+shape = SubResource("CircleShape2D_cjdrv")
+debug_color = Color(0.258824, 0.635294, 0, 0.419608)
+
+[node name="ProjectileSprite" type="Sprite2D" parent="Projectile"]
+self_modulate = Color(0.580392, 0.580392, 0.580392, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_uam28")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="tree_exiting" from="Projectile" to="." method="_on_projectile_tree_exiting"]
+[connection signal="tree_exiting" from="Projectile" to="Projectile" method="_on_tree_exiting"]
