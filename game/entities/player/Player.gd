@@ -3,6 +3,8 @@ class_name Player extends CharacterBody2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var heat_component: HeatComponent = $HeatComponent
 @onready var ranged_component: RangedComponent = $RangedComponent
+var shoot_position: Marker2D:
+	get: return ranged_component.shoot_position
 @onready var melee_attack: MeleeComponent = $MeleeComponent
 @onready var inventory: Inventory = $Inventory
 @onready var state_chart: StateChart = %StateChart
@@ -175,6 +177,6 @@ func melee():
 
 #region Shooting
 func shoot():
-	var shoot_direction = ranged_component.shoot_position.global_position.direction_to(get_global_mouse_position())
+	var shoot_direction = shoot_position.global_position.direction_to(get_global_mouse_position())
 	return ranged_component.shoot(shoot_direction, projectile_scene, velocity)
 #endregion
