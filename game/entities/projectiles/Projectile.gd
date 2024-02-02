@@ -19,7 +19,7 @@ var direction: Vector2 = Vector2.ZERO
 func _ready():
 	top_level = true
 	hitbox.collision_mask = new_collision_mask
-	if collision_shape: 
+	if collision_shape:
 		hitbox_shape.set_shape(collision_shape.shape)
 		collision_shape.queue_free()
 	if sprite: $Sprite2D.queue_free()

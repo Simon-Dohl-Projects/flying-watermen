@@ -26,7 +26,7 @@ func _on_ice_state_entered():
 	$"../../../MonitorEffects".get_node("Freeze").visible = true
 	animation_tree["parameters/conditions/entered_ice"] = true
 	animation_tree["parameters/conditions/exited_ice"] = false
-	
+
 	player.direction = 0
 
 func _on_ice_state_exited() -> void:

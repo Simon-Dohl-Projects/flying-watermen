@@ -28,7 +28,7 @@ func _physics_process(_delta: float):
 
 	if not aggro_component.is_aggro:
 		return
-	
+
 	shoot()
 	var player_distance: float = abs(player.global_position.x - global_position.x)
 	var player_direction: int = sign(player.global_position.x - global_position.x)
