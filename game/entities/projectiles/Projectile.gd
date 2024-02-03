@@ -15,6 +15,7 @@ class_name Projectile extends RigidBody2D
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var velocity_offset: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
+var start_parent: Node = get_parent()
 
 func _ready():
 	top_level = true
@@ -41,10 +42,12 @@ func _on_area_2d_body_entered(body):
 		linear_velocity = Vector2(0, 0)
 		gravity_scale = 0
 		var curr_pos: Vector2 = global_position
-		top_level = false
 		get_parent().call_deferred("reparent", body)
-		await get_tree().process_frame
+		await get_parent().child_order_changed
+		top_level = false
 		global_position = curr_pos
 
+# Removes parent if it's only a placeholder for the projectile scene
 func _on_tree_exiting() -> void:
-	if not get_parent().get_script(): get_parent().queue_free()
+	if start_parent == get_parent() and not get_parent().get_script():
+		get_parent().queue_free()
