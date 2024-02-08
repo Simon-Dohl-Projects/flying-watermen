@@ -18,7 +18,6 @@ var can_damage: bool = true
 
 func _ready():
 	change_scale()
-	print(timer)
 
 func change_scale():
 	self.scale.x = current_scale
