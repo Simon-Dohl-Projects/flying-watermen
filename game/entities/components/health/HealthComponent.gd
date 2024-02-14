@@ -16,7 +16,11 @@ const SPEED_THRESHOLD: float = 25
 
 var heal_over_time_left: int = 0
 var health: int = 100
-var is_invincible: bool = false
+var invincible_count: int = 0
+var is_invincible: bool = false:
+	set(value):
+		invincible_count += 1 if value else -1
+		is_invincible = invincible_count > 0
 var iframe_length: float = 0.3
 
 var can_take_damage_over_time: int = 0

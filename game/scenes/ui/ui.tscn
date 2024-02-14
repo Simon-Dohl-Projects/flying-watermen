@@ -1,34 +1,79 @@
 [gd_scene load_steps=8 format=3 uid="uid://cihcop35erg48"]
 
-[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="1_hgyi1"]
 [ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_rfa25"]
 [ext_resource type="Texture2D" uid="uid://bd0dnm2tkxxth" path="res://assets/prototype-assets/healthbar_PROGRESS.png" id="3_5gpoy"]
 [ext_resource type="Texture2D" uid="uid://b7jx8lf3ku7ft" path="res://assets/prototype-assets/healthbar_BORDER.png" id="4_e202w"]
 [ext_resource type="Script" path="res://scenes/ui/HealthHeatBar.gd" id="5_4qthl"]
 [ext_resource type="Script" path="res://scenes/ui/InventoryUI.gd" id="6_gvkls"]
+[ext_resource type="PackedScene" uid="uid://cq78jirbp6w10" path="res://scenes/ui/debugger.tscn" id="7_euryj"]
 [ext_resource type="PackedScene" uid="uid://besblswfge6aw" path="res://scenes/ui/menus/pauseMenu/pauseMenu.tscn" id="7_hnkim"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_rfa25")
 
-[node name="StateChartDebugger" parent="." instance=ExtResource("1_hgyi1")]
-offset_left = 897.0
-offset_top = 10.0
-offset_right = 232.0
-offset_bottom = 35.0
-scale = Vector2(0.5, 0.5)
-ignore_events = true
-ignore_state_changes = true
-ignore_transitions = true
+[node name="Debugger" parent="." instance=ExtResource("7_euryj")]
+unique_name_in_owner = true
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PauseMenu" parent="." instance=ExtResource("7_hnkim")]
+visible = false
+
+[node name="ItemOverlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("6_gvkls")
+
+[node name="ActiveItem" type="Control" parent="ItemOverlay"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="Name" type="Label" parent="ItemOverlay/ActiveItem"]
+layout_mode = 2
+offset_left = 994.0
+offset_top = 605.0
+offset_right = 1119.0
+offset_bottom = 634.0
+text = "Item"
+horizontal_alignment = 1
+
+[node name="Amount" type="Label" parent="ItemOverlay/ActiveItem"]
+layout_mode = 2
+offset_left = 1073.0
+offset_top = 572.0
+offset_right = 1138.0
+offset_bottom = 598.0
+text = "1/4"
+
+[node name="ItemBar" type="ProgressBar" parent="ItemOverlay/ActiveItem"]
+layout_mode = 0
+offset_left = 1049.0
+offset_top = 500.0
+offset_right = 1065.0
+offset_bottom = 600.0
+value = 25.0
+fill_mode = 3
+show_percentage = false
+
+[node name="InventoryItem" type="Label" parent="ItemOverlay"]
+offset_left = 920.0
+offset_top = 548.0
+offset_right = 1009.0
+offset_bottom = 597.0
+text = "Inventory"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HealthBar" type="Panel" parent="."]
 offset_left = 8.0
 offset_top = 7.0
 offset_right = 178.0
 offset_bottom = 35.0
+mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayerHealthBar" type="TextureProgressBar" parent="Panel" groups=["playerHealthHeatBar"]]
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="HealthBar" groups=["playerHealthHeatBar"]]
 texture_filter = 1
 layout_mode = 1
 offset_right = 170.0
@@ -45,62 +90,9 @@ script = ExtResource("5_4qthl")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="Panel"]
+[node name="Label" type="Label" parent="HealthBar"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="Panel2" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("6_gvkls")
-
-[node name="ActiveItem" type="Control" parent="Panel2"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Name" type="RichTextLabel" parent="Panel2/ActiveItem"]
-layout_mode = 2
-offset_left = 1022.0
-offset_top = 601.0
-offset_right = 1147.0
-offset_bottom = 630.0
-text = "Inventory"
-
-[node name="Amount" type="RichTextLabel" parent="Panel2/ActiveItem"]
-layout_mode = 2
-offset_left = 1073.0
-offset_top = 572.0
-offset_right = 1138.0
-offset_bottom = 598.0
-text = "1/4"
-
-[node name="ItemBar" type="ProgressBar" parent="Panel2/ActiveItem"]
-layout_mode = 0
-offset_left = 1049.0
-offset_top = 500.0
-offset_right = 1065.0
-offset_bottom = 600.0
-value = 25.0
-fill_mode = 3
-show_percentage = false
-
-[node name="InventoryItem" type="RichTextLabel" parent="Panel2"]
-layout_mode = 2
-offset_left = 928.0
-offset_top = 546.0
-offset_right = 1049.0
-offset_bottom = 629.0
-text = "Inventory"
-
-[node name="Use _F_" type="RichTextLabel" parent="Panel2"]
-layout_mode = 2
-offset_left = 939.0
-offset_top = 571.0
-offset_right = 1060.0
-offset_bottom = 654.0
-text = "Use 'F'"
-
-[node name="PauseMenu" parent="." instance=ExtResource("7_hnkim")]
-visible = false
+offset_top = -1.0
+offset_right = 73.0
+offset_bottom = 27.0
+text = "100"

@@ -13,12 +13,12 @@ var shoot_position: Marker2D:
 
 # Reset values
 var base_scale_speed: float = 2
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * base_scale_speed
+var base_gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * base_scale_speed
 var base_speed: float = 300.0 * base_scale_speed
 var base_jump_velocity: float = -400.0 * base_scale_speed
 var base_friction: float = 0.5
 var base_fall_speed_factor: float = 1.0
-var jumps: int = 2
+var base_jumps: int = 2
 # Resettable variables
 var scale_speed: float = base_scale_speed
 var speed: float = base_speed
@@ -27,6 +27,8 @@ var friction: float = base_friction
 var fall_speed_factor: float = base_fall_speed_factor
 var can_move: bool = true
 var jumps_left: int = jumps
+var gravity: float = base_gravity
+var jumps: int = 2
 
 # Other information about the player
 var projectile_scene: PackedScene = load("res://entities/projectiles/WaterProjectile.tscn")
@@ -41,14 +43,14 @@ func _ready():
 	#Initialize values so Guards don't complain
 	set_expressions()
 
-func _input(event: InputEvent):
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		on_interact.call()
 	if event.is_action_pressed("jump"):
 		state_chart.send_event("jump")
 	if event.is_action_pressed("lshift"):
 		state_chart.send_event("dash")
-	if event.is_action_pressed("attack"):
+	if event.is_action_pressed("left_click"):
 		melee()
 	if event.is_action_pressed("right_click"):
 		shoot()
