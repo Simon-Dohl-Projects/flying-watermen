@@ -14,19 +14,6 @@ mouse_filter = 2
 script = ExtResource("1_n1tnl")
 metadata/_edit_lock_ = true
 
-[node name="Zoom" type="HSlider" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 953.0
-offset_top = 593.0
-offset_right = 1109.0
-offset_bottom = 639.0
-min_value = 10.0
-max_value = 10.0
-value = 10.0
-tick_count = 21
-ticks_on_borders = true
-
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 0
 offset_left = 893.0
@@ -39,29 +26,49 @@ mouse_filter = 0
 [node name="CheckBoxes" type="Control" parent="TabContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/CheckBoxes"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/CheckBoxes"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.065
-anchor_top = 0.0455312
-anchor_right = 0.914286
-anchor_bottom = 0.228
-offset_left = 0.149998
-offset_bottom = 83.796
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+metadata/_edit_lock_ = true
 
-[node name="Flying" type="CheckBox" parent="TabContainer/CheckBoxes/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/CheckBoxes/MarginContainer"]
 layout_mode = 2
-text = "Flying"
+theme_override_constants/separation = 5
 
-[node name="Invicibility" type="CheckBox" parent="TabContainer/CheckBoxes/VBoxContainer"]
+[node name="Invicibility" type="CheckBox" parent="TabContainer/CheckBoxes/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Invicibility"
 
-[node name="Player Collision" type="CheckBox" parent="TabContainer/CheckBoxes/VBoxContainer"]
+[node name="Flying" type="CheckBox" parent="TabContainer/CheckBoxes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Flying"
+
+[node name="Player Collision" type="CheckBox" parent="TabContainer/CheckBoxes/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Player Collision"
+
+[node name="SplitContainer" type="SplitContainer" parent="TabContainer/CheckBoxes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/CheckBoxes/MarginContainer/VBoxContainer/SplitContainer"]
+layout_mode = 2
+text = "Zoom"
+
+[node name="Zoom" type="HSlider" parent="TabContainer/CheckBoxes/MarginContainer/VBoxContainer/SplitContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+value = 1.0
+tick_count = 21
+ticks_on_borders = true
 
 [node name="StateChartDebugger" parent="TabContainer" instance=ExtResource("2_de6up")]
 unique_name_in_owner = true
@@ -71,5 +78,5 @@ ignore_events = true
 ignore_state_changes = true
 ignore_transitions = true
 
-[connection signal="toggled" from="TabContainer/CheckBoxes/VBoxContainer/Flying" to="." method="_on_flying_toggled"]
-[connection signal="toggled" from="TabContainer/CheckBoxes/VBoxContainer/Invicibility" to="." method="_on_invicibility_toggled"]
+[connection signal="toggled" from="TabContainer/CheckBoxes/MarginContainer/VBoxContainer/Invicibility" to="." method="_on_invicibility_toggled"]
+[connection signal="toggled" from="TabContainer/CheckBoxes/MarginContainer/VBoxContainer/Flying" to="." method="_on_flying_toggled"]
