@@ -8,7 +8,10 @@ var cooldown: float = base_cooldown
 
 @onready var timer: Timer = $ShootCooldown
 @onready var shoot_position: Marker2D = $ShootPosition
-var is_enabled: bool = true
+var is_enabled: bool = true:
+	set(value):
+		if not value: timer.stop()
+		is_enabled = value
 
 func shoot(direction: Vector2, projectile: PackedScene, velocity_offset: Vector2):
 	if is_enabled:
@@ -26,7 +29,6 @@ func shoot(direction: Vector2, projectile: PackedScene, velocity_offset: Vector2
 
 func disable():
 	is_enabled = false
-	timer.stop()
 
 func enable():
 	is_enabled = true
