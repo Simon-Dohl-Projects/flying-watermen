@@ -48,7 +48,7 @@ func on_calm_entered():
 
 func flash_damage_effect():
 	$DirectionalNodes/EnemyGraphics/FlameImage.set("shader_parameter/flash_modifier", 1)
-	
+
 func _on_attack_frequency_timeout():
 	var player_distance: float = player.global_position.distance_to(global_position)
 	if aggro_component.is_aggro and player_distance < ATTACK_DISTANCE:

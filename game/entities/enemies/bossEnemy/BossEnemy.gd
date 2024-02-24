@@ -86,7 +86,7 @@ func do_fire_wave():
 		get_parent().get_parent().add_child(fire_wave_instance)
 		is_fire_wave_cd = true
 		fire_wave_cooldown.start()
-		
+
 func do_melee_attack():
 	if not is_melee_cd:
 		if attack_decision():
@@ -94,11 +94,11 @@ func do_melee_attack():
 		else:
 			melee_attack_high_component.attack()
 		is_melee_cd = true
-		melee_cooldown.start() 
+		melee_cooldown.start()
 
 func _on_fire_wave_cooldown_timeout():
 	is_fire_wave_cd = false
-	
+
 func _on_melee_cooldown_timeout():
 	is_melee_cd = false
 

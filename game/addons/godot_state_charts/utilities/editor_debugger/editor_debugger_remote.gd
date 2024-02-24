@@ -1,12 +1,12 @@
 ## This is the remote part of the editor debugger. It attaches to a state
 ## chart similar to the in-game debugger and forwards signals and debug
-## information to the editor. 
+## information to the editor.
 
 
 const DebuggerMessage = preload("editor_debugger_message.gd")
 
 # the state chart we track
-var _state_chart:StateChart 
+var _state_chart:StateChart
 
 # whether to send transitions to the editor
 var _ignore_transitions:bool = true
@@ -92,14 +92,14 @@ func _on_event_received(event:StringName):
 	if _ignore_events:
 		return
 	DebuggerMessage.event_received(_state_chart, event)
-	
+
 func _on_state_entered(state:State):
-	DebuggerMessage.state_entered(_state_chart, state)		
+	DebuggerMessage.state_entered(_state_chart, state)
 
 func _on_state_exited(state:State):
 	DebuggerMessage.state_exited(_state_chart, state)
 
 func _on_transition_pending(num1, remaining, state:State):
 	DebuggerMessage.transition_pending(_state_chart, state, state._pending_transition, remaining)
-		
+
 

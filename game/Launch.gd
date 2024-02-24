@@ -8,4 +8,4 @@ func _ready():
 	DisplayServer.window_set_size(screen_size * window_size_percentage)
 	DisplayServer.window_set_position((screen_size * (1-window_size_percentage)) / 2)
 	DisplayServer.window_set_current_screen(screen)
-	get_tree().change_scene_to_file.call_deferred(Globals.main_scene)
+	get_tree().change_scene_to_file.call_deferred(Globals.main_menu)
