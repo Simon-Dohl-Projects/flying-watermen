@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://djmlmtr41m2ce"]
+[gd_scene load_steps=114 format=3 uid="uid://djmlmtr41m2ce"]
 
 [ext_resource type="Script" path="res://entities/player/Player.gd" id="1_n7144"]
 [ext_resource type="PackedScene" uid="uid://d71bkm5ic0tt" path="res://entities/components/ranged/RangedComponent.tscn" id="2_32y2k"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_klwk4"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_dadqm"]
 [ext_resource type="Texture2D" uid="uid://dhdyqc1oe0j4w" path="res://entities/player/assets/deathanimation/death04.png" id="5_o1qs4"]
+[ext_resource type="PackedScene" uid="uid://beplu26uk0t1y" path="res://entities/components/interact/InteractComponent.tscn" id="6_01ygf"]
 [ext_resource type="Texture2D" uid="uid://b40f5avor3q0p" path="res://entities/player/assets/deathanimation/death05.png" id="6_5ni3t"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_aaxtf"]
 [ext_resource type="Texture2D" uid="uid://bio4rf0meadhh" path="res://entities/player/assets/idleanimation/01Idle.png" id="6_oqgpa"]
@@ -625,6 +626,8 @@ attack_color = Color(0.188235, 0.560784, 0.709804, 1)
 position = Vector2(45.5001, -16.9998)
 shape = SubResource("RectangleShape2D_obf3n")
 debug_color = Color(1, 1, 1, 0.419608)
+
+[node name="InteractComponent" parent="." instance=ExtResource("6_01ygf")]
 
 [node name="ChemicalEffectsManager" parent="." instance=ExtResource("51_52a8d")]
 

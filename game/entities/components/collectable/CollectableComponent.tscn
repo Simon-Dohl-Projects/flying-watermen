@@ -5,13 +5,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_a1cd5"]
 radius = 35.1283
 
-[node name="CollectableComponent" type="Node2D"]
+[node name="CollectableComponent" type="Area2D"]
+collision_mask = 3
 script = ExtResource("1_ucd6e")
 
-[node name="CollectArea" type="Area2D" parent="."]
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_a1cd5")
 debug_color = Color(0, 0.635294, 0.427451, 0.419608)
 
@@ -21,7 +19,8 @@ offset_top = -62.0
 offset_right = 52.0
 offset_bottom = -39.0
 
-[node name="PickUpText" type="RichTextLabel" parent="PanelContainer"]
+[node name="PickUpText" type="Label" parent="PanelContainer"]
 layout_mode = 2
 text = "'E' To pick up"
-fit_content = true
+
+[connection signal="interacted" from="." to="." method="collect"]

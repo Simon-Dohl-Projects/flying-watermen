@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://o5qajbk6mfjn"]
+[gd_scene load_steps=11 format=3 uid="uid://o5qajbk6mfjn"]
 
 [ext_resource type="Script" path="res://entities/objects/well/Well.gd" id="1_ryms2"]
 [ext_resource type="Texture2D" uid="uid://cxe6hu7quuq4d" path="res://entities/objects/well/assets/wellEmpty.png" id="2_gdx0v"]
@@ -6,9 +6,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_amob8"]
 radius = 95.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_msmji"]
-radius = 65.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2wsyv"]
 blend_mode = 1
@@ -43,31 +40,14 @@ scale_max = 0.8
 scale_curve = SubResource("CurveTexture_xmhfi")
 color_ramp = SubResource("GradientTexture1D_e7xoi")
 
-[node name="Well" type="Node2D"]
+[node name="Well" type="Area2D"]
+collision_mask = 2
 script = ExtResource("1_ryms2")
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(3, -20)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(1, -22)
 shape = SubResource("CircleShape2D_amob8")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_mask = 0
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, -32)
-shape = SubResource("CircleShape2D_msmji")
-
-[node name="Texture" type="Sprite2D" parent="."]
-position = Vector2(0, -33)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("2_gdx0v")
-region_enabled = true
-region_rect = Rect2(234.355, 263.688, 918.995, 736.313)
 
 [node name="FillLabel" type="Panel" parent="."]
 visible = false
@@ -76,12 +56,30 @@ offset_top = -140.0
 offset_right = 25.0
 offset_bottom = -116.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="FillLabel"]
+[node name="RichTextLabel" type="Label" parent="FillLabel"]
 layout_mode = 0
 offset_left = 2.0
 offset_right = 48.0
 offset_bottom = 24.0
 text = "Fill 'E'"
+
+[node name="Texture" type="Sprite2D" parent="."]
+position = Vector2(0, -37)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_gdx0v")
+region_enabled = true
+region_rect = Rect2(234.355, 263.688, 918.995, 736.313)
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Texture"]
+scale = Vector2(6.66667, 6.66667)
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Texture/StaticBody2D"]
+position = Vector2(10.8713, -6)
+scale = Vector2(10.5794, 5.49783)
+polygon = PackedVector2Array(-6.98257, -4.91103, -6.98257, 7.82126, 4.73834, 7.82126, 4.73834, -5.09292, 3.60405, -6.91181, 1.52454, -8.00315, -1.02759, -8.36693, -3.8633, -8.00315, -5.94281, -6.91181)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 visible = false
@@ -92,5 +90,4 @@ amount = 10
 process_material = SubResource("ParticleProcessMaterial_j1tol")
 texture = ExtResource("3_lodbv")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="interacted" from="." to="." method="fill_well"]

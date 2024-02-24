@@ -6,6 +6,7 @@ class_name Player extends CharacterBody2D
 var shoot_position: Marker2D:
 	get: return ranged_component.shoot_position
 @onready var melee_attack: MeleeComponent = $MeleeComponent
+@onready var interact_component: InteractComponent = $InteractComponent
 @onready var inventory: Inventory = $Inventory
 @onready var state_chart: StateChart = %StateChart
 @onready var animation_tree: AnimationTree = $Animation/AnimationTree
@@ -36,9 +37,6 @@ var abilities: Dictionary = {
 	"dash": false
 }
 
-## Callback for player interaction
-var on_interact = func(): print("Nothing to interact")
-
 func _ready():
 	animation_tree.active = true
 	#Initialize values so Guards don't complain
@@ -46,7 +44,7 @@ func _ready():
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("interact"):
-		on_interact.call()
+		interact_component.interact()
 	if event.is_action_pressed("jump"):
 		state_chart.send_event("jump")
 	if event.is_action_pressed("lshift"):
