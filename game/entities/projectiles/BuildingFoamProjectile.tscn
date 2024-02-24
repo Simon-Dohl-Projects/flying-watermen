@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://lo78rso6pc5h"]
+
+[ext_resource type="PackedScene" uid="uid://ckxjw27a061ub" path="res://entities/projectiles/Projectile.tscn" id="1_amoi4"]
+
+[node name="BuildingFoamProjectile" type="Node2D"]
+
+[node name="Projectile" parent="." instance=ExtResource("1_amoi4")]
+top_level = true
+collision_mask = 5
+element = 2
+speed = 1100
+damage = 0
+is_sticky = true
