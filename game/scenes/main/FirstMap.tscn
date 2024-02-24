@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3 uid="uid://cu55a1ijhr436"]
+[gd_scene load_steps=115 format=3 uid="uid://cu55a1ijhr436"]
 
 [ext_resource type="Texture2D" uid="uid://dhvk873s0063d" path="res://assets/tileMap/Tiles.png" id="1_b4xfn"]
 [ext_resource type="PackedScene" uid="uid://djmlmtr41m2ce" path="res://entities/player/player.tscn" id="2_6f3hr"]
@@ -30,9 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://obwra0usmk3a" path="res://assets/forest-assets/spiderweb01.png" id="27_rtonn"]
 [ext_resource type="Texture2D" uid="uid://080avp8oteh3" path="res://assets/forest-assets/bush01.png" id="28_unqp1"]
 [ext_resource type="AudioStream" uid="uid://cuqvbh3d0ok8a" path="res://assets/SFX/Waterfall/Water, Waterfall, Steady, Perspective SND0047.wav" id="29_2eics"]
-[ext_resource type="PackedScene" uid="uid://c640sr08cvsmo" path="res://entities/objects/stone-tablet/StoneTablet.tscn" id="29_2okah"]
-[ext_resource type="PackedScene" uid="uid://qno5f50626uf" path="res://scenes/ui/ReadStoneTablet02.tscn" id="29_20yqp"]
-[ext_resource type="PackedScene" uid="uid://4lea60a43ia6" path="res://scenes/ui/ReadStoneTablet.tscn" id="31_ya0g7"]
+[ext_resource type="PackedScene" uid="uid://qno5f50626uf" path="res://scenes/ui/menus/tablets/Dash.tscn" id="29_20yqp"]
+[ext_resource type="PackedScene" uid="uid://4lea60a43ia6" path="res://scenes/ui/menus/tablets/Lore1.tscn" id="31_ya0g7"]
 [ext_resource type="AudioStream" uid="uid://coc8rjgvqarww" path="res://assets/SFX/worldMusic/Ambient 1.wav" id="34_hkrkv"]
 [ext_resource type="AudioStream" uid="uid://bja1g8xmn1kc5" path="res://assets/SFX/worldMusic/Ambient 2.wav" id="35_52cjk"]
 [ext_resource type="AudioStream" uid="uid://b2sgdjvuruxsx" path="res://assets/SFX/worldMusic/Ambient 3.wav" id="36_g32xi"]
@@ -2689,12 +2688,6 @@ flip_h = true
 
 [node name="Objects" type="Node2D" parent="Areas/Begining"]
 
-[node name="ReadStoneTablet" parent="Areas/Begining/Objects" instance=ExtResource("31_ya0g7")]
-visible = false
-
-[node name="StoneTablet" parent="Areas/Begining/Objects" instance=ExtResource("29_2okah")]
-position = Vector2(1153, 192)
-
 [node name="Puddle" parent="Areas/Begining/Objects" instance=ExtResource("23_43erc")]
 top_level = true
 position = Vector2(4224, 652)
@@ -3014,15 +3007,6 @@ volume_db = -25.0
 autoplay = true
 max_distance = 1600.0
 attenuation = 2.92818
-
-[node name="Objects" type="Node2D" parent="Areas/WaterFallCave"]
-position = Vector2(-8672, -1448)
-
-[node name="StoneTablet2" parent="Areas/WaterFallCave/Objects" instance=ExtResource("29_2okah")]
-position = Vector2(10515, 2040)
-
-[node name="ReadStoneTablet" parent="Areas/WaterFallCave/Objects" instance=ExtResource("29_20yqp")]
-visible = false
 
 [node name="LongStraight" type="Node2D" parent="Areas"]
 position = Vector2(7400, 0)
@@ -3510,6 +3494,14 @@ shape = SubResource("RectangleShape2D_um3b4")
 
 [node name="BossEnemy" parent="Areas/Enemies6" instance=ExtResource("45_i3s57")]
 position = Vector2(7060, 1508)
+
+[node name="StoneTablets" type="Node2D" parent="Areas"]
+
+[node name="Lore1" parent="Areas/StoneTablets" instance=ExtResource("31_ya0g7")]
+position = Vector2(1152, 923)
+
+[node name="Dash" parent="Areas/StoneTablets" instance=ExtResource("29_20yqp")]
+position = Vector2(10510, 2032)
 
 [node name="TileMap" type="TileMap" parent="."]
 light_mask = 0

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://qno5f50626uf"]
+
+[ext_resource type="Script" path="res://scenes/ui/menus/tablets/scripts/Dash.gd" id="1_qbyim"]
+[ext_resource type="Texture2D" uid="uid://d014bs0do08xg" path="res://entities/objects/stone-tablet/dash.png" id="2_5aakf"]
+[ext_resource type="PackedScene" uid="uid://cxpuyaf3piwxm" path="res://scenes/ui/menus/tablets/StoneTabletOverlay.tscn" id="3_28b7o"]
+[ext_resource type="PackedScene" uid="uid://c640sr08cvsmo" path="res://entities/objects/stone-tablet/StoneTabletObject.tscn" id="3_71dkh"]
+
+[node name="DashTablet" type="Node2D"]
+script = ExtResource("1_qbyim")
+
+[node name="StoneTablet" parent="." instance=ExtResource("3_71dkh")]
+
+[node name="StoneTabletBase" parent="." instance=ExtResource("3_28b7o")]
+process_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="StoneTabletBase"]
+offset_left = 280.0
+offset_top = 9.0
+offset_right = 890.0
+offset_bottom = 653.0
+texture = ExtResource("2_5aakf")
+expand_mode = 1
+
+[connection signal="read" from="StoneTablet" to="." method="_on_stone_tablet_read"]
+[connection signal="visibility_changed" from="StoneTabletBase" to="StoneTabletBase" method="pause"]

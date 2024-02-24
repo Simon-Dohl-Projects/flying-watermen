@@ -32,6 +32,9 @@ var jumps_left: int = jumps
 var projectile_scene: PackedScene = load("res://entities/projectiles/WaterProjectile.tscn")
 var direction: float = 0.0
 var slide_threshold: float = base_speed/2
+var abilities: Dictionary = {
+	"dash": false
+}
 
 ## Callback for player interaction
 var on_interact = func(): print("Nothing to interact")
@@ -47,7 +50,7 @@ func _input(event: InputEvent):
 	if event.is_action_pressed("jump"):
 		state_chart.send_event("jump")
 	if event.is_action_pressed("lshift"):
-		state_chart.send_event("dash")
+		dash()
 	if event.is_action_pressed("attack"):
 		melee()
 	if event.is_action_pressed("right_click"):
@@ -118,6 +121,10 @@ func reset_variables():
 	can_move = true
 	collision_mask = 0b101
 	collision_layer = 0b10
+
+func dash():
+	if abilities.dash:
+		state_chart.send_event("dash")
 
 func reset_jumps():
 	jumps_left = jumps

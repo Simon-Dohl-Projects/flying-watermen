@@ -1,7 +1,9 @@
 extends Node2D
 
+signal read(reader: Node2D)
+
 @onready var fill_label: Panel = $FillLabel
-@onready var read_stone_tablet_scene = get_parent().get_node("ReadStoneTablet")
+@onready var read_stone_tablet_scene = get_parent().get_node("StoneTabletBase")
 
 func _ready():
 	$AnimationPlayer.play("hover")
@@ -18,7 +20,4 @@ func _on_area_2d_body_exited(body):
 
 func read_stone_tablet():
 	read_stone_tablet_scene.visible = true
-
-func hide_stone_tablet():
-	read_stone_tablet_scene.visible = false
-
+	read.emit(get_tree().get_first_node_in_group("player"))

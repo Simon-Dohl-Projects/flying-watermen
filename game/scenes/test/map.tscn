@@ -17,8 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://c2mdlfdoukqoq" path="res://entities/enemies/meleeEnemy/MeleeEnemy.tscn" id="16_7lj2s"]
 [ext_resource type="PackedScene" uid="uid://o5qajbk6mfjn" path="res://entities/objects/well/Well.tscn" id="18_3fgvg"]
 [ext_resource type="Script" path="res://entities/enemies/spawning/EnemyManager.gd" id="18_ephhu"]
-[ext_resource type="PackedScene" uid="uid://c640sr08cvsmo" path="res://entities/objects/stone-tablet/StoneTablet.tscn" id="20_mrvp5"]
-[ext_resource type="PackedScene" uid="uid://4lea60a43ia6" path="res://scenes/ui/ReadStoneTablet.tscn" id="20_rwv2s"]
+[ext_resource type="PackedScene" uid="uid://c640sr08cvsmo" path="res://entities/objects/stone-tablet/StoneTabletObject.tscn" id="20_mrvp5"]
+[ext_resource type="PackedScene" uid="uid://4lea60a43ia6" path="res://scenes/ui/menus/tablets/Lore1.tscn" id="20_rwv2s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s7de0"]
 shader = ExtResource("1_4wi60")

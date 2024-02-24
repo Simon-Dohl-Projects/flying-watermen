@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://4lea60a43ia6"]
+
+[ext_resource type="PackedScene" uid="uid://c640sr08cvsmo" path="res://entities/objects/stone-tablet/StoneTabletObject.tscn" id="1_x7con"]
+[ext_resource type="PackedScene" uid="uid://cxpuyaf3piwxm" path="res://scenes/ui/menus/tablets/StoneTabletOverlay.tscn" id="2_cca32"]
+
+[node name="Lore1" type="Node2D"]
+
+[node name="StoneTablet" parent="." instance=ExtResource("1_x7con")]
+
+[node name="StoneTabletBase" parent="." instance=ExtResource("2_cca32")]
+process_mode = 3
+
+[node name="Label" type="Label" parent="StoneTabletBase"]
+offset_left = 418.0
+offset_top = 136.0
+offset_right = 661.0
+offset_bottom = 523.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Long ago aqua nation lived 
+peacefully in their forest home.
+Everything changed when the 
+fire flames attacked. 
+
+The heroes of aqua used their
+abilities to fight against the 
+malicious fire flames.
+
+Saving their forest by 
+filling the springs of life.
+
+It is our duty to keep 
+the forest safe and
+ the springs alive."
+
+[connection signal="visibility_changed" from="StoneTabletBase" to="StoneTabletBase" method="pause"]
