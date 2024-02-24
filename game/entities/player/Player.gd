@@ -36,8 +36,6 @@ var slide_threshold: float = base_speed/2
 var abilities: Dictionary = {
 	"dash": false
 }
-# Shoottype
-#var is_shooting_water: bool = true
 
 func _ready():
 	animation_tree.active = true
@@ -55,10 +53,6 @@ func _input(event: InputEvent):
 		melee()
 	if event.is_action_pressed("right_click"):
 		shoot()
-	if event.is_action_pressed("swap_shoot_type"):
-		print(1)
-		#if ranged_component.is_shooting_water : is_shooting_water = false
-		#else: is_shooting_water = true
 
 func set_expressions():
 	state_chart.set_expression_property("crouching", Input.is_action_pressed("s"))
