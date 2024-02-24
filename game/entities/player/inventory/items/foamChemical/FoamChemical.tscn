@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://h1li5gc4qqx6" path="res://entities/player/inventory/items/foamChemical/foam.png" id="2_j8yf0"]
 [ext_resource type="PackedScene" uid="uid://b0df4rsgrbola" path="res://entities/components/collectable/CollectableComponent.tscn" id="4_c5kef"]
 
-[sub_resource type="Resource" id="Resource_ak4rk"]
+[sub_resource type="Resource" id="Resource_l0667"]
 resource_local_to_scene = true
 script = ExtResource("2_76ofw")
 name = "foam"
@@ -17,7 +17,7 @@ size = Vector2(28, 16)
 collision_layer = 0
 
 [node name="CollectableComponent" parent="." instance=ExtResource("4_c5kef")]
-item = SubResource("Resource_ak4rk")
+item = SubResource("Resource_l0667")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hit3e")
