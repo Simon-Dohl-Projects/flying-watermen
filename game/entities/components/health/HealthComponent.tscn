@@ -8,5 +8,7 @@ element = 1
 
 [node name="IFrames" type="Timer" parent="."]
 wait_time = 0.3
+one_shot = true
 
-[connection signal="timeout" from="IFrames" to="." method="_on_i_frames_timeout"]
+[connection signal="health_changed" from="." to="." method="_on_health_changed"]
+[connection signal="timeout" from="IFrames" to="." method="disable_iframes"]

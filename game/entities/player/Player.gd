@@ -169,9 +169,12 @@ func _on_dash_state_entered() -> void:
 	friction = 0
 	@warning_ignore("narrowing_conversion")
 	velocity.x = signi(scale.y) * base_speed * 2
-	health_component.iframes(0.3)
+	health_component.is_invincible = true
 	collision_mask = 0b1
 	collision_layer = 0b
+
+func _on_dash_state_exited() -> void:
+	health_component.is_invincible = false
 
 func _on_grounded_state_entered() -> void:
 	reset_jumps()

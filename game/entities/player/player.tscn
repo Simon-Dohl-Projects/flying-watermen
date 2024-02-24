@@ -939,4 +939,5 @@ pitch_scale = 0.81
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Airborne/Falling" to="." method="_on_falling_state_entered"]
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/WallSlide" to="." method="_on_wall_slide_state_entered"]
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Dash" to="." method="_on_dash_state_entered"]
+[connection signal="state_exited" from="StateChart/Mechanics/Movement/Dash" to="." method="_on_dash_state_exited"]
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Disabled" to="." method="_on_disabled_state_entered"]
