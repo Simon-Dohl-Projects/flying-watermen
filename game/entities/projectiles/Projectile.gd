@@ -29,6 +29,7 @@ func _ready():
 	queue_free()
 
 func _on_area_2d_body_entered(body):
+	if body == self: return
 	var health_component: HealthComponent = body.get_node_or_null("HealthComponent")
 	if !is_sticky:
 		if health_component:
@@ -43,7 +44,7 @@ func _on_area_2d_body_entered(body):
 		gravity_scale = 0
 		var curr_pos: Vector2 = global_position
 		get_parent().call_deferred("reparent", body)
-		#await get_parent().child_order_changed
+		collision_layer = 1
 		top_level = false
 		global_position = curr_pos
 
