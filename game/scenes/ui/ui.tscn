@@ -104,3 +104,17 @@ text = "Use 'F'"
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_hnkim")]
 visible = false
+
+[node name="Panel3" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Swap_ShootingType" type="RichTextLabel" parent="Panel3"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 51.0
+offset_right = 187.0
+offset_bottom = 134.0
+text = "Swap shot type on 'Q'"

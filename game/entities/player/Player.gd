@@ -37,7 +37,8 @@ var abilities: Dictionary = {
 	"dash": false
 }
 # Shoottype
-#var is_shooting_water: bool = true
+var is_shooting_Water: bool = true
+var buildingFoam_shootcooldown: float = 0.05
 
 func _ready():
 	animation_tree.active = true
@@ -53,12 +54,20 @@ func _input(event: InputEvent):
 		dash()
 	if event.is_action_pressed("attack"):
 		melee()
-	if event.is_action_pressed("right_click"):
+	if event.is_action_pressed("right_click") and is_shooting_Water:
 		shoot()
 	if event.is_action_pressed("swap_shoot_type"):
-		print(1)
-		#if ranged_component.is_shooting_water : is_shooting_water = false
-		#else: is_shooting_water = true
+		set_shooting_type()
+
+func set_shooting_type():
+	if is_shooting_Water:
+		is_shooting_Water = false
+		projectile_scene = load("res://entities/projectiles/BuildingFoamProjectile.tscn")
+		ranged_component.cooldown = buildingFoam_shootcooldown
+	else:
+		is_shooting_Water = true
+		projectile_scene = load("res://entities/projectiles/WaterProjectile.tscn")
+		ranged_component.cooldown = buildingFoam_shootcooldown
 
 func set_expressions():
 	state_chart.set_expression_property("crouching", Input.is_action_pressed("s"))
@@ -80,6 +89,8 @@ func _on_death():
 
 #region PhysicsProcess
 func _physics_process(delta: float):
+	if Input.is_action_pressed("right_click") and !is_shooting_Water:
+		shoot()
 	update_states()
 	movement(delta)
 	move_and_slide()
