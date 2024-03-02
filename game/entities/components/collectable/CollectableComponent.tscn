@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0df4rsgrbola"]
+[gd_scene load_steps=4 format=3 uid="uid://b0df4rsgrbola"]
 
 [ext_resource type="Script" path="res://entities/components/collectable/CollectableComponent.gd" id="1_ucd6e"]
+[ext_resource type="Texture2D" uid="uid://bfv2i6fh1wtaa" path="res://assets/buttons/Dark/E_Key_Dark.png" id="2_qxt6x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a1cd5"]
 radius = 35.1283
@@ -13,14 +14,9 @@ script = ExtResource("1_ucd6e")
 shape = SubResource("CircleShape2D_a1cd5")
 debug_color = Color(0, 0.635294, 0.427451, 0.419608)
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-offset_left = -54.0
-offset_top = -62.0
-offset_right = 52.0
-offset_bottom = -39.0
-
-[node name="PickUpText" type="Label" parent="PanelContainer"]
-layout_mode = 2
-text = "'E' To pick up"
+[node name="EKeyDark" type="Sprite2D" parent="."]
+position = Vector2(1, -51)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_qxt6x")
 
 [connection signal="interacted" from="." to="." method="collect"]

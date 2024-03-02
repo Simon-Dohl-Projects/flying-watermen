@@ -917,6 +917,7 @@ event = &"tick"
 guard = SubResource("Resource_wmonw")
 
 [node name="MonitorEffects" parent="." instance=ExtResource("36_hryvp")]
+layer = 5
 
 [node name="SFX" type="Node" parent="."]
 
