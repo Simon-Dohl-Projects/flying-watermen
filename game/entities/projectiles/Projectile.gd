@@ -5,7 +5,7 @@ class_name Projectile extends RigidBody2D
 @export var damage: int = 20
 @export var sprite: Sprite2D
 @export var collision_shape: CollisionShape2D
-@export var new_collision_mask: int = 5
+@export var new_collision_mask: int = 13
 @export var is_sticky: bool = false
 @export var life_time_seconds: int = 4
 
@@ -33,9 +33,11 @@ func _on_area_2d_body_entered(body):
 	if !is_sticky:
 		if health_component:
 			health_component.take_damage(damage, element)
-		if body is Player and element != Element.Type.Water:
-			body.heat_component.increase_heat(damage)
-		queue_free()
+			if body is Player and element != Element.Type.Water:
+				body.heat_component.increase_heat(damage)
+			queue_free()
+		if body is TileMap:
+			queue_free()
 	else:
 		if health_component:
 			health_component.take_damage_overtime(damage, element, 30)
