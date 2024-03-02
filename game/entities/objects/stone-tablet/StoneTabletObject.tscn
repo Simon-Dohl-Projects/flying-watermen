@@ -131,30 +131,6 @@ tracks/7/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("EKeyDark:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, -78)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("EKeyDark:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_1mjby"]
 resource_name = "hover"
@@ -202,7 +178,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1, 2)
 }
 tracks/4/type = "bezier"
@@ -213,7 +189,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0, 27, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0, 22, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1, 2)
 }
 tracks/5/type = "bezier"
@@ -251,30 +227,6 @@ tracks/7/keys = {
 "update": 0,
 "values": [0.0, 0.0, 0.0]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("EKeyDark:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, -78), Vector2(1.19209e-07, -53), Vector2(1, -78)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("EKeyDark:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 0.0, 0.0]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_njm6v"]
 _data = {
@@ -304,6 +256,12 @@ position = Vector2(1, 2)
 scale = Vector2(0.06, 0.067)
 texture = ExtResource("3_gpjlj")
 
+[node name="EKeyDark" type="Sprite2D" parent="Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(-16.6667, -970.149)
+scale = Vector2(6.66667, 5.97015)
+texture = ExtResource("4_mgokh")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_njm6v")
@@ -315,6 +273,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_6sq6x")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -322,12 +281,8 @@ position = Vector2(2.5, 96)
 shape = SubResource("RectangleShape2D_thpy7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_fe6uw")
-
-[node name="EKeyDark" type="Sprite2D" parent="."]
-position = Vector2(1, -78)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_mgokh")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
