@@ -8,6 +8,7 @@ class_name Projectile extends RigidBody2D
 @export var new_collision_mask: int = 13
 @export var is_sticky: bool = false
 @export var life_time_seconds: int = 4
+@export var to_spawn_on_impact: PackedScene
 
 @onready var hitbox: Area2D = $Area2D
 @onready var hitbox_shape: CollisionShape2D = $Area2D/CollisionShape2D
@@ -35,9 +36,12 @@ func _on_area_2d_body_entered(body):
 			health_component.take_damage(damage, element)
 			if body is Player and element != Element.Type.Water:
 				body.heat_component.increase_heat(damage)
-			queue_free()
-		if body is TileMap:
-			queue_free()
+		if to_spawn_on_impact:
+			var spawned_node: RigidBody2D = to_spawn_on_impact.instantiate()
+			spawned_node.position = global_position
+			var map = body.get_parent()
+			map.add_child(spawned_node)
+		queue_free()
 	else:
 		if health_component:
 			health_component.take_damage_overtime(damage, element, 30)

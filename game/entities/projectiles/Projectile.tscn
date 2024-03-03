@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckxjw27a061ub"]
+[gd_scene load_steps=5 format=3 uid="uid://ckxjw27a061ub"]
 
 [ext_resource type="Script" path="res://entities/projectiles/Projectile.gd" id="1_k0imh"]
 [ext_resource type="Texture2D" uid="uid://d2tpiw0kw5goq" path="res://assets/prototype-assets/projectile.png" id="2_i75qn"]
+[ext_resource type="PackedScene" uid="uid://cxqsoc8anmpvj" path="res://entities/objects/fire/fire.tscn" id="2_ndngt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88s18"]
 radius = 134.015
@@ -9,6 +10,7 @@ radius = 134.015
 [node name="Projectile" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_k0imh")
+to_spawn_on_impact = ExtResource("2_ndngt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
