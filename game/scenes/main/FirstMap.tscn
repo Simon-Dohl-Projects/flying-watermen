@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://cu55a1ijhr436"]
+[gd_scene load_steps=116 format=3 uid="uid://cu55a1ijhr436"]
 
 [ext_resource type="Texture2D" uid="uid://dhvk873s0063d" path="res://assets/tileMap/Tiles.png" id="1_b4xfn"]
 [ext_resource type="PackedScene" uid="uid://djmlmtr41m2ce" path="res://entities/player/player.tscn" id="2_6f3hr"]
@@ -50,6 +50,7 @@
 [ext_resource type="PackedScene" uid="uid://bree81gljy661" path="res://entities/player/inventory/items/foamChemical/FoamChemical.tscn" id="50_dikjh"]
 [ext_resource type="PackedScene" uid="uid://dmeutg1f6t7sl" path="res://entities/enemies/rangedEnemy/RangedEnemy.tscn" id="50_fjo1m"]
 [ext_resource type="PackedScene" uid="uid://dp6qth5jvcdhd" path="res://entities/player/inventory/items/iceChemical/IceChemical.tscn" id="51_7p4ep"]
+[ext_resource type="PackedScene" uid="uid://cxqsoc8anmpvj" path="res://entities/objects/fire/fire.tscn" id="52_irtdq"]
 [ext_resource type="PackedScene" uid="uid://dvv2sij5v2epd" path="res://entities/player/inventory/items/sodiumChemical/sodium.tscn" id="52_qqbdr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_23ck1"]
@@ -3506,6 +3507,7 @@ position = Vector2(10510, 2032)
 [node name="TileMap" type="TileMap" parent="."]
 light_mask = 0
 visibility_layer = 4
+z_index = 1
 texture_filter = 1
 scale = Vector2(3, 3)
 tile_set = SubResource("TileSet_4uw1x")
@@ -3597,3 +3599,6 @@ position = Vector2(815, 1147)
 
 [node name="MeleeEnemy" parent="." instance=ExtResource("49_nv1sn")]
 position = Vector2(1798, 1119)
+
+[node name="Fire" parent="." instance=ExtResource("52_irtdq")]
+position = Vector2(1104, 832)

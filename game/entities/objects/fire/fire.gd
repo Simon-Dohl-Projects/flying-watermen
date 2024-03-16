@@ -24,6 +24,7 @@ func _ready():
 		Sprite.texture = sprite
 		CollisionShape.shape = collision_shape.shape
 		Area.shape = collision_shape.shape
+	set_deferred("freeze", true)	
 	set_lock_rotation_enabled(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

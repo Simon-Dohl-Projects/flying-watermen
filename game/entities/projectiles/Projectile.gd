@@ -38,8 +38,8 @@ func _on_area_2d_body_entered(body):
 				body.heat_component.increase_heat(damage)
 		if to_spawn_on_impact:
 			var spawned_node: RigidBody2D = to_spawn_on_impact.instantiate()
-			spawned_node.position = global_position
-			var map = body.get_parent()
+			spawned_node.position = global_position - (linear_velocity / 20)
+			var map = find_parent("FirstMap")
 			map.add_child(spawned_node)
 		queue_free()
 	else:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://nshvq2t5ihc4"]
+[gd_scene load_steps=3 format=3 uid="uid://nshvq2t5ihc4"]
 
 [ext_resource type="PackedScene" uid="uid://ckxjw27a061ub" path="res://entities/projectiles/Projectile.tscn" id="1_la18k"]
+[ext_resource type="PackedScene" uid="uid://cxqsoc8anmpvj" path="res://entities/objects/fire/fire.tscn" id="2_gyd2f"]
 
 [node name="NapalmProjectile" type="Node2D"]
 
@@ -8,4 +9,4 @@
 element = 1
 speed = 800
 damage = 5
-to_spawn_on_impact = null
+to_spawn_on_impact = ExtResource("2_gyd2f")
