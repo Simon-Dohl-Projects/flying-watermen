@@ -11,7 +11,7 @@ var highest_progress: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ResourceLoader.load_threaded_request(scene_to_load)
+	ResourceLoader.load_threaded_request(scene_to_load, "", true)
 	animation.play("default")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
