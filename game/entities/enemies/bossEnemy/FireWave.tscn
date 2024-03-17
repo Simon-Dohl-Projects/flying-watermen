@@ -5,6 +5,8 @@
 
 [node name="FireWave" type="Node2D" node_paths=PackedStringArray("timer")]
 script = ExtResource("1_s2qyu")
+damage = null
+life_time = null
 circle_width = 16
 timer = NodePath("Timer")
 

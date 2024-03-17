@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://entities/enemies/bossEnemy/BossEnemy.gd" id="1_qajqb"]
 [ext_resource type="PackedScene" uid="uid://de1lxor656te5" path="res://entities/enemies/bossEnemy/FireWave.tscn" id="2_bgprt"]
-[ext_resource type="Texture2D" uid="uid://ui1gfleyoupx" path="res://assets/prototype-assets/Boss (Prototype).png" id="2_i2mnn"]
+[ext_resource type="Texture2D" uid="uid://bl32xnncawemd" path="res://entities/enemies/assets/FireBoss.png" id="3_bwu1y"]
 [ext_resource type="PackedScene" uid="uid://bxtfkclrv3vwa" path="res://entities/components/health/HealthComponent.tscn" id="3_ma8q6"]
 [ext_resource type="Texture2D" uid="uid://32uxotk6128m" path="res://entities/enemies/assets/healthbar_under.png" id="4_lbjiu"]
 [ext_resource type="Texture2D" uid="uid://drqht0p82ryru" path="res://entities/enemies/assets/healthbar_progress.png" id="5_06bnl"]
 [ext_resource type="PackedScene" uid="uid://bkweew02mcaim" path="res://entities/components/enemyComponents/enemyAggro/AggroComponent.tscn" id="6_2uwjm"]
 [ext_resource type="PackedScene" uid="uid://61g8e7mlxwj" path="res://entities/components/enemyComponents/movement/MovementComponent.tscn" id="7_lt55y"]
-[ext_resource type="PackedScene" path="res://entities/components/heat/HeatArea.tscn" id="9_oyriq"]
+[ext_resource type="PackedScene" uid="uid://u07y0x28am7y" path="res://entities/components/heat/HeatArea.tscn" id="9_oyriq"]
 [ext_resource type="PackedScene" uid="uid://tdd5ci5su0wo" path="res://entities/components/meleeCombat/MeleeComponent.tscn" id="10_7eh7u"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tk2cp"]
@@ -43,9 +43,9 @@ fire_wave_scene = ExtResource("2_bgprt")
 [node name="BossGraphics" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="BossGraphics"]
-scale = Vector2(6, 6)
-texture = ExtResource("2_i2mnn")
-metadata/_edit_lock_ = true
+position = Vector2(-1, -39)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_bwu1y")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 29)
