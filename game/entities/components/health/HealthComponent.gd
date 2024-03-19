@@ -60,6 +60,7 @@ func take_damage_overtime(amount: int, damage_type: Element.Type, time: int):
 	while can_take_damage_over_time >= 0:
 		can_take_damage_over_time -= 1
 		health -= 1
+		health_changed.emit(health, -1)
 		await get_tree().create_timer(0.3).timeout
 
 func heal(amount: int):
