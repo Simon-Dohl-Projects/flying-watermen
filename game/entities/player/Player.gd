@@ -12,6 +12,11 @@ var shoot_position: Marker2D:
 @onready var animation_tree: AnimationTree = $Animation/AnimationTree
 @onready var particle: Node2D = $Particles
 
+# save location
+var save_file_path: String = "user://save/"
+var save_file_name: String = "PlayerSave.tres"
+var player_data: PlayerData = PlayerData.new()
+
 # Reset values
 var base_scale_speed: float = 2
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * base_scale_speed
@@ -41,6 +46,8 @@ func _ready():
 	animation_tree.active = true
 	#Initialize values so Guards don't complain
 	set_expressions()
+	#preparations for saveing
+	verify_save_directory(save_file_path)
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("interact"):
@@ -53,6 +60,10 @@ func _input(event: InputEvent):
 		melee()
 	if event.is_action_pressed("right_click"):
 		shoot()
+	if event.is_action_pressed("savePlayer"):
+		save_Player()
+	if event.is_action_pressed("loadPlayer"):
+		load_player()
 
 func set_expressions():
 	state_chart.set_expression_property("crouching", Input.is_action_pressed("s"))
@@ -62,6 +73,32 @@ func set_expressions():
 
 func flip_player():
 	scale.x *= -1
+
+func verify_save_directory(path: String):
+	DirAccess.make_dir_absolute(path)
+
+func save_Player():
+	update_player_data()
+	ResourceSaver.save(player_data, save_file_path + save_file_name)
+	print("save")
+
+func update_player_data():
+	player_data.update_pos(self.position)
+	player_data.set_storedheat(heat_component.get_heat())
+	player_data.set_storedhealth(health_component.get_health())
+	player_data.set_storedabilities(abilities)
+
+func load_player():
+	player_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
+	update_Player_on_load()
+	print("loaded")
+
+func update_Player_on_load():
+	self.position = player_data.stored_pos
+	heat_component.set_heat(player_data.stored_heat)
+	health_component.set_health(player_data.stored_health)
+	health_component.update_healthbar()
+	abilities = player_data.stored_abilities
 
 func disenable_components(ranged: bool, melee: bool, movement: bool):
 	ranged_component.is_enabled = ranged

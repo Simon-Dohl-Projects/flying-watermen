@@ -96,3 +96,12 @@ func disable_iframes():
 
 func _on_health_changed(new_health: int, _delta_health: int) -> void:
 	if new_health <= 0: die()
+
+func get_health():
+	return health
+
+func set_health(value: int):
+	health = value
+
+func update_healthbar():
+	health_changed.emit(health, 0)
