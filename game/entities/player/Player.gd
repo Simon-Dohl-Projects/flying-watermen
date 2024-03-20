@@ -181,6 +181,7 @@ func _on_grounded_state_entered() -> void:
 #region Melee
 func melee():
 	melee_attack.attack()
+	$Animation/AnimationPlayer.play("melee")
 #endregion
 
 #region Shooting

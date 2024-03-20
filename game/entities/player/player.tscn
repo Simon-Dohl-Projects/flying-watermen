@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://djmlmtr41m2ce"]
+[gd_scene load_steps=122 format=3 uid="uid://djmlmtr41m2ce"]
 
 [ext_resource type="Script" path="res://entities/player/Player.gd" id="1_n7144"]
 [ext_resource type="PackedScene" uid="uid://d71bkm5ic0tt" path="res://entities/components/ranged/RangedComponent.tscn" id="2_32y2k"]
@@ -49,7 +49,14 @@
 [ext_resource type="Texture2D" uid="uid://b4setwdaw2rbn" path="res://entities/player/assets/jumpanimation/jump07.png" id="21_elgpx"]
 [ext_resource type="AudioStream" uid="uid://bbxhs7f4v3t41" path="res://assets/SFX/dash.wav" id="31_e7ort"]
 [ext_resource type="Texture2D" uid="uid://fv775xqmgpmo" path="res://assets/light_noise/white.jpg" id="32_b04or"]
+[ext_resource type="Texture2D" uid="uid://cy1gqd4iqmji5" path="res://entities/player/assets/meleeanimation/hit01.png" id="32_rvn34"]
+[ext_resource type="Texture2D" uid="uid://1yix35hwqnex" path="res://entities/player/assets/meleeanimation/hit02.png" id="33_yvmad"]
+[ext_resource type="Texture2D" uid="uid://cxv42pvt7lo8s" path="res://entities/player/assets/meleeanimation/hit03.png" id="34_u48qo"]
+[ext_resource type="Texture2D" uid="uid://cycvpu6ksi205" path="res://entities/player/assets/meleeanimation/hit04.png" id="35_sqauw"]
 [ext_resource type="PackedScene" uid="uid://ch6xnk5tnb5k8" path="res://visualEffects/monitorEffects.tscn" id="36_hryvp"]
+[ext_resource type="Texture2D" uid="uid://bstsr0xvgn5et" path="res://entities/player/assets/meleeanimation/hit05.png" id="36_ykxb2"]
+[ext_resource type="Texture2D" uid="uid://dgvvipptwpkn3" path="res://entities/player/assets/meleeanimation/hit06.png" id="37_fxy0t"]
+[ext_resource type="Texture2D" uid="uid://dewcvwmxjcg6l" path="res://entities/player/assets/meleeanimation/hit07.png" id="38_n4fxb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/animation_tree_state.gd" id="42_m0dwi"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/all_of_guard.gd" id="43_c4ing"]
 [ext_resource type="PackedScene" uid="uid://c5yieglatmln5" path="res://entities/player/chemicalEffects/chemicalEffectsManager.tscn" id="51_52a8d"]
@@ -158,6 +165,32 @@ animations = [{
 "speed": 10.0
 }, {
 "frames": [{
+"duration": 0.7,
+"texture": ExtResource("32_rvn34")
+}, {
+"duration": 2.5,
+"texture": ExtResource("33_yvmad")
+}, {
+"duration": 0.7,
+"texture": ExtResource("34_u48qo")
+}, {
+"duration": 0.7,
+"texture": ExtResource("35_sqauw")
+}, {
+"duration": 2.5,
+"texture": ExtResource("36_ykxb2")
+}, {
+"duration": 2.0,
+"texture": ExtResource("37_fxy0t")
+}, {
+"duration": 0.7,
+"texture": ExtResource("38_n4fxb")
+}],
+"loop": false,
+"name": &"melee",
+"speed": 10.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("13_cmf1i")
 }, {
@@ -179,7 +212,7 @@ animations = [{
 }]
 
 [sub_resource type="Animation" id="Animation_m8twy"]
-length = 0.3
+length = 0.45
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -187,7 +220,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.15, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
@@ -315,6 +348,34 @@ tracks/1/keys = {
 "values": ["jump"]
 }
 
+[sub_resource type="Animation" id="Animation_3h8xa"]
+resource_name = "melee"
+length = 0.98
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.32, 0.39, 0.46, 0.71, 0.91),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["melee"]
+}
+
 [sub_resource type="Animation" id="Animation_kbvwp"]
 length = 0.5
 loop_mode = 1
@@ -350,6 +411,7 @@ _data = {
 "ice": SubResource("Animation_by2ts"),
 "idle": SubResource("Animation_d84i6"),
 "jump": SubResource("Animation_gieuj"),
+"melee": SubResource("Animation_3h8xa"),
 "run": SubResource("Animation_kbvwp")
 }
 
@@ -642,8 +704,9 @@ unique_name_in_owner = true
 position = Vector2(1, -0.125001)
 scale = Vector2(0.3, 0.303125)
 sprite_frames = SubResource("SpriteFrames_pbewx")
-animation = &"dash"
+animation = &"melee"
 autoplay = "idle"
+frame = 6
 flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animation"]
