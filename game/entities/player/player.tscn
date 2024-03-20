@@ -642,7 +642,7 @@ unique_name_in_owner = true
 position = Vector2(1, -0.125001)
 scale = Vector2(0.3, 0.303125)
 sprite_frames = SubResource("SpriteFrames_pbewx")
-animation = &"dash"
+animation = &"idle"
 autoplay = "idle"
 flip_h = true
 

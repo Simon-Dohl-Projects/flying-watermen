@@ -32,6 +32,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg")
 
+[gui]
+
+theme/custom_font="res://assets/fonds/yb_tall_pretty/YBTallPretty.ttf"
+
 [input]
 
 right_click={
