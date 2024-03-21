@@ -55,11 +55,11 @@
 [ext_resource type="PackedScene" uid="uid://c5yieglatmln5" path="res://entities/player/chemicalEffects/chemicalEffectsManager.tscn" id="51_52a8d"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fuycp"]
-radius = 15.25
-height = 49.0
+radius = 24.75
+height = 81.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obf3n"]
-size = Vector2(67.9998, 44.5003)
+size = Vector2(85.5, 47.484)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pbewx"]
 animations = [{
@@ -431,6 +431,7 @@ curve = SubResource("Curve_cxabh")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sivy7"]
 particle_flag_disable_z = true
 particle_flag_damping_as_friction = true
+emission_shape_scale = Vector3(3.44, 0.055, 1)
 emission_shape = 1
 emission_sphere_radius = 14.5
 direction = Vector3(-1, -0.8, 0)
@@ -589,7 +590,6 @@ script = ExtResource("43_c4ing")
 guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_8q6k4"), SubResource("Resource_xgmgk")])
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 5
 floor_constant_speed = true
@@ -597,8 +597,7 @@ floor_snap_length = 23.0
 script = ExtResource("1_n7144")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-show_behind_parent = true
-position = Vector2(0, -15.5)
+position = Vector2(0, -25)
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_fuycp")
 debug_color = Color(0.917647, 0.172549, 0.568627, 0.419608)
@@ -623,7 +622,7 @@ attack_shape = NodePath("AttackShape")
 attack_color = Color(0.188235, 0.560784, 0.709804, 1)
 
 [node name="AttackShape" type="CollisionShape2D" parent="MeleeComponent"]
-position = Vector2(45.5001, -16.9998)
+position = Vector2(63.2502, -24.2575)
 shape = SubResource("RectangleShape2D_obf3n")
 debug_color = Color(1, 1, 1, 0.419608)
 
@@ -639,10 +638,10 @@ position = Vector2(0, -14.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animation"]
 unique_name_in_owner = true
-position = Vector2(1, -0.125001)
-scale = Vector2(0.3, 0.303125)
+position = Vector2(0, -11.5)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_pbewx")
-animation = &"dash"
+animation = &"idle"
 autoplay = "idle"
 flip_h = true
 
@@ -689,16 +688,16 @@ script = ExtResource("19_kqys4")
 
 [node name="WalkingParticles" type="GPUParticles2D" parent="Particles"]
 modulate = Color(0.1, 0.9, 100, 1)
-show_behind_parent = true
-position = Vector2(0, -14.5)
+position = Vector2(-7, -1)
+emitting = false
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_sivy7")
 texture = ExtResource("18_l2hsd")
-lifetime = 0.35
+lifetime = 0.3
 
 [node name="DashTrail" type="GPUParticles2D" parent="Particles"]
 material = SubResource("CanvasItemMaterial_tf7cu")
-position = Vector2(0, -14.5)
+position = Vector2(0, -24)
 emitting = false
 amount = 10
 sub_emitter = NodePath(".")
@@ -708,6 +707,7 @@ lifetime = 0.4
 one_shot = true
 
 [node name="Timers" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="HeatTick" type="Timer" parent="Timers"]
 autostart = true
