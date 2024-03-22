@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=3 uid="uid://djmlmtr41m2ce"]
+[gd_scene load_steps=123 format=3 uid="uid://djmlmtr41m2ce"]
 
 [ext_resource type="Script" path="res://entities/player/Player.gd" id="1_n7144"]
 [ext_resource type="PackedScene" uid="uid://d71bkm5ic0tt" path="res://entities/components/ranged/RangedComponent.tscn" id="2_32y2k"]
@@ -448,6 +448,9 @@ animation = &"ice"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7fmv2"]
 animation = &"ice"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a2cih"]
+animation = &"melee"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b1nr5"]
 advance_mode = 2
 
@@ -474,6 +477,8 @@ states/ice/node = SubResource("AnimationNodeAnimation_7fmv2")
 states/ice/position = Vector2(503, 25)
 "states/ice 2/node" = SubResource("AnimationNodeAnimation_dmnx8")
 "states/ice 2/position" = Vector2(298, 230)
+states/melee/node = SubResource("AnimationNodeAnimation_a2cih")
+states/melee/position = Vector2(676, 195)
 transitions = ["Start", "Default", SubResource("AnimationNodeStateMachineTransition_b1nr5"), "Default", "ice 2", SubResource("AnimationNodeStateMachineTransition_v43ie"), "ice 2", "Default", SubResource("AnimationNodeStateMachineTransition_e6j7h")]
 graph_offset = Vector2(-23, 95)
 
@@ -706,7 +711,6 @@ scale = Vector2(0.3, 0.303125)
 sprite_frames = SubResource("SpriteFrames_pbewx")
 animation = &"melee"
 autoplay = "idle"
-frame = 6
 flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animation"]
