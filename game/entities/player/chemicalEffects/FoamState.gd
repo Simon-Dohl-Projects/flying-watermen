@@ -11,7 +11,7 @@ func _on_foam_state_entered():
 	player.ranged_component.shot.connect(shooting_cost)
 	player.ranged_component.cooldown = shooting_cooldown
 
-func _on_foam_state_processing(delta):
+func _on_foam_state_processing(_delta):
 	if Input.is_action_pressed("right_click"):
 		player.shoot()
 

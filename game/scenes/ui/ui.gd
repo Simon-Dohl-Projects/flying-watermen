@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 
 func _ready():
+	visible = true
 	debugger.debug_node(player.state_chart)
 	debugger.visible = false
 

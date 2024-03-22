@@ -43,7 +43,6 @@ func _on_area_2d_body_entered(body):
 		gravity_scale = 0
 		var curr_pos: Vector2 = global_position
 		get_parent().call_deferred("reparent", body)
-		await get_parent().child_order_changed
 		top_level = false
 		global_position = curr_pos
 

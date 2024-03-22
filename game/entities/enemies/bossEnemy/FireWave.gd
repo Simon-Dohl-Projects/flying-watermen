@@ -40,8 +40,8 @@ func tic_down():
 func deal_dmg():
 	var player_distance: int = (player.global_position - self.global_position).length()
 	if inner_radius <= player_distance && player_distance <= outer_radius:
-		var health_component = player.get_node("HealthComponent")
-		if health_component.can_take_damage:
+		var health_component: HealthComponent = player.get_node("HealthComponent")
+		if not health_component.is_invincible and not health_component.has_iframes:
 			health_component.take_damage(damage, Element.Type.Fire)
 			player.get_node("HeatComponent").increase_heat(75)
 			can_damage = false

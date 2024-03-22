@@ -121,6 +121,7 @@ shape = SubResource("CircleShape2D_ol33t")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("_health_bar") instance=ExtResource("4_7dbns")]
 _health_bar = NodePath("HealthBar")
+use_damage_effect = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="HealthComponent"]
 offset_left = -50.0
