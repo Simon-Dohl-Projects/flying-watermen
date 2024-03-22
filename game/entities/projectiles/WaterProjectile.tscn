@@ -8,9 +8,9 @@
 [node name="Projectile" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_aypoh")]
 collision_mask = 5
 damage = 50
-sprite = NodePath("../Waterattack05")
+sprite = NodePath("Waterattack05")
 
-[node name="Waterattack05" type="Sprite2D" parent="."]
+[node name="Waterattack05" type="Sprite2D" parent="Projectile"]
 position = Vector2(-26, 2)
 rotation = -0.125664
 scale = Vector2(0.41, 0.41)
