@@ -11,6 +11,13 @@ func _ready():
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("f3"):
 		debugger.visible = !debugger.visible
+	if event.is_action_pressed("swap_shoot_type"):
+		if $ColorRect/MarginContainer/ColorRect/water.visible:
+			$ColorRect/MarginContainer/ColorRect/water.visible = false
+			$ColorRect/MarginContainer/ColorRect/foam.visible = true
+		else:
+			$ColorRect/MarginContainer/ColorRect/water.visible = true
+			$ColorRect/MarginContainer/ColorRect/foam.visible = false
 
 func _physics_process(_delta):
 	player.state_chart.set_expression_property("velocity_x", player.velocity.x)
