@@ -29,7 +29,7 @@ func _ready():
 	queue_free()
 
 func _on_area_2d_body_entered(body):
-	if body == self: return
+	if freeze: return
 	var health_component: HealthComponent = body.get_node_or_null("HealthComponent")
 	if !is_sticky:
 		if health_component:
@@ -40,13 +40,12 @@ func _on_area_2d_body_entered(body):
 	else:
 		if health_component:
 			health_component.take_damage_overtime(damage, element, 30)
-		linear_velocity = Vector2(0, 0)
-		gravity_scale = 0
+		call_deferred("set_freeze_enabled", true)
 		var curr_pos: Vector2 = global_position
-		get_parent().call_deferred("reparent", body)
-		collision_layer = 1
 		top_level = false
 		global_position = curr_pos
+		collision_layer = 1
+		get_parent().call_deferred("reparent", body)
 
 # Removes parent if it's only a placeholder for the projectile scene
 func _on_tree_exiting() -> void:
