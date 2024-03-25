@@ -5,7 +5,7 @@ class_name Collectable extends Interactable
 const COLLECT_DURATION: float = 0.03
 
 func _ready():
-	interact_hint = $PanelContainer
+	interact_hint = $EKeyDark
 	interact_hint.visible = false
 
 func collect(collector: Node):

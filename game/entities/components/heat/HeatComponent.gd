@@ -37,3 +37,9 @@ func _on_heat_tick():
 		health_component.take_damage(HEAT_DAMAGE_PER_TICK, Element.Type.Fire, false)
 	if heat_reduction_delay.is_stopped():
 		heat = maxi(heat - HEAT_REDUCTION_PER_TICK, 0)
+
+func get_heat():
+	return heat
+
+func set_heat(value: int):
+	heat = value

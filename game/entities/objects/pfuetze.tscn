@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://4qlm6ho7173m" path="res://assets/light_noise/offset_glow.png" id="3_3pshe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8yqx"]
-size = Vector2(223, 20)
+size = Vector2(215, 46.5)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jomah"]
 blend_mode = 1
@@ -28,7 +28,7 @@ curve = SubResource("Curve_fa5uq")
 lifetime_randomness = 0.59
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(100, 3, 1)
+emission_box_extents = Vector3(200, 3, 1)
 angle_max = 360.0
 direction = Vector3(0, -1, 0)
 initial_velocity_min = 0.3
@@ -46,20 +46,21 @@ collision_mask = 3
 script = ExtResource("1_ogjm0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
+position = Vector2(0, 7.75)
 shape = SubResource("RectangleShape2D_f8yqx")
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1, 48)
+position = Vector2(-1, 11)
 scale = Vector2(0.171875, 0.0726732)
 texture = ExtResource("2_8qdcc")
+region_enabled = true
+region_rect = Rect2(411.89, 1083.13, 1454.78, 664.169)
 metadata/_edit_lock_ = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 modulate = Color(0.553, 0.698, 1.2, 1)
 material = SubResource("CanvasItemMaterial_jomah")
-position = Vector2(-26, -1)
 scale = Vector2(0.5, 0.5)
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_jylbr")
