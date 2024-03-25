@@ -34,8 +34,8 @@ func _on_area_2d_body_entered(body):
 	if !is_sticky:
 		if health_component:
 			health_component.take_damage(damage, element)
-			if body is Player and element != Element.Type.Water:
-				body.heat_component.increase_heat(damage)
+		if body is Player and element != Element.Type.Water:
+			body.heat_component.increase_heat(damage)
 		if to_spawn_on_impact:
 			var spawned_node: RigidBody2D = to_spawn_on_impact.instantiate()
 			spawned_node.position = global_position - (linear_velocity / 20)
@@ -43,16 +43,19 @@ func _on_area_2d_body_entered(body):
 			map.add_child(spawned_node)
 		queue_free()
 	else:
-		if health_component:
+		stick(body,	health_component)
+		
+func stick(body, health_component):
+	if health_component:
 			health_component.take_damage_overtime(damage, element, 30)
-		linear_velocity = Vector2(0, 0)
-		gravity_scale = 0
-		var curr_pos: Vector2 = global_position
-		get_parent().call_deferred("reparent", body)
-		await get_parent().child_order_changed
-		top_level = false
-		global_position = curr_pos
-
+	linear_velocity = Vector2(0, 0)
+	gravity_scale = 0
+	var curr_pos: Vector2 = global_position
+	get_parent().call_deferred("reparent", body)
+	await get_parent().child_order_changed
+	top_level = false
+	global_position = curr_pos
+	
 # Removes parent if it's only a placeholder for the projectile scene
 func _on_tree_exiting() -> void:
 	if start_parent == get_parent() and not get_parent().get_script():

@@ -2,28 +2,28 @@ class_name  Fire extends RigidBody2D
 
 @export var scale_x: float = 0.1
 @export var scale_y: float = 0.1
-@export var sprite: Texture
+@export var sprite_texture: Texture
 @export var collision_shape: CollisionShape2D
 @export var damage_per_tick: int = 4
 
-@onready var Sprite = $Sprite2D
-@onready var CollisionShape = $CollisionShape2D
-@onready var Area = $Area2D/CollisionShape2D
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var hit_box: CollisionShape2D = $CollisionShape2D
+@onready var area: Area2D = $Area2D/CollisionShape2D
 
-var bodys_inside: Array[Object] 
+var bodys_inside: Array[Object] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Sprite.scale.x = scale_x
-	Sprite.scale.y = scale_y
-	CollisionShape.scale.x = scale_x
-	CollisionShape.scale.y = scale_y
-	Area.scale.x = scale_x
-	Area.scale.y = scale_y
-	if sprite && collision_shape:
-		Sprite.texture = sprite
-		CollisionShape.shape = collision_shape.shape
-		Area.shape = collision_shape.shape
+	sprite.scale.x = scale_x
+	sprite.scale.y = scale_y
+	hit_box.scale.x = scale_x
+	hit_box.scale.y = scale_y
+	area.scale.x = scale_x
+	area.scale.y = scale_y
+	if sprite_texture && collision_shape:
+		sprite.texture = sprite_texture
+		hit_box.shape = collision_shape.shape
+		area.shape = collision_shape.shape
 	set_deferred("freeze", true)	
 	set_lock_rotation_enabled(true)
 
