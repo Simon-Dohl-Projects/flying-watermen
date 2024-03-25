@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://c640sr08cvsmo"]
+[gd_scene load_steps=17 format=3 uid="uid://c640sr08cvsmo"]
 
 [ext_resource type="Script" path="res://entities/objects/stone-tablet/StoneTabletObject.gd" id="1_rrcxt"]
 [ext_resource type="Texture2D" uid="uid://ciey4ubnpykd2" path="res://entities/objects/stone-tablet/random_selection.png" id="2_shfwb"]
 [ext_resource type="Texture2D" uid="uid://c51h5t2yq11bo" path="res://entities/objects/stone-tablet/stonetablet_pickup.png" id="3_gpjlj"]
 [ext_resource type="Texture2D" uid="uid://dnmhggoppejaj" path="res://entities/objects/stone-tablet/podium.png" id="4_6sq6x"]
+[ext_resource type="Texture2D" uid="uid://bfv2i6fh1wtaa" path="res://assets/buttons/Dark/E_Key_Dark.png" id="4_mgokh"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gvhev"]
 blend_mode = 1
@@ -73,124 +74,25 @@ tracks/2/keys = {
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/3/type = "bezier"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:position:x")
+tracks/3/path = NodePath("GPUParticles2D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:position:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite2D:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/6/type = "bezier"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("FillLabel/RichTextLabel:position:x")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(22, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/7/type = "bezier"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("FillLabel/RichTextLabel:position:y")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(4, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/8/type = "bezier"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("FillLabel/RichTextLabel:rotation")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/9/type = "bezier"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("FillLabel:position:x")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-51, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/10/type = "bezier"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("FillLabel:position:y")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-89, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/11/type = "bezier"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("FillLabel:rotation")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("GPUParticles2D:position")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(3.55271e-15, 10)]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("GPUParticles2D:rotation")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -221,7 +123,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 25, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 22, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1, 2)
 }
 tracks/2/type = "bezier"
@@ -235,124 +137,25 @@ tracks/2/keys = {
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1, 2)
 }
-tracks/3/type = "bezier"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:position:x")
+tracks/3/path = NodePath("GPUParticles2D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:position:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0, 27, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite2D:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/6/type = "bezier"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("FillLabel/RichTextLabel:position:x")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(22, -0.25, 0, 0.25, 0, 22, -0.25, 0, 0.25, 0, 22, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/7/type = "bezier"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("FillLabel/RichTextLabel:position:y")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(4, -0.25, 0, 0.25, 0, 4, -0.25, 0, 0.25, 0, 4, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/8/type = "bezier"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("FillLabel/RichTextLabel:rotation")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/9/type = "bezier"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("FillLabel:position:x")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(-51, -0.25, 0, 0.25, 0, -51, -0.25, 0, 0.25, 0, -51, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/10/type = "bezier"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("FillLabel:position:y")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(-89, -0.25, 0, 0.25, 0, -64, -0.25, 0, 0.25, 0, -89, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/11/type = "bezier"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("FillLabel:rotation")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 2)
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("GPUParticles2D:position")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(3.55271e-15, 10), Vector2(2.11758e-22, 17), Vector2(3.55271e-15, 10)]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("GPUParticles2D:rotation")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
@@ -382,30 +185,6 @@ process_material = SubResource("ParticleProcessMaterial_kgpmb")
 texture = ExtResource("2_shfwb")
 lifetime = 1.5
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1, 2)
-scale = Vector2(0.06, 0.067)
-texture = ExtResource("3_gpjlj")
-
-[node name="FillLabel" type="Panel" parent="."]
-visible = false
-offset_left = -51.0
-offset_top = -89.0
-offset_right = 53.0
-offset_bottom = -56.0
-
-[node name="RichTextLabel" type="Label" parent="FillLabel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.034
-anchor_bottom = 0.034
-offset_left = 22.0
-offset_top = 4.0
-offset_right = 101.0
-offset_bottom = 28.0
-text = "Read 'E'
-"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_njm6v")
@@ -417,14 +196,27 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_6sq6x")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(2.5, 96)
 shape = SubResource("RectangleShape2D_thpy7")
+one_way_collision = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fe6uw")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(0, 2)
+scale = Vector2(0.06, 0.067)
+texture = ExtResource("3_gpjlj")
+
+[node name="EKeyDark" type="Sprite2D" parent="CollisionShape2D/Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(-16.6667, -970.149)
+scale = Vector2(6.66667, 5.97015)
+texture = ExtResource("4_mgokh")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

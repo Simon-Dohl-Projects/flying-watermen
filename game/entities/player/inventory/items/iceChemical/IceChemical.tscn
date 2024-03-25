@@ -8,7 +8,6 @@
 radius = 15.0
 
 [node name="IceChemical" type="RigidBody2D"]
-top_level = true
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

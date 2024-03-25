@@ -1,6 +1,6 @@
 class_name Interactable extends Area2D
 
-var interact_hint: Control = null
+var interact_hint: Node = null
 signal interacted(interactor: Node)
 
 func enable_interact_hint():

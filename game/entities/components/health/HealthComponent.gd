@@ -18,7 +18,6 @@ const SPEED_THRESHOLD: float = 25
 var heal_over_time_left: int = 0
 var health: int = 100
 var is_invincible: bool = false
-var has_iframes: bool = false
 
 var can_take_damage_over_time: int = 0
 
@@ -44,7 +43,7 @@ func take_damage(amount: int, damage_type: Element.Type, use_iframes: bool = tru
 	if not can_damage(damage_type): return
 	if amount <= 0: return
 	if use_iframes:
-		if has_iframes: return
+		if is_invincible: return
 		enable_iframes(0.1)
 		if use_damage_effect: damage_flash_effect()
 	health -= amount
@@ -56,13 +55,13 @@ func can_damage(damage_type: Element.Type) -> bool:
 
 # there is no need to use to check for iframes, cuz the func deals no primary dmg
 func take_damage_overtime(amount: int, damage_type: Element.Type, time: int):
-	if can_take_damage_over_time <= 5:
-		can_take_damage_over_time += 1
-		while time >= 0:
-			take_damage(amount, damage_type, false)
-			time -= 1
-			await get_tree().create_timer(0.3).timeout
+	if not can_damage(damage_type): return
+	can_take_damage_over_time += amount
+	while can_take_damage_over_time >= 0:
 		can_take_damage_over_time -= 1
+		health -= 1
+		health_changed.emit(health, -1)
+		await get_tree().create_timer(0.3).timeout
 
 func heal(amount: int):
 	health = mini(health + amount, max_health)
@@ -88,12 +87,21 @@ func damage_flash_effect():
 	sprite.modulate = Color(1,1,1)
 
 func enable_iframes(time: float):
-	has_iframes = true
+	is_invincible = true
 	iframe_duration.wait_time = time
 	iframe_duration.start()
 
 func disable_iframes():
-	has_iframes = false
+	is_invincible = false
 
 func _on_health_changed(new_health: int, _delta_health: int) -> void:
 	if new_health <= 0: die()
+
+func get_health():
+	return health
+
+func set_health(value: int):
+	health = value
+
+func update_healthbar():
+	health_changed.emit(health, 0)
