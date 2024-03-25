@@ -129,6 +129,7 @@ offset_bottom = 40.0
 layout_mode = 2
 offset_left = 8.0
 offset_top = 51.0
-offset_right = 187.0
+offset_right = 200.0
 offset_bottom = 134.0
-text = "Swap shot type on 'Q'"
+bbcode_enabled = true
+text = "Swap shot type on[img=40]res://assets/buttons/Dark/Q_Key_Dark.png"
