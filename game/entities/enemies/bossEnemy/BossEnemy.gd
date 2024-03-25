@@ -26,7 +26,7 @@ func _ready():
 
 func _physics_process(_delta: float):
 	var player_distance = abs(player.global_position.x - global_position.x)
-	if next_attack == Attacks.None:
+	if next_attack == null:
 		next_attack = high_level_KI(player_distance)
 	else:
 		try_attack(player_distance)

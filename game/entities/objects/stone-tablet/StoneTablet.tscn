@@ -372,6 +372,7 @@ _data = {
 size = Vector2(83, 72)
 
 [node name="StoneTablet" type="Node2D"]
+z_index = 75
 script = ExtResource("1_lg1td")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
@@ -406,9 +407,9 @@ anchors_preset = -1
 anchor_top = 0.034
 anchor_bottom = 0.034
 offset_left = 22.0
-offset_top = 4.0
+offset_top = 2.878
 offset_right = 101.0
-offset_bottom = 28.0
+offset_bottom = 26.878
 text = "Read 'E'
 "
 

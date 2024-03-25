@@ -8,7 +8,7 @@
 size = Vector2(24, 24)
 
 [node name="Sodium" type="RigidBody2D"]
-top_level = true
+z_index = 75
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
