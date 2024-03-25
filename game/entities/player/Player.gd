@@ -75,10 +75,6 @@ func set_shooting_type():
 		is_shooting_Water = true
 		projectile_scene = load("res://entities/projectiles/WaterProjectile.tscn")
 		ranged_component.cooldown = buildingFoam_shootcooldown
-	if event.is_action_pressed("savePlayer"):
-		save_Player()
-	if event.is_action_pressed("loadPlayer"):
-		load_player()
 
 func set_expressions():
 	state_chart.set_expression_property("crouching", Input.is_action_pressed("s"))
