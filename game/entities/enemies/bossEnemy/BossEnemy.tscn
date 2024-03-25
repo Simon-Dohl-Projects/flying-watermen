@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bgaxka266oy83"]
+[gd_scene load_steps=17 format=3 uid="uid://bgaxka266oy83"]
 
 [ext_resource type="Script" path="res://entities/enemies/bossEnemy/BossEnemy.gd" id="1_qajqb"]
 [ext_resource type="PackedScene" uid="uid://de1lxor656te5" path="res://entities/enemies/bossEnemy/FireWave.tscn" id="2_bgprt"]
@@ -8,8 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://drqht0p82ryru" path="res://entities/enemies/assets/healthbar_progress.png" id="5_06bnl"]
 [ext_resource type="PackedScene" uid="uid://bkweew02mcaim" path="res://entities/components/enemyComponents/enemyAggro/AggroComponent.tscn" id="6_2uwjm"]
 [ext_resource type="PackedScene" uid="uid://61g8e7mlxwj" path="res://entities/components/enemyComponents/movement/MovementComponent.tscn" id="7_lt55y"]
-[ext_resource type="PackedScene" path="res://entities/components/heat/HeatArea.tscn" id="9_oyriq"]
+[ext_resource type="PackedScene" uid="uid://u07y0x28am7y" path="res://entities/components/heat/HeatArea.tscn" id="9_oyriq"]
 [ext_resource type="PackedScene" uid="uid://tdd5ci5su0wo" path="res://entities/components/meleeCombat/MeleeComponent.tscn" id="10_7eh7u"]
+[ext_resource type="PackedScene" uid="uid://1kqni5b4lpm" path="res://entities/projectiles/FireProjectile.tscn" id="10_pw015"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tk2cp"]
 radius = 12.1
@@ -27,7 +28,7 @@ radius = 214.021
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecmqa"]
 size = Vector2(322.023, 128.817)
 
-[node name="BossEnemy" type="CharacterBody2D" node_paths=PackedStringArray("aggro_component", "melee_attack_low_component", "melee_attack_high_component", "movement_component", "wall_detection", "fire_wave_cooldown", "melee_cooldown")]
+[node name="BossEnemy" type="CharacterBody2D" node_paths=PackedStringArray("aggro_component", "melee_attack_low_component", "melee_attack_high_component", "movement_component", "wall_detection", "fire_wave_cooldown", "attack_cooldown", "change_current_attack")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_qajqb")
@@ -37,8 +38,10 @@ melee_attack_high_component = NodePath("MeleeAttackHigh")
 movement_component = NodePath("MovementComponent")
 wall_detection = NodePath("WallDetection/RayCast2d")
 fire_wave_cooldown = NodePath("FireWaveCooldown")
-melee_cooldown = NodePath("MeleeCooldown")
+attack_cooldown = NodePath("AttackCooldown")
+change_current_attack = NodePath("ChangeCurrentAttack")
 fire_wave_scene = ExtResource("2_bgprt")
+projectile_scene = ExtResource("10_pw015")
 
 [node name="BossGraphics" type="Node2D" parent="."]
 
@@ -88,14 +91,17 @@ view_area = NodePath("../ViewArea")
 health_component = NodePath("../HealthComponent")
 
 [node name="MovementComponent" parent="." node_paths=PackedStringArray("nodes_to_flip") instance=ExtResource("7_lt55y")]
+movement_speed = 60
 weight = 100.0
 nodes_to_flip = [NodePath("../BossGraphics"), NodePath("../WallDetection"), NodePath("../MeleeAttackLow"), NodePath("../MeleeAttackHigh")]
 
 [node name="FireWaveCooldown" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="MeleeCooldown" type="Timer" parent="."]
-wait_time = 1.5
+[node name="AttackCooldown" type="Timer" parent="."]
+
+[node name="ChangeCurrentAttack" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="HeatAreaFar" parent="." instance=ExtResource("9_oyriq")]
 collision_mask = 3
@@ -151,4 +157,5 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="value_changed" from="HealthComponent/HealthBar" to="." method="_on_health_bar_value_changed"]
 [connection signal="timeout" from="FireWaveCooldown" to="." method="_on_fire_wave_cooldown_timeout"]
-[connection signal="timeout" from="MeleeCooldown" to="." method="_on_melee_cooldown_timeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="ChangeCurrentAttack" to="." method="_on_change_current_attack_timeout"]

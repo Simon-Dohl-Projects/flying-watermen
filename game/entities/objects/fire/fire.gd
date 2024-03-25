@@ -8,7 +8,7 @@ class_name  Fire extends RigidBody2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var hit_box: CollisionShape2D = $CollisionShape2D
-@onready var area: Area2D = $Area2D/CollisionShape2D
+@onready var area: CollisionShape2D = $Area2D/CollisionShape2D
 
 var bodys_inside: Array[Object] = []
 

@@ -6,19 +6,25 @@ extends CharacterBody2D
 @export var movement_component: MovementComponent
 @export var wall_detection: RayCast2D
 @export var fire_wave_cooldown: Timer
-@export var melee_cooldown: Timer
+@export var attack_cooldown: Timer
+@export var change_current_attack: Timer
 @export var movement_speed_calm: int = 0
 @export var movement_speed_aggro: int = 150
 @export var fire_wave_scene: PackedScene
+@export var projectile_scene: PackedScene
 
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 
-enum Attacks {FireWave = 600, Melee = 300, None = 0}
+enum Attacks {FireWave = 600, FireBall = 500, Melee = 300, None = 0}
+
 const ATTACK_DISTANCE: int = 300
 const MOVEMENT_EPSILON_PIXELS: int = 230
+# Random angle applied to shooting direction is at most SHOOTING_PRECISION
+const SHOOTING_PRECISION: float = PI/4
+
 var next_attack: Attacks = Attacks.FireWave
 var is_fire_wave_cd: bool = false
-var is_melee_cd: bool = false
+var is_attack_cd: bool = false
 
 func _ready():
 	aggro_component.aggro_entered.connect(on_aggro_entered)
@@ -27,7 +33,8 @@ func _ready():
 func _physics_process(_delta: float):
 	var player_distance = abs(player.global_position.x - global_position.x)
 	if next_attack == Attacks.None:
-		next_attack = high_level_KI(player_distance)
+		next_attack = choose_attack(player_distance)
+		change_current_attack.start()
 	else:
 		try_attack(player_distance)
 	hunt_player() if aggro_component.is_aggro else idle_movement()
@@ -59,16 +66,21 @@ func on_aggro_entered():
 func on_calm_entered():
 	movement_component.movement_speed = movement_speed_calm
 
-# retard naming :/
-func high_level_KI(_player_distance):
-	if randi() % 2:
-		return Attacks.Melee
-	return Attacks.FireWave
+func choose_attack(_player_distance):
+	match randi() % 5:
+		0:
+			return Attacks.FireWave
+		1:
+			return Attacks.FireBall
+		_:
+			return Attacks.Melee
 
 func try_attack(player_distance):
-	if player_distance < next_attack:
+	if player_distance < next_attack && not is_attack_cd:
 		attack(next_attack)
 		next_attack = Attacks.None
+		is_attack_cd = true
+		attack_cooldown.start()
 
 func attack(attack_type):
 	match attack_type:
@@ -76,6 +88,8 @@ func attack(attack_type):
 			do_fire_wave()
 		Attacks.Melee:
 			do_melee_attack()
+		Attacks.FireBall:
+			do_fire_ball()
 		Attacks.None:
 			pass
 
@@ -88,21 +102,35 @@ func do_fire_wave():
 		fire_wave_cooldown.start()
 
 func do_melee_attack():
-	if not is_melee_cd:
-		if attack_decision():
-			melee_attack_low_component.attack()
-		else:
-			melee_attack_high_component.attack()
-		is_melee_cd = true
-		melee_cooldown.start()
+	if attack_decision():
+		melee_attack_low_component.attack()
+	else:
+		melee_attack_high_component.attack()
 
+func do_fire_ball():
+	for i in range (randi() % 3 + 1):
+		shoot_fire_ball()
+	
+func shoot_fire_ball():
+	var projectile: Node2D = projectile_scene.instantiate()
+	var projectile_instance: Projectile = projectile.get_node("Projectile")
+	var random_angle: float = randf()*SHOOTING_PRECISION - (SHOOTING_PRECISION/2)
+	projectile_instance.global_position = global_position
+	var direction: Vector2 = Vector2(0, -1)
+	projectile_instance.direction = direction.rotated(random_angle)
+	get_parent().get_parent().add_child(projectile)
+	
 func _on_fire_wave_cooldown_timeout():
 	is_fire_wave_cd = false
 
-func _on_melee_cooldown_timeout():
-	is_melee_cd = false
+func _on_attack_cooldown_timeout():
+	is_attack_cd = false
 
 func attack_decision():
 	if randi() % 2:
 		return true
 	return false
+
+
+func _on_change_current_attack_timeout():
+	next_attack = Attacks.None
