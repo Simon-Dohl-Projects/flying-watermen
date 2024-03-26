@@ -25,7 +25,7 @@ func _ready():
 		hit_box.shape = collision_shape.shape
 		area.shape = collision_shape.shape
 	set_deferred("freeze", true)	
-	set_lock_rotation_enabled(true)
+	#set_lock_rotation_enabled(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

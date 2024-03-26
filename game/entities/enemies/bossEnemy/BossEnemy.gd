@@ -14,6 +14,8 @@ extends CharacterBody2D
 @export var projectile_scene: PackedScene
 
 @onready var player: Player = get_tree().get_first_node_in_group("player")
+@onready var color_rect_low: ColorRect = $MeleeAttackLow/ColorRectLow
+@onready var color_rect_high: ColorRect = $MeleeAttackHigh/ColorRectHigh
 
 enum Attacks {FireWave = 600, FireBall = 500, Melee = 300, None = 0}
 
@@ -21,14 +23,17 @@ const ATTACK_DISTANCE: int = 300
 const MOVEMENT_EPSILON_PIXELS: int = 230
 # Random angle applied to shooting direction is at most SHOOTING_PRECISION
 const SHOOTING_PRECISION: float = PI/4
+const ATTACK_HINT_TIME: float = 0.3
 
-var next_attack: Attacks = Attacks.FireWave
+var next_attack: Attacks = Attacks.None
 var is_fire_wave_cd: bool = false
 var is_attack_cd: bool = false
 
 func _ready():
 	aggro_component.aggro_entered.connect(on_aggro_entered)
 	aggro_component.calm_entered.connect(on_calm_entered)
+	color_rect_low.visible = false
+	color_rect_high.visible = false
 
 func _physics_process(_delta: float):
 	var player_distance = abs(player.global_position.x - global_position.x)
@@ -103,9 +108,15 @@ func do_fire_wave():
 
 func do_melee_attack():
 	if attack_decision():
+		color_rect_low.visible = true
+		await get_tree().create_timer(ATTACK_HINT_TIME).timeout
 		melee_attack_low_component.attack()
+		color_rect_low.visible = false
 	else:
+		color_rect_high.visible = true
+		await get_tree().create_timer(ATTACK_HINT_TIME).timeout
 		melee_attack_high_component.attack()
+		color_rect_high.visible = false
 
 func do_fire_ball():
 	for i in range (randi() % 3 + 1):
@@ -127,10 +138,10 @@ func _on_attack_cooldown_timeout():
 	is_attack_cd = false
 
 func attack_decision():
-	if randi() % 2:
-		return true
-	return false
-
-
+	var ret: bool = player.global_position.y > global_position.y + 100
+	if randi() % 5 == 0:
+		return not ret
+	return ret
+	
 func _on_change_current_attack_timeout():
 	next_attack = Attacks.None
