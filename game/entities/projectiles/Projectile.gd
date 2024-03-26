@@ -17,6 +17,7 @@ var velocity_offset: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
 var start_parent: Node = get_parent()
 
+
 func _ready():
 	top_level = true
 	hitbox.collision_mask = new_collision_mask
@@ -51,3 +52,14 @@ func _on_area_2d_body_entered(body):
 func _on_tree_exiting() -> void:
 	if start_parent == get_parent() and not get_parent().get_script():
 		get_parent().queue_free()
+
+func _set_tween():
+	var tween = get_tree().create_tween()
+	var float_life_time_seconds: float = life_time_seconds
+	tween.tween_method(_set_shader_value, 0.0, float_life_time_seconds, life_time_seconds) # args are: (method to call / start value / end value / duration of animation)
+	$Sprite2D.material.set("shader_parameter/blink_toogle", true)
+
+# tween value automatically gets passed into this function
+func _set_shader_value(value: float):
+	# in my case i'm tweening a shader on a texture rect, but you can use anything with a material on it
+	$Sprite2D.material.set("shader_parameter/blink_speed", value);

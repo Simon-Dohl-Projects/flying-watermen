@@ -43,7 +43,7 @@ var abilities: Dictionary = {
 }
 # Shoottype
 var is_shooting_Water: bool = true
-var buildingFoam_shootcooldown: float = 0.05
+var buildingFoam_shootcooldown: float = 0.3
 
 func _ready():
 	animation_tree.active = true
