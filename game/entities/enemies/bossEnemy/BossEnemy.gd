@@ -38,7 +38,7 @@ func _ready():
 	aggro_component.calm_entered.connect(on_calm_entered)
 	color_rect_low.visible = false
 	color_rect_high.visible = false
-	fire_detection.collision_mask = 0
+	fire_detection.collision_mask = 8
 	attack_cooldown.wait_time = 1.5
 	
 func _physics_process(_delta: float):
@@ -80,9 +80,9 @@ func on_calm_entered():
 func choose_attack(_player_distance):
 	match randi() % 3:
 		0:
-			return Attacks.FireWave
+			return Attacks.FireBall
 		1:
-			return Attacks.Melee
+			return Attacks.FireBall
 		_:
 			return Attacks.FireBall
 
@@ -156,18 +156,15 @@ func _on_change_current_attack_timeout():
 func _on_health_component_health_changed(new_health, delta_health):
 	if not is_in_second_phase && new_health < health_component.max_health / 2:
 		is_in_second_phase = true
-		fire_detection.collision_mask = 8
 		attack_cooldown.start()
 		await get_tree().create_timer(0.2).timeout
 		print(fire_in_range)
 		for fire in fire_in_range:
-			fire.queue_free()
+			fire.fly_towards(self)
 			health_component.heal(50)
 			await get_tree().create_timer(0.3).timeout
 		attack_cooldown.wait_time = 0.8
-		fire_detection.collision_mask = 0
 
 func _on_fire_detection_body_entered(body):
-	if body is Fire:
+	if body is Fire && not fire_in_range.has(body):
 		fire_in_range.append(body)
-		print(body)

@@ -24,7 +24,7 @@ func _ready():
 		sprite.texture = sprite_texture
 		hit_box.shape = collision_shape.shape
 		area.shape = collision_shape.shape
-	set_deferred("freeze", true)	
+	set_deferred("freeze", true)
 	#set_lock_rotation_enabled(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,4 +39,12 @@ func _on_body_entered(body):
 	bodys_inside.append(body)
 
 func _on_body_exited(body):
-	bodys_inside.erase(body)
+	bodys_inside.erase(body)#
+	
+func fly_towards(body):
+	$Area2D.collision_mask = 0
+	var tween = create_tween()
+	tween.tween_property(self, "position", body.global_position, 0.3)
+	tween.tween_property(self, "scale", Vector2.ZERO, 0.3)
+	tween.finished.connect(self.queue_free)
+

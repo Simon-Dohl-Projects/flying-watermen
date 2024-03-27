@@ -37,10 +37,10 @@ func _on_area_2d_body_entered(body):
 		if body is Player and element != Element.Type.Water:
 			body.heat_component.increase_heat(damage)
 		if to_spawn_on_impact:
-			var spawned_node: RigidBody2D = to_spawn_on_impact.instantiate()
+			var spawned_node: Node2D = to_spawn_on_impact.instantiate()
 			spawned_node.position = global_position - (linear_velocity / 20)
 			var map = find_parent("FirstMap")
-			map.add_child(spawned_node)
+			map.add_child.call_deferred(spawned_node)
 		queue_free()
 	else:
 		stick(body,	health_component)
