@@ -17,6 +17,7 @@ var direction: Vector2 = Vector2.ZERO
 var start_parent: Node = get_parent()
 
 func _ready():
+	visible = false
 	top_level = true
 	hitbox.collision_mask = new_collision_mask
 	if collision_shape:
@@ -31,6 +32,7 @@ func _ready():
 
 func _integrate_forces(state):
 	rotation = linear_velocity.angle()
+	if not visible: visible = true
 
 func _on_area_2d_body_entered(body):
 	var health_component: HealthComponent = body.get_node_or_null("HealthComponent")
