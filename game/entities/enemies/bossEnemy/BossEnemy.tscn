@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bgaxka266oy83"]
+[gd_scene load_steps=18 format=3 uid="uid://bgaxka266oy83"]
 
 [ext_resource type="Script" path="res://entities/enemies/bossEnemy/BossEnemy.gd" id="1_qajqb"]
 [ext_resource type="PackedScene" uid="uid://de1lxor656te5" path="res://entities/enemies/bossEnemy/FireWave.tscn" id="2_bgprt"]
@@ -27,6 +27,9 @@ radius = 214.021
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecmqa"]
 size = Vector2(322.023, 128.817)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bvbuf"]
+radius = 1239.34
 
 [node name="BossEnemy" type="CharacterBody2D" node_paths=PackedStringArray("aggro_component", "melee_attack_low_component", "melee_attack_high_component", "movement_component", "wall_detection", "fire_wave_cooldown", "attack_cooldown", "change_current_attack")]
 collision_layer = 4
@@ -99,6 +102,7 @@ nodes_to_flip = [NodePath("../BossGraphics"), NodePath("../WallDetection"), Node
 wait_time = 5.0
 
 [node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 1.5
 
 [node name="ChangeCurrentAttack" type="Timer" parent="."]
 wait_time = 2.0
@@ -166,6 +170,13 @@ offset_right = 352.0
 offset_bottom = 52.0001
 color = Color(0.196078, 0.196078, 0.196078, 0.352941)
 
+[node name="FireDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireDetection"]
+shape = SubResource("CircleShape2D_bvbuf")
+
 [connection signal="body_entered" from="ViewArea" to="." method="_on_view_area_body_entered"]
 [connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]
 [connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]
@@ -174,3 +185,4 @@ color = Color(0.196078, 0.196078, 0.196078, 0.352941)
 [connection signal="timeout" from="FireWaveCooldown" to="." method="_on_fire_wave_cooldown_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="ChangeCurrentAttack" to="." method="_on_change_current_attack_timeout"]
+[connection signal="body_entered" from="FireDetection" to="." method="_on_fire_detection_body_entered"]

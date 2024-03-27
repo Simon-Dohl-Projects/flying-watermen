@@ -16,6 +16,8 @@ extends CharacterBody2D
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var color_rect_low: ColorRect = $MeleeAttackLow/ColorRectLow
 @onready var color_rect_high: ColorRect = $MeleeAttackHigh/ColorRectHigh
+@onready var fire_detection: Area2D = $FireDetection
+@onready var health_component: HealthComponent = $HealthComponent
 
 enum Attacks {FireWave = 600, FireBall = 500, Melee = 300, None = 0}
 
@@ -28,13 +30,17 @@ const ATTACK_HINT_TIME: float = 0.3
 var next_attack: Attacks = Attacks.None
 var is_fire_wave_cd: bool = false
 var is_attack_cd: bool = false
+var is_in_second_phase: bool = false
+var fire_in_range: Array[Object] = []
 
 func _ready():
 	aggro_component.aggro_entered.connect(on_aggro_entered)
 	aggro_component.calm_entered.connect(on_calm_entered)
 	color_rect_low.visible = false
 	color_rect_high.visible = false
-
+	fire_detection.collision_mask = 0
+	attack_cooldown.wait_time = 1.5
+	
 func _physics_process(_delta: float):
 	var player_distance = abs(player.global_position.x - global_position.x)
 	if next_attack == Attacks.None:
@@ -72,13 +78,13 @@ func on_calm_entered():
 	movement_component.movement_speed = movement_speed_calm
 
 func choose_attack(_player_distance):
-	match randi() % 5:
+	match randi() % 3:
 		0:
 			return Attacks.FireWave
 		1:
-			return Attacks.FireBall
-		_:
 			return Attacks.Melee
+		_:
+			return Attacks.FireBall
 
 func try_attack(player_distance):
 	if player_distance < next_attack && not is_attack_cd:
@@ -145,3 +151,23 @@ func attack_decision():
 	
 func _on_change_current_attack_timeout():
 	next_attack = Attacks.None
+
+
+func _on_health_component_health_changed(new_health, delta_health):
+	if not is_in_second_phase && new_health < health_component.max_health / 2:
+		is_in_second_phase = true
+		fire_detection.collision_mask = 8
+		attack_cooldown.start()
+		await get_tree().create_timer(0.2).timeout
+		print(fire_in_range)
+		for fire in fire_in_range:
+			fire.queue_free()
+			health_component.heal(50)
+			await get_tree().create_timer(0.3).timeout
+		attack_cooldown.wait_time = 0.8
+		fire_detection.collision_mask = 0
+
+func _on_fire_detection_body_entered(body):
+	if body is Fire:
+		fire_in_range.append(body)
+		print(body)
