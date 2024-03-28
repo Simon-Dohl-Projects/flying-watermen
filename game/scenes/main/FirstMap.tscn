@@ -3600,4 +3600,7 @@ position = Vector2(815, 1147)
 position = Vector2(1798, 1119)
 
 [node name="Fire" parent="." instance=ExtResource("52_irtdq")]
-position = Vector2(1104, 832)
+position = Vector2(15939, 307)
+freeze = true
+scale_x = 0.625
+scale_y = 0.5
