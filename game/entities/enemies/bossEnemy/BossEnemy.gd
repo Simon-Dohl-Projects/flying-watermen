@@ -8,8 +8,9 @@ extends CharacterBody2D
 @export var fire_wave_cooldown: Timer
 @export var attack_cooldown: Timer
 @export var change_current_attack: Timer
+@export var dash_timeout: Timer
 @export var movement_speed_calm: int = 0
-@export var movement_speed_aggro: int = 150
+@export var movement_speed_aggro: int = 100
 @export var fire_wave_scene: PackedScene
 @export var projectile_scene: PackedScene
 
@@ -19,10 +20,9 @@ extends CharacterBody2D
 @onready var fire_detection: Area2D = $FireDetection
 @onready var health_component: HealthComponent = $HealthComponent
 
-enum Attacks {FireWave = 600, FireBall = 500, Melee = 300, None = 0}
+enum Attacks {FireWave = 1100, Dash = 900, FireBall = 800, Melee = 400, None = 0}
 
-const ATTACK_DISTANCE: int = 300
-const MOVEMENT_EPSILON_PIXELS: int = 230
+const MOVEMENT_EPSILON_PIXELS: int = 250
 # Random angle applied to shooting direction is at most SHOOTING_PRECISION
 const SHOOTING_PRECISION: float = PI/4
 const ATTACK_HINT_TIME: float = 0.3
@@ -32,14 +32,16 @@ var is_fire_wave_cd: bool = false
 var is_attack_cd: bool = false
 var is_in_second_phase: bool = false
 var fire_in_range: Array[Object] = []
+var direciton_lock: bool = false
 
 func _ready():
+	movement_component.change_move_direction(movement_component.Movement_Direction.Left)
 	aggro_component.aggro_entered.connect(on_aggro_entered)
 	aggro_component.calm_entered.connect(on_calm_entered)
 	color_rect_low.visible = false
 	color_rect_high.visible = false
 	fire_detection.collision_mask = 8
-	attack_cooldown.wait_time = 1.5
+	attack_cooldown.wait_time = 5
 	
 func _physics_process(_delta: float):
 	var player_distance = abs(player.global_position.x - global_position.x)
@@ -57,15 +59,13 @@ func idle_movement():
 func hunt_player():
 	if wall_detection.is_colliding():
 		movement_component.jump(1)
-	var player_direction: int = sign(player.global_position.x - global_position.x)
-	var player_distance: float = abs(player.global_position.x - global_position.x)
-	if abs(player_distance) < MOVEMENT_EPSILON_PIXELS:
-		movement_component.movement_direction = movement_component.Movement_Direction.No
-		return
-	if player_direction == movement_component.Movement_Direction.Right:
-		movement_component.change_move_direction(movement_component.Movement_Direction.Right)
-	else:
-		movement_component.change_move_direction(movement_component.Movement_Direction.Left)
+	if not direciton_lock:
+		var player_direction: int = sign(player.global_position.x - global_position.x)
+		var player_distance: float = abs(player.global_position.x - global_position.x)
+		if abs(player_distance) < MOVEMENT_EPSILON_PIXELS:
+			movement_component.movement_direction = movement_component.Movement_Direction.No
+			return
+		movement_component.change_move_direction(player_direction)
 
 func on_aggro_entered():
 	# This introduces the little jump
@@ -75,16 +75,21 @@ func on_aggro_entered():
 	movement_component.movement_speed = movement_speed_aggro
 
 func on_calm_entered():
+	if not dash_timeout.is_stopped():
+		await dash_timeout.is_stopped()
 	movement_component.movement_speed = movement_speed_calm
 
 func choose_attack(_player_distance):
-	match randi() % 3:
+	return Attacks.Dash
+	match randi() % 5:
 		0:
-			return Attacks.FireBall
+			return Attacks.FireWave
 		1:
 			return Attacks.FireBall
+		2:
+			return Attacks.Dash
 		_:
-			return Attacks.FireBall
+			return Attacks.Melee
 
 func try_attack(player_distance):
 	if player_distance < next_attack && not is_attack_cd:
@@ -101,6 +106,8 @@ func attack(attack_type):
 			do_melee_attack()
 		Attacks.FireBall:
 			do_fire_ball()
+		Attacks.Dash:
+			do_Dash()
 		Attacks.None:
 			pass
 
@@ -128,6 +135,20 @@ func do_fire_ball():
 	for i in range (randi() % 3 + 1):
 		shoot_fire_ball()
 	
+func do_Dash():
+	if movement_component.movement_speed == movement_speed_calm:
+		return
+	var player_direction: int = sign(player.global_position.x - global_position.x)
+	direciton_lock = true
+	movement_component.jump(1)
+	movement_component.change_move_direction(player_direction)
+	movement_component.movement_speed = movement_speed_aggro * 10
+	@warning_ignore("narrowing_conversion")
+	health_component.is_invincible = true
+	collision_mask = 1
+	collision_layer = 0
+	dash_timeout.start()
+
 func shoot_fire_ball():
 	var projectile: Node2D = projectile_scene.instantiate()
 	var projectile_instance: Projectile = projectile.get_node("Projectile")
@@ -152,13 +173,11 @@ func attack_decision():
 func _on_change_current_attack_timeout():
 	next_attack = Attacks.None
 
-
 func _on_health_component_health_changed(new_health, delta_health):
 	if not is_in_second_phase && new_health < health_component.max_health / 2:
 		is_in_second_phase = true
 		attack_cooldown.start()
 		await get_tree().create_timer(0.2).timeout
-		print(fire_in_range)
 		for fire in fire_in_range:
 			fire.fly_towards(self)
 			health_component.heal(50)
@@ -168,3 +187,10 @@ func _on_health_component_health_changed(new_health, delta_health):
 func _on_fire_detection_body_entered(body):
 	if body is Fire && not fire_in_range.has(body):
 		fire_in_range.append(body)
+
+func _on_dash_timeout_timeout():
+	collision_mask = 3
+	collision_layer = 4
+	health_component.is_invincible = false
+	movement_component.movement_speed = movement_speed_aggro
+	direciton_lock = false

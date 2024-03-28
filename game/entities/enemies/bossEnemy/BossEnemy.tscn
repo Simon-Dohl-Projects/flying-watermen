@@ -17,7 +17,7 @@ radius = 12.1
 height = 31.8
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b6d2v"]
-radius = 590.001
+radius = 956.008
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rq7qr"]
 radius = 324.025
@@ -31,7 +31,7 @@ size = Vector2(322.023, 128.817)
 [sub_resource type="CircleShape2D" id="CircleShape2D_bvbuf"]
 radius = 684.134
 
-[node name="BossEnemy" type="CharacterBody2D" node_paths=PackedStringArray("aggro_component", "melee_attack_low_component", "melee_attack_high_component", "movement_component", "wall_detection", "fire_wave_cooldown", "attack_cooldown", "change_current_attack")]
+[node name="BossEnemy" type="CharacterBody2D" node_paths=PackedStringArray("aggro_component", "melee_attack_low_component", "melee_attack_high_component", "movement_component", "wall_detection", "fire_wave_cooldown", "attack_cooldown", "change_current_attack", "dash_timeout")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_qajqb")
@@ -43,6 +43,7 @@ wall_detection = NodePath("WallDetection/RayCast2d")
 fire_wave_cooldown = NodePath("FireWaveCooldown")
 attack_cooldown = NodePath("AttackCooldown")
 change_current_attack = NodePath("ChangeCurrentAttack")
+dash_timeout = NodePath("DashTimeout")
 fire_wave_scene = ExtResource("2_bgprt")
 projectile_scene = ExtResource("3_c4m3v")
 
@@ -76,7 +77,7 @@ metadata/_edit_lock_ = true
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("_health_bar") instance=ExtResource("3_ma8q6")]
 scale = Vector2(2, 1)
-max_health = 400
+max_health = 600
 _health_bar = NodePath("HealthBar")
 
 [node name="HealthBar" type="TextureProgressBar" parent="HealthComponent"]
@@ -94,8 +95,7 @@ view_area = NodePath("../ViewArea")
 health_component = NodePath("../HealthComponent")
 
 [node name="MovementComponent" parent="." node_paths=PackedStringArray("nodes_to_flip") instance=ExtResource("7_lt55y")]
-movement_speed = 60
-weight = 100.0
+weight = 10.0
 nodes_to_flip = [NodePath("../BossGraphics"), NodePath("../WallDetection"), NodePath("../MeleeAttackLow"), NodePath("../MeleeAttackHigh")]
 
 [node name="FireWaveCooldown" type="Timer" parent="."]
@@ -105,7 +105,10 @@ wait_time = 5.0
 wait_time = 1.5
 
 [node name="ChangeCurrentAttack" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.25
+
+[node name="DashTimeout" type="Timer" parent="."]
+one_shot = true
 
 [node name="HeatAreaFar" parent="." instance=ExtResource("9_oyriq")]
 collision_mask = 3
@@ -185,4 +188,5 @@ shape = SubResource("CircleShape2D_bvbuf")
 [connection signal="timeout" from="FireWaveCooldown" to="." method="_on_fire_wave_cooldown_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="ChangeCurrentAttack" to="." method="_on_change_current_attack_timeout"]
+[connection signal="timeout" from="DashTimeout" to="." method="_on_dash_timeout_timeout"]
 [connection signal="body_entered" from="FireDetection" to="." method="_on_fire_detection_body_entered"]
