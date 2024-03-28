@@ -44,11 +44,11 @@ func _process(delta):
 		for body in bodys_inside:
 			var health_component: HealthComponent = body.get_node_or_null("HealthComponent")
 			apply_fire_tick(body, health_component)
-				
+
 func apply_fire_tick(body, health_component):
 	if health_component:
-				health_component.take_damage(damage_per_tick, Element.Type.Fire)
-				body.heat_component.increase_heat(damage_per_tick)
+		health_component.take_damage(damage_per_tick, Element.Type.Fire)
+		body.heat_component.increase_heat(damage_per_tick)
 
 func _on_body_entered(body):
 	bodys_inside.append(body)
