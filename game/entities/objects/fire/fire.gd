@@ -43,7 +43,10 @@ func _process(delta):
 	if not Engine.is_editor_hint():
 		for body in bodys_inside:
 			var health_component: HealthComponent = body.get_node_or_null("HealthComponent")
-			if health_component:
+			apply_fire_tick(body, health_component)
+				
+func apply_fire_tick(body, health_component):
+	if health_component:
 				health_component.take_damage(damage_per_tick, Element.Type.Fire)
 				body.heat_component.increase_heat(damage_per_tick)
 

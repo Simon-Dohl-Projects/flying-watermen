@@ -12,18 +12,22 @@ size = Vector2(933.75, 2295.19)
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 0
+freeze = true
 script = ExtResource("1_p2r7l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_q28x2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_ougay")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_ougay")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("_health_bar") instance=ExtResource("3_p8tfa")]

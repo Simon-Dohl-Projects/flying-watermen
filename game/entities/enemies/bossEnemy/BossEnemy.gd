@@ -32,7 +32,7 @@ var is_fire_wave_cd: bool = false
 var is_attack_cd: bool = false
 var is_in_second_phase: bool = false
 var fire_in_range: Array[Object] = []
-var direciton_lock: bool = false
+var is_direciton_locked: bool = false
 
 func _ready():
 	movement_component.change_move_direction(movement_component.Movement_Direction.Left)
@@ -59,7 +59,7 @@ func idle_movement():
 func hunt_player():
 	if wall_detection.is_colliding():
 		movement_component.jump(1)
-	if not direciton_lock:
+	if not is_direciton_locked:
 		var player_direction: int = sign(player.global_position.x - global_position.x)
 		var player_distance: float = abs(player.global_position.x - global_position.x)
 		movement_component.change_move_direction(player_direction)
@@ -137,7 +137,7 @@ func do_Dash():
 	if movement_component.movement_speed == movement_speed_calm:
 		return
 	var player_direction: int = sign(player.global_position.x - global_position.x)
-	direciton_lock = true
+	is_direciton_locked = true
 	movement_component.jump(1)
 	movement_component.change_move_direction(player_direction)
 	movement_component.movement_speed = movement_speed_aggro * 10
@@ -163,10 +163,11 @@ func _on_attack_cooldown_timeout():
 	is_attack_cd = false
 
 func attack_decision():
-	var ret: bool = player.global_position.y > global_position.y + 100
+	#das ich das so nennen muss ist sehr Fragwürdig ._.
+	var has_return: bool = player.global_position.y > global_position.y + 100
 	if randi() % 5 == 0:
-		return not ret
-	return ret
+		return not has_return
+	return has_return
 	
 func _on_change_current_attack_timeout():
 	next_attack = Attacks.None
@@ -191,4 +192,4 @@ func _on_dash_timeout_timeout():
 	collision_layer = 4
 	health_component.is_invincible = false
 	movement_component.movement_speed = movement_speed_aggro
-	direciton_lock = false
+	is_direciton_locked = false
