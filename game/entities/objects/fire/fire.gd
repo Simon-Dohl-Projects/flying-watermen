@@ -1,7 +1,7 @@
 @tool
 class_name  Fire extends RigidBody2D
 
-@export var fire_scale: Vector2:
+@export var fire_scale: Vector2 = Vector2(0.1, 0.1):
 	get:
 		return fire_scale
 	set(value):
@@ -32,6 +32,9 @@ var bodys_inside: Array[Object] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Sprite2D.scale = fire_scale
+	$CollisionShape2D.scale = fire_scale
+	$Area2D/CollisionShape2D.scale = fire_scale
 	set_deferred("freeze", true)
 	#set_lock_rotation_enabled(true)
 

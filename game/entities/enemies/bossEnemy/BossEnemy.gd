@@ -41,7 +41,7 @@ func _ready():
 	color_rect_low.visible = false
 	color_rect_high.visible = false
 	fire_detection.collision_mask = 8
-	attack_cooldown.wait_time = 5
+	attack_cooldown.wait_time = 1.5
 	
 func _physics_process(_delta: float):
 	var player_distance = abs(player.global_position.x - global_position.x)
@@ -62,10 +62,9 @@ func hunt_player():
 	if not direciton_lock:
 		var player_direction: int = sign(player.global_position.x - global_position.x)
 		var player_distance: float = abs(player.global_position.x - global_position.x)
+		movement_component.change_move_direction(player_direction)
 		if abs(player_distance) < MOVEMENT_EPSILON_PIXELS:
 			movement_component.movement_direction = movement_component.Movement_Direction.No
-			return
-		movement_component.change_move_direction(player_direction)
 
 func on_aggro_entered():
 	# This introduces the little jump
@@ -80,7 +79,6 @@ func on_calm_entered():
 	movement_component.movement_speed = movement_speed_calm
 
 func choose_attack(_player_distance):
-	return Attacks.Dash
 	match randi() % 5:
 		0:
 			return Attacks.FireWave
