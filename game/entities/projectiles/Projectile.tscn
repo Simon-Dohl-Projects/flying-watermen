@@ -1,24 +1,51 @@
 [gd_scene load_steps=6 format=3 uid="uid://ckxjw27a061ub"]
 
 [ext_resource type="Script" path="res://entities/projectiles/Projectile.gd" id="1_k0imh"]
-[ext_resource type="Shader" path="res://shader/Fade.gdshader" id="2_b1cta"]
 [ext_resource type="Texture2D" uid="uid://d2tpiw0kw5goq" path="res://assets/prototype-assets/projectile.png" id="2_i75qn"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_otx65"]
+[sub_resource type="Shader" id="Shader_phrsg"]
+code = "shader_type canvas_item;
+
+uniform float blink_speed = 1.0;
+uniform bool blink_toogle = false;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	if (blink_toogle){
+		vec4 color = texture(TEXTURE, UV);
+
+		float blink = 0.2 + 0.6 * abs(sin(TIME * blink_speed));
+
+		color.a *= abs(blink);
+		COLOR = color;
+	}
+}
+
+void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2j82"]
 resource_local_to_scene = true
-shader = ExtResource("2_b1cta")
-shader_parameter/blink_speed = 0.0
+shader = SubResource("Shader_phrsg")
+shader_parameter/blink_speed = 1.0
 shader_parameter/blink_toogle = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88s18"]
 radius = 134.015
 
 [node name="Projectile" type="RigidBody2D"]
+material = SubResource("ShaderMaterial_x2j82")
 collision_layer = 0
 script = ExtResource("1_k0imh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_otx65")
+use_parent_material = true
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_i75qn")
 
@@ -31,4 +58,5 @@ collision_layer = 0
 scale = Vector2(0.1, 0.1)
 shape = SubResource("CircleShape2D_88s18")
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

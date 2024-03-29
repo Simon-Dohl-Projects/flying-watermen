@@ -1,14 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://pu1px7hj6of3"]
+[gd_scene load_steps=5 format=3 uid="uid://pu1px7hj6of3"]
 
 [ext_resource type="PackedScene" uid="uid://ckxjw27a061ub" path="res://entities/projectiles/Projectile.tscn" id="1_amoi4"]
+[ext_resource type="Shader" path="res://shader/Fade.gdshader" id="2_vfgrt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a18bm"]
+resource_local_to_scene = true
+shader = ExtResource("2_vfgrt")
+shader_parameter/blink_speed = 1.0
+shader_parameter/blink_toogle = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iiol6"]
-radius = 10.0499
+radius = 13.0
 
 [node name="BuildingFoamProjectile" type="Node2D"]
 
 [node name="Projectile" parent="." instance=ExtResource("1_amoi4")]
 top_level = true
+material = SubResource("ShaderMaterial_a18bm")
 element = 2
 speed = 1200
 damage = 0
