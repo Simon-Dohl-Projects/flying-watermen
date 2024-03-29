@@ -29,7 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://4qlm6ho7173m" path="res://assets/light_noise/offset_glow.png" id="23_lme2q"]
 [ext_resource type="Texture2D" uid="uid://obwra0usmk3a" path="res://assets/forest-assets/spiderweb01.png" id="27_rtonn"]
 [ext_resource type="Texture2D" uid="uid://080avp8oteh3" path="res://assets/forest-assets/bush01.png" id="28_unqp1"]
-[ext_resource type="AudioStream" uid="uid://cuqvbh3d0ok8a" path="res://assets/SFX/Waterfall/Water, Waterfall, Steady, Perspective SND0047.wav" id="29_2eics"]
+[ext_resource type="AudioStream" uid="uid://cuqvbh3d0ok8a" path="res://assets/SFX/waterfall/Water, Waterfall, Steady, Perspective SND0047.wav" id="29_2eics"]
 [ext_resource type="PackedScene" uid="uid://qno5f50626uf" path="res://scenes/ui/menus/tablets/Dash.tscn" id="29_20yqp"]
 [ext_resource type="PackedScene" uid="uid://4lea60a43ia6" path="res://scenes/ui/menus/tablets/Lore1.tscn" id="31_ya0g7"]
 [ext_resource type="AudioStream" uid="uid://coc8rjgvqarww" path="res://assets/SFX/worldMusic/Ambient 1.wav" id="34_hkrkv"]
