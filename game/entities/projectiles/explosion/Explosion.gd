@@ -2,8 +2,9 @@ class_name Explosion extends Node2D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-const DAMAGE: int = 50
-const ELEMENT: Element.Type = Element.Type.Water
+var damage: int = 50
+var element: Element.Type = Element.Type.Neutral
+
 const DECAY_TIME: float = 0.4
 
 func _ready():
@@ -15,4 +16,4 @@ func _ready():
 func _on_body_entered(body):
 	var health_component: HealthComponent = body.get_node_or_null("HealthComponent")
 	if health_component:
-		health_component.take_damage(DAMAGE, ELEMENT)
+		health_component.take_damage(damage, element)

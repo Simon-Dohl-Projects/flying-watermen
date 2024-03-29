@@ -1,0 +1,153 @@
+[gd_scene load_steps=23 format=3 uid="uid://c6ermasms0od0"]
+
+[ext_resource type="Texture2D" uid="uid://dfu4qtgkvfarv" path="res://assets/melee_enemy_assets/melee_enemy01.png" id="1_5surw"]
+[ext_resource type="Script" path="res://entities/enemies/creeperEnemy/CreeperEnemy.gd" id="1_txjot"]
+[ext_resource type="Texture2D" uid="uid://bgeyik6y657at" path="res://assets/melee_enemy_assets/melee_enemy02.png" id="2_qbm0c"]
+[ext_resource type="Texture2D" uid="uid://cq14ebdyh01l2" path="res://assets/melee_enemy_assets/melee_enemy03.png" id="3_5mk84"]
+[ext_resource type="PackedScene" uid="uid://bxtfkclrv3vwa" path="res://entities/components/health/HealthComponent.tscn" id="4_hx5t1"]
+[ext_resource type="Texture2D" uid="uid://32uxotk6128m" path="res://entities/enemies/assets/healthbar_under.png" id="5_b4rih"]
+[ext_resource type="Texture2D" uid="uid://drqht0p82ryru" path="res://entities/enemies/assets/healthbar_progress.png" id="6_dw6vi"]
+[ext_resource type="PackedScene" uid="uid://u07y0x28am7y" path="res://entities/components/heat/HeatArea.tscn" id="7_00013"]
+[ext_resource type="PackedScene" uid="uid://bkweew02mcaim" path="res://entities/components/enemyComponents/enemyAggro/AggroComponent.tscn" id="9_qftt5"]
+[ext_resource type="PackedScene" uid="uid://61g8e7mlxwj" path="res://entities/components/enemyComponents/movement/MovementComponent.tscn" id="10_8qnfh"]
+[ext_resource type="PackedScene" uid="uid://wamnd7014nsa" path="res://entities/components/enemyComponents/itemDropper/DropItemComponent.tscn" id="12_5t00d"]
+[ext_resource type="PackedScene" uid="uid://dvv2sij5v2epd" path="res://entities/player/inventory/items/sodiumChemical/sodium.tscn" id="13_uwn5w"]
+[ext_resource type="Texture2D" uid="uid://dmyx2mk6fjoud" path="res://assets/light_noise/waterParticle.png" id="14_djsrf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1x1ej"]
+radius = 32.0156
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tvg72"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5surw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qbm0c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5mk84")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1xs3o"]
+radius = 355.001
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cnei1"]
+radius = 168.027
+
+[sub_resource type="Gradient" id="Gradient_0gel6"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0j4ex"]
+gradient = SubResource("Gradient_0gel6")
+
+[sub_resource type="Curve" id="Curve_6st4s"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.143979, 0.503661), 0.0, 0.0, 0, 0, Vector2(1, 0.227229), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_u3jms"]
+curve = SubResource("Curve_6st4s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7xyuh"]
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 23.9
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 34.29
+initial_velocity_max = 34.29
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+gravity = Vector3(0, -80, 0)
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_u3jms")
+color = Color(0.384314, 0.792157, 1, 1)
+color_ramp = SubResource("GradientTexture1D_0j4ex")
+hue_variation_min = -0.67
+hue_variation_max = -0.55
+
+[node name="CreeperEnemy" type="CharacterBody2D" node_paths=PackedStringArray("aggro_component", "movement_component", "wall_detection")]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_txjot")
+aggro_component = NodePath("AggroComponent")
+movement_component = NodePath("MovementComponent")
+wall_detection = NodePath("WallDetection/Raycast2D")
+
+[node name="EnemyHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_1x1ej")
+debug_color = Color(0.247059, 0.635294, 0, 0.419608)
+
+[node name="WallDetection" type="Node2D" parent="."]
+
+[node name="Raycast2D" type="RayCast2D" parent="WallDetection"]
+position = Vector2(42, -53)
+target_position = Vector2(0, 72)
+
+[node name="EnemyGraphics" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyGraphics"]
+unique_name_in_owner = true
+position = Vector2(7.62939e-06, -13)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_tvg72")
+animation = &"idle"
+autoplay = "idle"
+flip_h = true
+
+[node name="ViewArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewArea"]
+shape = SubResource("CircleShape2D_1xs3o")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("_health_bar") instance=ExtResource("4_hx5t1")]
+max_health = 160
+_health_bar = NodePath("HealthBar")
+
+[node name="HealthBar" type="TextureProgressBar" parent="HealthComponent"]
+offset_left = -50.0
+offset_top = -78.0
+offset_right = 150.0
+offset_bottom = -38.0
+scale = Vector2(0.5, 0.5)
+value = 100.0
+texture_under = ExtResource("5_b4rih")
+texture_progress = ExtResource("6_dw6vi")
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemyHeatArea" parent="." instance=ExtResource("7_00013")]
+collision_mask = 3
+min_heat_applied = 2
+max_heat_applied = 5
+
+[node name="HeatArea" type="CollisionShape2D" parent="EnemyHeatArea"]
+shape = SubResource("CircleShape2D_cnei1")
+debug_color = Color(0.882353, 0.321569, 0.247059, 0.419608)
+
+[node name="AggroComponent" parent="." node_paths=PackedStringArray("view_area", "health_component") instance=ExtResource("9_qftt5")]
+view_area = NodePath("../ViewArea")
+health_component = NodePath("../HealthComponent")
+
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("nodes_to_flip") instance=ExtResource("10_8qnfh")]
+movement_speed = 200
+nodes_to_flip = [NodePath("../EnemyGraphics"), NodePath("../WallDetection")]
+
+[node name="ItemDropperComponent" parent="." instance=ExtResource("12_5t00d")]
+carried_item = ExtResource("13_uwn5w")
+
+[node name="FireParticles" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -24)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_7xyuh")
+texture = ExtResource("14_djsrf")
+lifetime = 0.6
