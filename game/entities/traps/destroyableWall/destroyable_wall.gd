@@ -14,3 +14,5 @@ func _on_area_2d_area_entered(area):
 	if area is Explosion:
 		set_deferred("freeze", false)
 		collision_mask = 0
+		await get_tree().create_timer(1.2).timeout
+		queue_free()

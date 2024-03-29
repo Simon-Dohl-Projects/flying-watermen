@@ -5,9 +5,10 @@ class_name Projectile extends RigidBody2D
 @export var damage: int = 20
 @export var sprite: Sprite2D
 @export var collision_shape: CollisionShape2D
-@export var new_collision_mask: int = 5
+@export var new_collision_mask: int = 13
 @export var is_sticky: bool = false
 @export var life_time_seconds: int = 4
+@export var to_spawn_on_impact: PackedScene
 
 @onready var hitbox: Area2D = $Area2D
 @onready var hitbox_shape: CollisionShape2D = $Area2D/CollisionShape2D
@@ -39,17 +40,26 @@ func _on_area_2d_body_entered(body):
 			health_component.take_damage(damage, element)
 		if body is Player and element != Element.Type.Water:
 			body.heat_component.increase_heat(damage)
+		if to_spawn_on_impact:
+			var spawned_node: Node2D = to_spawn_on_impact.instantiate()
+			spawned_node.position = global_position - (linear_velocity / 20)
+			var map = find_parent("FirstMap")
+			map.add_child.call_deferred(spawned_node)
 		queue_free()
 	else:
-		if health_component:
+		stick(body,	health_component)
+		
+func stick(body, health_component):
+	if health_component:
 			health_component.take_damage_overtime(damage, element, 30)
-		linear_velocity = Vector2(0, 0)
-		gravity_scale = 0
-		var curr_pos: Vector2 = global_position
-		get_parent().call_deferred("reparent", body)
-		top_level = false
-		global_position = curr_pos
-
+	linear_velocity = Vector2(0, 0)
+	gravity_scale = 0
+	var curr_pos: Vector2 = global_position
+	get_parent().call_deferred("reparent", body)
+	await get_parent().child_order_changed
+	top_level = false
+	global_position = curr_pos
+	
 # Removes parent if it's only a placeholder for the projectile scene
 func _on_tree_exiting() -> void:
 	if start_parent == get_parent() and not get_parent().get_script():

@@ -10,6 +10,7 @@ radius = 134.015
 [node name="Projectile" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_k0imh")
+new_collision_mask = 5
 
 [node name="Projectile" type="Sprite2D" parent="."]
 scale = Vector2(0.09, 0.09)

@@ -6,4 +6,5 @@
 
 [node name="Projectile" parent="." instance=ExtResource("2_uorqn")]
 element = 1
+speed = 1000
 new_collision_mask = 3

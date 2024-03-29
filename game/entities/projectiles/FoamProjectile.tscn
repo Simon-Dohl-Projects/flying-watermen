@@ -7,6 +7,8 @@
 [node name="Projectile" parent="." instance=ExtResource("1_gnmct")]
 top_level = true
 collision_mask = 5
+element = 3
 speed = 800
 damage = 1
+new_collision_mask = 13
 is_sticky = true

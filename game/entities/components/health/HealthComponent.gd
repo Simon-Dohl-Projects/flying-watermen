@@ -8,6 +8,8 @@ class_name HealthComponent extends Node2D
 @export var _health_bar: TextureProgressBar
 ## Damage shader effect if target got damage
 @export var use_damage_effect: bool = false
+## Optional to only get dmged by this specific Element
+@export var single_damage_element: Element.Type
 
 @onready var iframe_duration: Timer = $IFrames
 
@@ -51,6 +53,7 @@ func take_damage(amount: int, damage_type: Element.Type, use_iframes: bool = tru
 
 func can_damage(damage_type: Element.Type) -> bool:
 	if is_invincible: return false
+	elif single_damage_element: return single_damage_element == damage_type
 	else: return damage_type == Element.Type.Neutral or not damage_type == element
 
 # there is no need to use to check for iframes, cuz the func deals no primary dmg
