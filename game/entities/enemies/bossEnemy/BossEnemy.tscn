@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/enemies/bossEnemy/BossEnemy.gd" id="1_qajqb"]
 [ext_resource type="PackedScene" uid="uid://de1lxor656te5" path="res://entities/enemies/bossEnemy/FireWave.tscn" id="2_bgprt"]
-[ext_resource type="Texture2D" uid="uid://ui1gfleyoupx" path="res://assets/prototype-assets/Boss (Prototype).png" id="2_i2mnn"]
+[ext_resource type="Texture2D" uid="uid://bl32xnncawemd" path="res://entities/enemies/assets/FireBoss.png" id="3_bwu1y"]
 [ext_resource type="PackedScene" uid="uid://nshvq2t5ihc4" path="res://entities/projectiles/NapalmProjectile.tscn" id="3_c4m3v"]
 [ext_resource type="PackedScene" uid="uid://bxtfkclrv3vwa" path="res://entities/components/health/HealthComponent.tscn" id="3_ma8q6"]
 [ext_resource type="Texture2D" uid="uid://32uxotk6128m" path="res://entities/enemies/assets/healthbar_under.png" id="4_lbjiu"]

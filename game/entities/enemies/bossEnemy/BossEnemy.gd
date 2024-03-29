@@ -42,7 +42,7 @@ func _ready():
 	color_rect_high.visible = false
 	fire_detection.collision_mask = 8
 	attack_cooldown.wait_time = 1.5
-	
+
 func _physics_process(_delta: float):
 	var player_distance = abs(player.global_position.x - global_position.x)
 	if next_attack == Attacks.None:
@@ -132,7 +132,7 @@ func do_melee_attack():
 func do_fire_ball():
 	for i in range (randi() % 3 + 1):
 		shoot_fire_ball()
-	
+
 func do_Dash():
 	if movement_component.movement_speed == movement_speed_calm:
 		return
@@ -155,7 +155,7 @@ func shoot_fire_ball():
 	var direction: Vector2 = Vector2(0, -1)
 	projectile_instance.direction = direction.rotated(random_angle)
 	get_parent().get_parent().add_child(projectile)
-	
+
 func _on_fire_wave_cooldown_timeout():
 	is_fire_wave_cd = false
 
@@ -168,7 +168,7 @@ func attack_decision():
 	if randi() % 5 == 0:
 		return not has_return
 	return has_return
-	
+
 func _on_change_current_attack_timeout():
 	next_attack = Attacks.None
 
