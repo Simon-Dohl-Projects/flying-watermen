@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3 uid="uid://cu55a1ijhr436"]
+[gd_scene load_steps=118 format=3 uid="uid://cu55a1ijhr436"]
 
 [ext_resource type="Texture2D" uid="uid://dhvk873s0063d" path="res://assets/tileMap/Tiles.png" id="1_b4xfn"]
 [ext_resource type="PackedScene" uid="uid://djmlmtr41m2ce" path="res://entities/player/player.tscn" id="2_6f3hr"]
@@ -51,6 +51,7 @@
 [ext_resource type="PackedScene" uid="uid://dmeutg1f6t7sl" path="res://entities/enemies/rangedEnemy/RangedEnemy.tscn" id="50_fjo1m"]
 [ext_resource type="PackedScene" uid="uid://dp6qth5jvcdhd" path="res://entities/player/inventory/items/iceChemical/IceChemical.tscn" id="51_7p4ep"]
 [ext_resource type="PackedScene" uid="uid://c6ermasms0od0" path="res://entities/enemies/creeperEnemy/CreeperEnemy.tscn" id="52_0bmdl"]
+[ext_resource type="PackedScene" uid="uid://bs3b7l8cqtnd5" path="res://entities/traps/windTunnel/windTunnel.tscn" id="52_k3sqr"]
 [ext_resource type="PackedScene" uid="uid://dvv2sij5v2epd" path="res://entities/player/inventory/items/sodiumChemical/sodium.tscn" id="52_qqbdr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_23ck1"]
@@ -2473,6 +2474,9 @@ stream_8/weight = 1.0
 stream_9/stream = ExtResource("43_8b0jp")
 stream_9/weight = 0.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vf8l1"]
+size = Vector2(576, 418.008)
+
 [node name="FirstMap" type="Node2D"]
 
 [node name="Areas" type="Node2D" parent="."]
@@ -3539,6 +3543,7 @@ metadata/_edit_lock_ = true
 
 [node name="Top" type="StaticBody2D" parent="Worldborder"]
 position = Vector2(1, -289)
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Worldborder/Top"]
 shape = SubResource("WorldBoundaryShape2D_a03mb")
@@ -3594,6 +3599,21 @@ position = Vector2(661, 1145)
 
 [node name="Sodium" parent="." instance=ExtResource("52_qqbdr")]
 position = Vector2(815, 1147)
+
+[node name="MeleeEnemy" parent="." instance=ExtResource("49_nv1sn")]
+position = Vector2(1798, 1119)
+
+[node name="WindTunnel" parent="." node_paths=PackedStringArray("collision_shape") instance=ExtResource("52_k3sqr")]
+position = Vector2(123.999, 1109)
+rotation = -1.57079
+collision_layer = 0
+collision_mask = 7
+force = 2000.0
+collision_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WindTunnel"]
+position = Vector2(288, 0)
+shape = SubResource("RectangleShape2D_vf8l1")
 
 [node name="CreeperEnemy" parent="." instance=ExtResource("52_0bmdl")]
 position = Vector2(1937, 1071)
