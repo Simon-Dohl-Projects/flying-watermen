@@ -3,18 +3,15 @@
 [ext_resource type="Script" path="res://entities/traps/windTunnel/windTunnel.gd" id="1_5ge56"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oj8sd"]
-lifetime_randomness = 0.2
 particle_flag_disable_z = true
 emission_shape_offset = Vector3(-10, 0, 0)
 emission_shape_scale = Vector3(1, 0.5, 1)
 emission_shape = 3
-emission_box_extents = Vector3(0, 418.008, 0)
+emission_box_extents = Vector3(0, 976.996, 0)
 spread = 0.0
 initial_velocity_min = 1000.0
 initial_velocity_max = 1000.0
 gravity = Vector3(0, 0, 0)
-linear_accel_min = -100.0
-linear_accel_max = -100.0
 scale_max = 5.0
 turbulence_noise_strength = 3.89
 turbulence_noise_scale = 1.081
@@ -24,6 +21,7 @@ turbulence_influence_max = 0.008
 [node name="WindTunnel" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_5ge56")
+update = null
 force = 0.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]

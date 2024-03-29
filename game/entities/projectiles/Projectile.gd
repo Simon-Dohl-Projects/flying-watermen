@@ -48,7 +48,7 @@ func _on_area_2d_body_entered(body):
 		queue_free()
 	else:
 		stick(body,	health_component)
-		
+
 func stick(body, health_component):
 	if health_component:
 			health_component.take_damage_overtime(damage, element, 30)
@@ -59,7 +59,7 @@ func stick(body, health_component):
 	await get_parent().child_order_changed
 	top_level = false
 	global_position = curr_pos
-	
+
 # Removes parent if it's only a placeholder for the projectile scene
 func _on_tree_exiting() -> void:
 	if start_parent == get_parent() and not get_parent().get_script():
