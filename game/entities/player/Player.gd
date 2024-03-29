@@ -19,7 +19,7 @@ var player_data: PlayerData = PlayerData.new()
 
 # Reset values
 var base_scale_speed: float = 2
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * base_scale_speed
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var base_speed: float = 300.0 * base_scale_speed
 var base_jump_velocity: float = -400.0 * base_scale_speed
 var base_friction: float = 0.5
@@ -41,6 +41,7 @@ var slide_threshold: float = base_speed/2
 var abilities: Dictionary = {
 	"dash": false
 }
+var prev_y_velocity: float = 0
 
 func _ready():
 	animation_tree.active = true
@@ -58,6 +59,7 @@ func _input(event: InputEvent):
 		dash()
 	if event.is_action_pressed("attack"):
 		melee()
+		state_chart.send_event("melee")
 	if event.is_action_pressed("right_click"):
 		shoot()
 	if event.is_action_pressed("savePlayer"):
@@ -70,6 +72,7 @@ func set_expressions():
 	state_chart.set_expression_property("jumps_left", jumps_left)
 	state_chart.set_expression_property("over_slide_threshold", abs(velocity.x) > slide_threshold)
 	state_chart.set_expression_property("velocity_x", velocity.x)
+	state_chart.set_expression_property("velocity_y", velocity.y)
 
 func flip_player():
 	scale.x *= -1
@@ -139,8 +142,12 @@ func movement(delta: float):
 	else:
 		velocity.x = lerp(velocity.x, 0.0, friction)
 	# Gravity
-	if not (is_on_floor() and velocity.y == 0):
-		velocity.y += gravity * delta * fall_speed_factor
+	if not (is_on_floor() and velocity.y == 0 and gravity > 0):
+		#if (velocity.y - prev_y_velocity) < 0:
+		#	velocity.y += gravity * delta * 4
+		#else:
+		velocity.y += gravity * delta
+	#prev_y_velocity = velocity.y
 
 func update_animation_parameters():
 	animation_tree.set("parameters/Default/blend_position", abs(velocity.x) > 0.8)
@@ -225,3 +232,6 @@ func shoot():
 	var shoot_direction = shoot_position.global_position.direction_to(get_global_mouse_position())
 	return ranged_component.shoot(shoot_direction, projectile_scene, velocity)
 #endregion
+
+func _on_melee_component_finished() -> void:
+	state_chart.send_event("melee_end")

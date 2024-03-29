@@ -9,11 +9,12 @@ var is_full: bool = false
 signal well_filled()
 
 func _ready() -> void:
-	interact_hint = $FillLabel
+	interact_hint = $RichTextLabel
 
 ## Fills the well, but only once
 func fill_well(_body: Node):
 	if not is_full:
+		$CollisionShape2D.disabled = true
 		sprite.texture = FULL_TEXTURE
 		$GPUParticles2D.visible  = true
 		well_filled.emit()

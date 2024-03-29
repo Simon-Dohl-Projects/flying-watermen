@@ -20,7 +20,7 @@ const DebuggerRemote = preload("utilities/editor_debugger/editor_debugger_remote
 ## while another is still processing, it will be enqueued.
 signal event_received(event:StringName)
 
-## Flag indicating if this state chart should be tracked by the 
+## Flag indicating if this state chart should be tracked by the
 ## state chart debugger in the editor.
 @export var track_in_editor:bool = false
 
@@ -70,7 +70,7 @@ func _ready() -> void:
 	# enter the state
 	_state._state_enter.call_deferred()
 
-	# if we are in an editor build and this chart should be tracked 
+	# if we are in an editor build and this chart should be tracked
 	# by the debugger, create a debugger remote
 	if track_in_editor and OS.has_feature("editor"):
 		_debugger_remote = DebuggerRemote.new(self)
@@ -110,7 +110,7 @@ func send_event(event:StringName) -> void:
 
 ## Allows states to queue a transition for running. This will eventually run the transition
 ## once all currently running transitions have finished. States should call this method
-## when they want to transition away from themselves. 
+## when they want to transition away from themselves.
 func _run_transition(transition:Transition, source:State):
 	# if we are currently inside of a transition, queue it up
 	if _transitions_processing_active:
@@ -118,9 +118,9 @@ func _run_transition(transition:Transition, source:State):
 		return
 
 	# we can only transition away from a currently active state
-	# if for some reason the state no longer is active, ignore the transition	
+	# if for some reason the state no longer is active, ignore the transition
 	_do_run_transition(transition, source)
-	
+
 	# if we still have transitions
 	while _queued_transitions.size() > 0:
 		var next_transition_entry = _queued_transitions.pop_front()
@@ -129,14 +129,14 @@ func _run_transition(transition:Transition, source:State):
 		_do_run_transition(next_transition, next_transition_source)
 
 
-## Runs the transition. Used internally by the state chart, do not call this directly.	
+## Runs the transition. Used internally by the state chart, do not call this directly.
 func _do_run_transition(transition:Transition, source:State):
 	if source.active:
 		# Notify interested parties that the transition is about to be taken
 		transition.taken.emit()
 		source._handle_transition(transition, source)
 	else:
-		_warn_not_active(transition, source)	
+		_warn_not_active(transition, source)
 
 
 func _warn_not_active(transition:Transition, source:State):
@@ -149,7 +149,7 @@ func set_expression_property(name:StringName, value) -> void:
 	_expression_properties[name] = value
 
 
-## Calls the `step` function in all active states. Used for situations where `state_processing` and 
+## Calls the `step` function in all active states. Used for situations where `state_processing` and
 ## `state_physics_processing` don't make sense (e.g. turn-based games, or games with a fixed timestep).
 func step():
 	_state._state_step()

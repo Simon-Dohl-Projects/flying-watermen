@@ -50,9 +50,9 @@ projectile_scene = ExtResource("3_c4m3v")
 [node name="BossGraphics" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="BossGraphics"]
-scale = Vector2(6, 6)
-texture = ExtResource("2_i2mnn")
-metadata/_edit_lock_ = true
+position = Vector2(-1, -39)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_bwu1y")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 29)
