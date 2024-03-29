@@ -58,6 +58,7 @@ func _input(event: InputEvent):
 		dash()
 	if event.is_action_pressed("attack"):
 		melee()
+		state_chart.send_event("melee")
 	if event.is_action_pressed("right_click"):
 		shoot()
 	if event.is_action_pressed("savePlayer"):
@@ -225,3 +226,6 @@ func shoot():
 	var shoot_direction = shoot_position.global_position.direction_to(get_global_mouse_position())
 	return ranged_component.shoot(shoot_direction, projectile_scene, velocity)
 #endregion
+
+func _on_melee_component_finished() -> void:
+	state_chart.send_event("melee_end")

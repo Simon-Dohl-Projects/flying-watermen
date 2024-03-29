@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ccfj1eejs6m1o"]
+[gd_scene load_steps=18 format=3 uid="uid://ccfj1eejs6m1o"]
 
 [ext_resource type="Texture2D" uid="uid://dx3nby7obhlgn" path="res://assets/tileMap/tileset.png" id="1_hwc3f"]
 [ext_resource type="Texture2D" uid="uid://ihorffrdym4j" path="res://icon.svg" id="3_n53fm"]
@@ -11,7 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bree81gljy661" path="res://entities/player/inventory/items/foamChemical/FoamChemical.tscn" id="8_3ssrr"]
 [ext_resource type="PackedScene" uid="uid://dvv2sij5v2epd" path="res://entities/player/inventory/items/sodiumChemical/sodium.tscn" id="9_lf41u"]
 [ext_resource type="PackedScene" uid="uid://qno5f50626uf" path="res://scenes/ui/menus/tablets/Dash.tscn" id="10_mg2ea"]
-[ext_resource type="PackedScene" uid="uid://o5qajbk6mfjn" path="res://entities/objects/well/Well.tscn" id="12_xxj6h"]
+[ext_resource type="PackedScene" uid="uid://o5qajbk6mfjn" path="res://entities/objects/well/normalWell/Well.tscn" id="12_xxj6h"]
+[ext_resource type="PackedScene" uid="uid://hyr7i2wnah4e" path="res://entities/objects/well/fireWell/FireWell.tscn" id="13_22fuh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_314cy"]
 texture = ExtResource("1_hwc3f")
@@ -43,6 +44,9 @@ sources/1 = SubResource("TileSetAtlasSource_314cy")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5bb0u"]
 size = Vector2(46, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5cof"]
+radius = 485.083
 
 [node name="Main" type="Node2D"]
 position = Vector2(0, 1000)
@@ -109,3 +113,11 @@ position = Vector2(-17, 304)
 
 [node name="Well" parent="." instance=ExtResource("12_xxj6h")]
 position = Vector2(-612, 128)
+
+[node name="FireWell" parent="." instance=ExtResource("13_22fuh")]
+position = Vector2(1810, 130)
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireWell"]
+shape = SubResource("CircleShape2D_o5cof")
+metadata/_edit_lock_ = true

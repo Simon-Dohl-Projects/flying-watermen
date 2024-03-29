@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://djmlmtr41m2ce"]
+[gd_scene load_steps=128 format=3 uid="uid://djmlmtr41m2ce"]
 
 [ext_resource type="Script" path="res://entities/player/Player.gd" id="1_n7144"]
 [ext_resource type="PackedScene" uid="uid://d71bkm5ic0tt" path="res://entities/components/ranged/RangedComponent.tscn" id="2_32y2k"]
@@ -49,7 +49,14 @@
 [ext_resource type="Texture2D" uid="uid://b4setwdaw2rbn" path="res://entities/player/assets/jumpanimation/jump07.png" id="21_elgpx"]
 [ext_resource type="AudioStream" uid="uid://bbxhs7f4v3t41" path="res://assets/SFX/dash.wav" id="31_e7ort"]
 [ext_resource type="Texture2D" uid="uid://fv775xqmgpmo" path="res://assets/light_noise/white.jpg" id="32_b04or"]
+[ext_resource type="Texture2D" uid="uid://cy1gqd4iqmji5" path="res://entities/player/assets/meleeanimation/hit01.png" id="32_rvn34"]
+[ext_resource type="Texture2D" uid="uid://1yix35hwqnex" path="res://entities/player/assets/meleeanimation/hit02.png" id="33_yvmad"]
+[ext_resource type="Texture2D" uid="uid://cxv42pvt7lo8s" path="res://entities/player/assets/meleeanimation/hit03.png" id="34_u48qo"]
+[ext_resource type="Texture2D" uid="uid://cycvpu6ksi205" path="res://entities/player/assets/meleeanimation/hit04.png" id="35_sqauw"]
 [ext_resource type="PackedScene" uid="uid://ch6xnk5tnb5k8" path="res://visualEffects/monitorEffects.tscn" id="36_hryvp"]
+[ext_resource type="Texture2D" uid="uid://bstsr0xvgn5et" path="res://entities/player/assets/meleeanimation/hit05.png" id="36_ykxb2"]
+[ext_resource type="Texture2D" uid="uid://dgvvipptwpkn3" path="res://entities/player/assets/meleeanimation/hit06.png" id="37_fxy0t"]
+[ext_resource type="Texture2D" uid="uid://dewcvwmxjcg6l" path="res://entities/player/assets/meleeanimation/hit07.png" id="38_n4fxb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/animation_tree_state.gd" id="42_m0dwi"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/all_of_guard.gd" id="43_c4ing"]
 [ext_resource type="PackedScene" uid="uid://c5yieglatmln5" path="res://entities/player/chemicalEffects/chemicalEffectsManager.tscn" id="51_52a8d"]
@@ -158,6 +165,32 @@ animations = [{
 "speed": 10.0
 }, {
 "frames": [{
+"duration": 0.7,
+"texture": ExtResource("32_rvn34")
+}, {
+"duration": 2.4,
+"texture": ExtResource("33_yvmad")
+}, {
+"duration": 0.7,
+"texture": ExtResource("34_u48qo")
+}, {
+"duration": 0.7,
+"texture": ExtResource("35_sqauw")
+}, {
+"duration": 2.5,
+"texture": ExtResource("36_ykxb2")
+}, {
+"duration": 2.0,
+"texture": ExtResource("37_fxy0t")
+}, {
+"duration": 0.3,
+"texture": ExtResource("38_n4fxb")
+}],
+"loop": false,
+"name": &"melee",
+"speed": 40.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("13_cmf1i")
 }, {
@@ -179,7 +212,7 @@ animations = [{
 }]
 
 [sub_resource type="Animation" id="Animation_m8twy"]
-length = 0.3
+length = 0.45
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -187,7 +220,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.15, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
@@ -315,6 +348,34 @@ tracks/1/keys = {
 "values": ["jump"]
 }
 
+[sub_resource type="Animation" id="Animation_3h8xa"]
+resource_name = "melee"
+length = 0.2325
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0175, 0.0775, 0.095, 0.1125, 0.175, 0.225),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["melee"]
+}
+
 [sub_resource type="Animation" id="Animation_kbvwp"]
 length = 0.5
 loop_mode = 1
@@ -350,6 +411,7 @@ _data = {
 "ice": SubResource("Animation_by2ts"),
 "idle": SubResource("Animation_d84i6"),
 "jump": SubResource("Animation_gieuj"),
+"melee": SubResource("Animation_3h8xa"),
 "run": SubResource("Animation_kbvwp")
 }
 
@@ -377,6 +439,9 @@ blend_mode = 1
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c2nnl"]
 animation = &"jump"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_we478"]
+animation = &"melee"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wlofg"]
 animation = &"death"
 
@@ -385,6 +450,9 @@ animation = &"ice"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7fmv2"]
 animation = &"ice"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a2cih"]
+animation = &"melee"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b1nr5"]
 advance_mode = 2
@@ -399,21 +467,25 @@ advance_condition = &"exited_ice"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_arr00"]
 states/Dash/node = SubResource("AnimationNodeAnimation_b5g3e")
-states/Dash/position = Vector2(475, 224)
+states/Dash/position = Vector2(458.333, 231.556)
 states/Default/node = SubResource("AnimationNodeBlendSpace1D_rocsi")
 states/Default/position = Vector2(298, 152)
-states/End/position = Vector2(926, 152)
+states/End/position = Vector2(815.333, 151.63)
 states/Jump/node = SubResource("AnimationNodeAnimation_c2nnl")
-states/Jump/position = Vector2(494, 152)
+states/Jump/position = Vector2(458.667, 152.889)
+states/Melee/node = SubResource("AnimationNodeAnimation_we478")
+states/Melee/position = Vector2(298.222, 66.5556)
 states/Start/position = Vector2(96, 152)
 states/death/node = SubResource("AnimationNodeAnimation_wlofg")
-states/death/position = Vector2(733, 122)
+states/death/position = Vector2(607.667, 151.111)
 states/ice/node = SubResource("AnimationNodeAnimation_7fmv2")
-states/ice/position = Vector2(503, 25)
+states/ice/position = Vector2(458.259, 66.3333)
 "states/ice 2/node" = SubResource("AnimationNodeAnimation_dmnx8")
 "states/ice 2/position" = Vector2(298, 230)
+states/melee/node = SubResource("AnimationNodeAnimation_a2cih")
+states/melee/position = Vector2(676, 195)
 transitions = ["Start", "Default", SubResource("AnimationNodeStateMachineTransition_b1nr5"), "Default", "ice 2", SubResource("AnimationNodeStateMachineTransition_v43ie"), "ice 2", "Default", SubResource("AnimationNodeStateMachineTransition_e6j7h")]
-graph_offset = Vector2(-23, 95)
+graph_offset = Vector2(-283, -25)
 
 [sub_resource type="Gradient" id="Gradient_5hdqj"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
@@ -541,22 +613,6 @@ guard = SubResource("Resource_p8ca0")
 script = ExtResource("8_3t36e")
 state = NodePath("../../../Cooldowns/Dash/Useable")
 
-[sub_resource type="Resource" id="Resource_323lm"]
-script = ExtResource("8_3t36e")
-state = NodePath("../../../Movement/Interruptible/Airborne/Jumping")
-
-[sub_resource type="Resource" id="Resource_gs6bx"]
-script = ExtResource("9_qrtxb")
-guard = SubResource("Resource_323lm")
-
-[sub_resource type="Resource" id="Resource_5bgcs"]
-script = ExtResource("8_3t36e")
-state = NodePath("../../../Movement/Dash")
-
-[sub_resource type="Resource" id="Resource_c33nr"]
-script = ExtResource("9_qrtxb")
-guard = SubResource("Resource_5bgcs")
-
 [sub_resource type="Resource" id="Resource_04r6y"]
 script = ExtResource("8_3t36e")
 state = NodePath("../../Movement/Interruptible/Airborne/Jumping")
@@ -588,6 +644,38 @@ guard = SubResource("Resource_djar4")
 [sub_resource type="Resource" id="Resource_wmonw"]
 script = ExtResource("43_c4ing")
 guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_8q6k4"), SubResource("Resource_xgmgk")])
+
+[sub_resource type="Resource" id="Resource_moppb"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Default")
+
+[sub_resource type="Resource" id="Resource_x6iml"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_moppb")
+
+[sub_resource type="Resource" id="Resource_ctsct"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../Movement/Interruptible/Grounded")
+
+[sub_resource type="Resource" id="Resource_ctppa"]
+script = ExtResource("43_c4ing")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_x6iml"), SubResource("Resource_ctsct")])
+
+[sub_resource type="Resource" id="Resource_w6jnb"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Melee")
+
+[sub_resource type="Resource" id="Resource_vhgyu"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_w6jnb")
+
+[sub_resource type="Resource" id="Resource_32t3b"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../Movement/Melee")
+
+[sub_resource type="Resource" id="Resource_8l6iq"]
+script = ExtResource("43_c4ing")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_vhgyu"), SubResource("Resource_32t3b")])
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
@@ -832,6 +920,11 @@ to = NodePath("../../Dash")
 event = &"dash"
 guard = SubResource("Resource_scptp")
 
+[node name="On Melee" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Melee")
+event = &"melee"
+
 [node name="Dash" type="Node" parent="StateChart/Mechanics/Movement"]
 script = ExtResource("5_dadqm")
 
@@ -852,6 +945,14 @@ event = &"enable"
 script = ExtResource("6_aaxtf")
 to = NodePath("../Disabled")
 event = &"disable"
+
+[node name="Melee" type="Node" parent="StateChart/Mechanics/Movement"]
+script = ExtResource("5_dadqm")
+
+[node name="Melee End" type="Node" parent="StateChart/Mechanics/Movement/Melee"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Interruptible")
+event = &"melee_end"
 
 [node name="Cooldowns" type="Node" parent="StateChart/Mechanics"]
 script = ExtResource("3_7lhhd")
@@ -888,21 +989,13 @@ animation_tree = NodePath("../../../../Animation/AnimationTree")
 script = ExtResource("42_m0dwi")
 animation_tree = NodePath("../../../../Animation/AnimationTree")
 
-[node name="OnDefault" type="Node" parent="StateChart/Mechanics/Animation/Jump"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../Default")
-event = &"tick"
-guard = SubResource("Resource_gs6bx")
-
 [node name="Dash" type="Node" parent="StateChart/Mechanics/Animation"]
 script = ExtResource("42_m0dwi")
 animation_tree = NodePath("../../../../Animation/AnimationTree")
 
-[node name="OnDefault" type="Node" parent="StateChart/Mechanics/Animation/Dash"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../Default")
-event = &"tick"
-guard = SubResource("Resource_c33nr")
+[node name="Melee" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("42_m0dwi")
+animation_tree = NodePath("../../../../Animation/AnimationTree")
 
 [node name="OnJump" type="Node" parent="StateChart/Mechanics/Animation"]
 script = ExtResource("6_aaxtf")
@@ -916,6 +1009,18 @@ to = NodePath("../Dash")
 event = &"tick"
 guard = SubResource("Resource_wmonw")
 
+[node name="OnDefault" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Default")
+event = &"tick"
+guard = SubResource("Resource_ctppa")
+
+[node name="OnMelee" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Melee")
+event = &"tick"
+guard = SubResource("Resource_8l6iq")
+
 [node name="MonitorEffects" parent="." instance=ExtResource("36_hryvp")]
 layer = 5
 
@@ -927,6 +1032,7 @@ volume_db = -15.0
 pitch_scale = 0.81
 
 [connection signal="death" from="HealthComponent" to="." method="_on_death"]
+[connection signal="finished" from="MeleeComponent" to="." method="_on_melee_component_finished"]
 [connection signal="timeout" from="Timers/HeatTick" to="." method="_on_heat_tick_timeout"]
 [connection signal="timeout" from="Timers/HealTick" to="." method="_on_heal_tick_timeout"]
 [connection signal="child_state_exited" from="StateChart/Mechanics/Movement" to="." method="reset_variables"]

@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://ddpdvns3j7c71" path="res://assets/forest-assets/scenes/redTree02.tscn" id="16_qodfp"]
 [ext_resource type="PackedScene" uid="uid://dxpk0ht678w36" path="res://assets/forest-assets/scenes/stone06.tscn" id="18_clxqk"]
 [ext_resource type="PackedScene" uid="uid://dkkpqorhtu7si" path="res://assets/forest-assets/scenes/stone02.tscn" id="20_g6etv"]
-[ext_resource type="PackedScene" uid="uid://o5qajbk6mfjn" path="res://entities/objects/well/Well.tscn" id="21_j8e2w"]
+[ext_resource type="PackedScene" uid="uid://o5qajbk6mfjn" path="res://entities/objects/well/normalWell/Well.tscn" id="21_j8e2w"]
 [ext_resource type="PackedScene" uid="uid://bhca1rm6tlmid" path="res://assets/forest-assets/scenes/stone04.tscn" id="21_qdr22"]
 [ext_resource type="Texture2D" uid="uid://1oxxq4gdiq2l" path="res://assets/forest-assets/stone04.png" id="22_j705s"]
 [ext_resource type="PackedScene" uid="uid://dpiypck5f1v6f" path="res://entities/objects/pfuetze.tscn" id="23_43erc"]
@@ -3432,19 +3432,19 @@ position = Vector2(0, 737)
 position = Vector2(4793, -418)
 
 [node name="RangedEnemy2" parent="Areas/Enemies" instance=ExtResource("50_fjo1m")]
-position = Vector2(3680, -257)
+position = Vector2(2270, -407)
 
 [node name="MeleeEnemy2" parent="Areas/Enemies" instance=ExtResource("49_nv1sn")]
-position = Vector2(3168, -33)
+position = Vector2(1572, -300)
 
 [node name="Enemies2" type="Node2D" parent="Areas"]
 position = Vector2(4425, 918)
 
 [node name="MeleeEnemy2" parent="Areas/Enemies2" instance=ExtResource("49_nv1sn")]
-position = Vector2(959, 442)
+position = Vector2(251, 174)
 
 [node name="RangedEnemy3" parent="Areas/Enemies2" instance=ExtResource("50_fjo1m")]
-position = Vector2(447, 138)
+position = Vector2(763, 170)
 
 [node name="Enemies3" type="Node2D" parent="Areas"]
 position = Vector2(5746, 677)

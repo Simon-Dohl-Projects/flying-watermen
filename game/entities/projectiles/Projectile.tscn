@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckxjw27a061ub"]
+[gd_scene load_steps=5 format=3 uid="uid://ckxjw27a061ub"]
 
 [ext_resource type="Script" path="res://entities/projectiles/Projectile.gd" id="1_k0imh"]
-[ext_resource type="Texture2D" uid="uid://d2tpiw0kw5goq" path="res://assets/prototype-assets/projectile.png" id="2_i75qn"]
+[ext_resource type="Texture2D" uid="uid://2gmq2a8qnov1" path="res://entities/projectiles/animationProjectile/waterattack02.png" id="2_47nqo"]
+[ext_resource type="Texture2D" uid="uid://d2tpiw0kw5goq" path="res://assets/prototype-assets/projectile.png" id="2_faoqy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88s18"]
 radius = 134.015
@@ -10,9 +11,15 @@ radius = 134.015
 collision_layer = 0
 script = ExtResource("1_k0imh")
 
+[node name="Projectile" type="Sprite2D" parent="."]
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("2_faoqy")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_i75qn")
+visible = false
+position = Vector2(1.19209e-07, 0)
+scale = Vector2(0.241539, 0.248108)
+texture = ExtResource("2_47nqo")
 
 [node name="Area2D" type="Area2D" parent="."]
 light_mask = 0
@@ -22,5 +29,6 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(0.1, 0.1)
 shape = SubResource("CircleShape2D_88s18")
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
