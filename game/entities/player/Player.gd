@@ -182,6 +182,9 @@ func _on_grounded_state_entered() -> void:
 #region Melee
 func melee():
 	melee_attack.attack()
+
+func _on_melee_component_finished() -> void:
+	state_chart.send_event("melee_end")
 #endregion
 
 #region Shooting
@@ -189,6 +192,3 @@ func shoot():
 	var shoot_direction = shoot_position.global_position.direction_to(get_global_mouse_position())
 	return ranged_component.shoot(shoot_direction, projectile_scene, velocity)
 #endregion
-
-func _on_melee_component_finished() -> void:
-	state_chart.send_event("melee_end")
