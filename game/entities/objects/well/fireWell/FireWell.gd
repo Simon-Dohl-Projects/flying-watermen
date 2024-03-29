@@ -6,7 +6,6 @@ var has_enemies_inside: Array[Object] = []
 var new_well: PackedScene = load("res://entities/objects/well/normalWell/Well.tscn")
 
 func _process(delta):
-	print(has_enemies_inside)
 	if has_enemies_inside == []:
 		var well_instance: Interactable = new_well.instantiate()
 		well_instance.global_position = position
