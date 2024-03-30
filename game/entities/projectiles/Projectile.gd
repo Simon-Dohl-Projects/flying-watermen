@@ -63,9 +63,7 @@ func _on_tree_exiting() -> void:
 
 func _set_tween():
 	var tween = get_tree().create_tween()
-	tween.tween_method(_set_blink, 1.0, 5.0, life_time_seconds) # args are: (method to call / start value / end value / duration of animation)
-	#await tween.finished
-	#time = 0
+	tween.tween_method(_set_blink, 1.0, life_time_seconds / 2, life_time_seconds) # args are: (method to call / start value / end value / duration of animation)
 
 # tween value automatically gets passed into this function
 func _set_blink(value: float):
