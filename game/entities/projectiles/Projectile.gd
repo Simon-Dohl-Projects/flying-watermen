@@ -19,10 +19,6 @@ var start_parent: Node = get_parent()
 
 
 func _ready():
-	$Area2D.monitorable = true
-	#var tween = get_tree().create_tween()
-	#tween.tween_method(_set_fade_away, 1.0, 0.0, life_time_seconds)
-
 	top_level = true
 	hitbox.collision_mask = new_collision_mask
 	if collision_shape:
@@ -49,8 +45,8 @@ func _on_area_2d_body_entered(body):
 		call_deferred("set_freeze_enabled", true)
 		var curr_pos: Vector2 = global_position
 		top_level = false
-		global_position = curr_pos
 		collision_layer = 1
+		global_position = curr_pos
 		get_parent().call_deferred("reparent", body)
 
 # Removes parent if it's only a placeholder for the projectile scene
@@ -61,8 +57,7 @@ func _on_tree_exiting() -> void:
 func _set_tween():
 	var tween = get_tree().create_tween()
 	var float_life_time_seconds: float = life_time_seconds
-	#tween.tween_method(_set_fade_away, 1.0, 0.0, life_time_seconds) # args are: (method to call / start value / end value / duration of animation)
-	#material.set("shader_parameter/blink_toogle", true)"self_modulate"
+	#tween.tween_method(_set_fade_away, 1.0, life_time_seconds, life_time_seconds) # args are: (method to call / start value / end value / duration of animation)
 
 # tween value automatically gets passed into this function
 func _set_fade_away(value: float):
@@ -76,7 +71,11 @@ func _set_fade_away(value: float):
 func _on_tree_entered():
 	var parent_projectile = get_parent().get_parent()#.find_child("Projectile", false)
 	if parent_projectile is Projectile:
-		#print("self-shader:" + str(self) + str(material))
-		#print("parent-shader:" + str(get_parent()) + str(parent_projectile.material))
+		#var distance_to_parent: Vector2 =  parent_projectile.global_position - global_position
+		#distance_to_parent *= (1 /(distance_to_parent.length())) * 20
+		#print(distance_to_parent)
+		#global_position =  parent_projectile.global_position #- distance_to_parent
+		#print("Parent_pos:" + str(parent_projectile.global_position))
+		#print("Self_pos:" + str(global_position))
 		#print("")
 		material = parent_projectile.material
