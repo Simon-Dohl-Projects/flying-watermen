@@ -37,7 +37,7 @@ shader_parameter/blink_speed = 1.0
 shader_parameter/blink_toogle = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88s18"]
-radius = 134.015
+radius = 13.0
 
 [node name="Projectile" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_x2j82")
@@ -55,7 +55,6 @@ visibility_layer = 5
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(0.1, 0.1)
 shape = SubResource("CircleShape2D_88s18")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

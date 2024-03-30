@@ -19,8 +19,9 @@ var start_parent: Node = get_parent()
 
 
 func _ready():
-	var tween = get_tree().create_tween()
-	tween.tween_method(_set_fade_away, 1.0, 0.0, life_time_seconds)
+	$Area2D.monitorable = true
+	#var tween = get_tree().create_tween()
+	#tween.tween_method(_set_fade_away, 1.0, 0.0, life_time_seconds)
 
 	top_level = true
 	hitbox.collision_mask = new_collision_mask
@@ -44,7 +45,7 @@ func _on_area_2d_body_entered(body):
 	else:
 		if health_component:
 			health_component.take_damage_overtime(damage, element, 30)
-		_set_tween()
+		#_set_tween()
 		call_deferred("set_freeze_enabled", true)
 		var curr_pos: Vector2 = global_position
 		top_level = false
@@ -75,7 +76,7 @@ func _set_fade_away(value: float):
 func _on_tree_entered():
 	var parent_projectile = get_parent().get_parent()#.find_child("Projectile", false)
 	if parent_projectile is Projectile:
-		print("self-shader:" + str(self) + str(material))
-		print("parent-shader:" + str(get_parent()) + str(parent_projectile.material))
-		print("")
+		#print("self-shader:" + str(self) + str(material))
+		#print("parent-shader:" + str(get_parent()) + str(parent_projectile.material))
+		#print("")
 		material = parent_projectile.material
