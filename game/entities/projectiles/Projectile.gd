@@ -12,22 +12,29 @@ class_name Projectile extends RigidBody2D
 @onready var hitbox: Area2D = $Area2D
 @onready var hitbox_shape: CollisionShape2D = $Area2D/CollisionShape2D
 
-var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var velocity_offset: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
 var start_parent: Node = get_parent()
 
+var time:float = 0.0
 
 func _ready():
+	visible = false
 	top_level = true
 	hitbox.collision_mask = new_collision_mask
 	if collision_shape:
 		hitbox_shape.set_shape(collision_shape.shape)
 		collision_shape.queue_free()
-	if sprite: $Sprite2D.queue_free()
+	if sprite:
+		$Sprite2D.queue_free()
+		sprite.reparent.call_deferred(self)
 	set_linear_velocity((direction * speed) + velocity_offset)
 	await get_tree().create_timer(life_time_seconds).timeout
 	queue_free()
+
+func _integrate_forces(state):
+	rotation = linear_velocity.angle()
+	if not visible: visible = true
 
 func _on_area_2d_body_entered(body):
 	if freeze: return
@@ -56,21 +63,21 @@ func _on_tree_exiting() -> void:
 
 func _set_tween():
 	var tween = get_tree().create_tween()
-	var float_life_time_seconds: float = life_time_seconds
-	#tween.tween_method(_set_fade_away, 1.0, life_time_seconds, life_time_seconds) # args are: (method to call / start value / end value / duration of animation)
+	tween.tween_method(_set_blink, 1.0, 5.0, life_time_seconds) # args are: (method to call / start value / end value / duration of animation)
+	#await tween.finished
+	#time = 0
 
 # tween value automatically gets passed into this function
-func _set_fade_away(value: float):
-	print(255 * abs(sin(value)))
-	#modulate = Color(255, 255, 255,55 + 200 * abs(sin(value)))
-	#set("self_modulate", )
-	# in my case i'm tweening a shader on a texture rect, but you can use anything with a material on it
-	#life_time_seconds = value
-	#material.set("shader_parameter/blink_speed", value);
+func _set_blink(value: float):
+	var sinTime = 0
+	var blink_speed = value
+	sinTime = abs(sin(blink_speed * time))
+	if time >= 5.0: modulate.a = 0.3 + 0.7 * sinTime
 
 func _on_tree_entered():
 	var parent_projectile = get_parent().get_parent()#.find_child("Projectile", false)
-	if parent_projectile is Projectile:
+	if parent_projectile is Projectile: return
+	else: if freeze: _set_tween()
 		#var distance_to_parent: Vector2 =  parent_projectile.global_position - global_position
 		#distance_to_parent *= (1 /(distance_to_parent.length())) * 20
 		#print(distance_to_parent)
@@ -78,4 +85,8 @@ func _on_tree_entered():
 		#print("Parent_pos:" + str(parent_projectile.global_position))
 		#print("Self_pos:" + str(global_position))
 		#print("")
-		material = parent_projectile.material
+		#self_modulate.a = parent_projectile.self_modulate.a
+		#material = parent_projectile.material
+
+func _process(delta):
+	time += delta

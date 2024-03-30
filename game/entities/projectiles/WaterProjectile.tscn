@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://nkxypfhgjitc"]
+[gd_scene load_steps=3 format=3 uid="uid://nkxypfhgjitc"]
 
 [ext_resource type="PackedScene" uid="uid://ckxjw27a061ub" path="res://entities/projectiles/Projectile.tscn" id="1_aypoh"]
+[ext_resource type="Texture2D" uid="uid://p7mpwlqg36oc" path="res://entities/projectiles/animationProjectile/waterattack05.png" id="6_1dequ"]
 
 [node name="WaterProjectile" type="Node2D"]
 
-[node name="Projectile" parent="." instance=ExtResource("1_aypoh")]
+[node name="Projectile" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_aypoh")]
 collision_mask = 5
 damage = 50
+sprite = NodePath("Waterattack05")
+
+[node name="Waterattack05" type="Sprite2D" parent="Projectile"]
+position = Vector2(-26, 2)
+rotation = -0.125664
+scale = Vector2(0.41, 0.41)
+texture = ExtResource("6_1dequ")
+flip_h = true

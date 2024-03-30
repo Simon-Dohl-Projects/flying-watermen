@@ -61,7 +61,8 @@ func _input(event: InputEvent):
 		dash()
 	if event.is_action_pressed("attack"):
 		melee()
-	if event.is_action_pressed("right_click") and is_shooting_Water:
+		state_chart.send_event("melee")
+	if event.is_action_pressed("right_click"):
 		shoot()
 	if event.is_action_pressed("swap_shoot_type"):
 		set_shooting_type()
@@ -231,6 +232,9 @@ func _on_grounded_state_entered() -> void:
 #region Melee
 func melee():
 	melee_attack.attack()
+
+func _on_melee_component_finished() -> void:
+	state_chart.send_event("melee_end")
 #endregion
 
 #region Shooting
