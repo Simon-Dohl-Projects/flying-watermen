@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c640sr08cvsmo"]
+[gd_scene load_steps=18 format=3 uid="uid://c640sr08cvsmo"]
 
 [ext_resource type="Script" path="res://entities/objects/stone-tablet/StoneTabletObject.gd" id="1_rrcxt"]
 [ext_resource type="Texture2D" uid="uid://ciey4ubnpykd2" path="res://entities/objects/stone-tablet/random_selection.png" id="2_shfwb"]
@@ -162,10 +162,14 @@ tracks/4/keys = {
 "values": [0.0, 0.0, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_1ej22"]
+resource_name = "sequence"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_njm6v"]
 _data = {
 "RESET": SubResource("Animation_lefeg"),
-"hover": SubResource("Animation_1mjby")
+"hover": SubResource("Animation_1mjby"),
+"sequence": SubResource("Animation_1ej22")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thpy7"]

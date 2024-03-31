@@ -1,3 +1,3 @@
 extends Node
 
-enum Type { Water, Fire, Neutral, Foam }
+enum Type { Water, Fire, Neutral }
