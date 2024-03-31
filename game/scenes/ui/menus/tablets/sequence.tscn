@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dh4db1wamyl02" path="res://assets/lore/sequence04/seq0402.png" id="5_65uhh"]
 [ext_resource type="Texture2D" uid="uid://cfmuh17skbmp5" path="res://assets/lore/Sequence01/light_01.png" id="5_gwlrd"]
 [ext_resource type="Texture2D" uid="uid://bh15n75bj5a25" path="res://assets/lore/Sequence02/seq0201.png" id="6_66i0i"]
-[ext_resource type="Texture2D" uid="uid://61glxf5svx2q" path="res://assets/lore/seq0401.png" id="6_4743g"]
+[ext_resource type="Texture2D" uid="uid://24vjtnkw7a0q" path="res://assets/lore/sequence04/seq0401.png" id="6_4743g"]
 [ext_resource type="Texture2D" uid="uid://c4gi7x2yixv37" path="res://assets/lore/Sequence03/seq0305.png" id="6_wd7pt"]
 [ext_resource type="Texture2D" uid="uid://b6amc2suirqdl" path="res://assets/lore/sequence04/seq0403.png" id="7_41u57"]
 [ext_resource type="Texture2D" uid="uid://c6iiy1lian766" path="res://assets/lore/Sequence02/seq0204.png" id="7_lnu7o"]
@@ -1101,34 +1101,27 @@ offset_bottom = 621.0
 text = "It is our duty to keep the forest safe and the springs alive."
 
 [node name="seq04_05" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("4_thry8")
 
 [node name="seq04_02" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 647.0
 texture = ExtResource("5_65uhh")
 
 [node name="seq04_01" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("6_4743g")
 
 [node name="seq04_03" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = 8.0
-offset_right = 1160.0
+offset_right = 1152.0
 offset_bottom = 645.0
 texture = ExtResource("7_41u57")
 
 [node name="seq04_04" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = -26.0
-offset_right = 1125.0
+offset_right = 1151.0
 offset_bottom = 647.0
 texture = ExtResource("8_u87st")
 
@@ -1148,29 +1141,26 @@ offset_bottom = 626.0
 text = "Saving their forest by filling the springs of life."
 
 [node name="seq03_01" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 offset_left = -2.0
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("2_8ug1o")
 
 [node name="seq03_02" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = -1.0
-offset_right = 1150.0
+offset_left = 62.0
+offset_right = 1213.0
 offset_bottom = 648.0
 texture = ExtResource("3_a3cf0")
 
 [node name="seq03_03" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = 3.0
-offset_top = 1.0
-offset_right = 1152.0
-offset_bottom = 651.0
+offset_left = -76.0
+offset_top = -2.0
+offset_right = 1073.0
+offset_bottom = 648.0
 texture = ExtResource("4_otlvr")
 
 [node name="seq03_04" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 1, 1, 0.533333)
 offset_left = 3.0
 offset_top = 1.0
 offset_right = 1154.0
@@ -1178,7 +1168,7 @@ offset_bottom = 649.0
 texture = ExtResource("5_6h032")
 
 [node name="seq03_05" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 1, 1, 0.72549)
 offset_left = 3.0
 offset_top = 1.0
 offset_right = 1153.0
@@ -1201,36 +1191,29 @@ offset_bottom = 632.0
 text = "The heroes of aqua used their abilities to fight against the malicious fire flames."
 
 [node name="seq02_01" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("6_66i0i")
 
 [node name="seq02_02" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = -4.0
-offset_top = -8.0
-offset_right = 1148.0
-offset_bottom = 640.0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = ExtResource("7_lnu7o")
 
 [node name="seq02_03" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = 10.0
-offset_top = -12.0
-offset_right = 1162.0
-offset_bottom = 636.0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = ExtResource("8_g73ta")
 
 [node name="seq02_04" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 1, 1, 0.219608)
 offset_top = 1.0
 offset_right = 1151.0
 offset_bottom = 648.0
 texture = ExtResource("9_kaok6")
 
 [node name="seq02_05" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 1, 1, 0.298039)
 offset_right = 1151.0
 offset_bottom = 648.0
 texture = ExtResource("10_emsh3")
@@ -1251,40 +1234,33 @@ offset_bottom = 631.0
 text = "Everything changed when the fire flames attacked. "
 
 [node name="seq01_1" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("2_gxv5v")
 
 [node name="seq01_2" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = 35.0
-offset_right = 1189.0
+offset_right = 1154.0
 offset_bottom = 647.0
 texture = ExtResource("3_ge8hx")
 
 [node name="seq01_3" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = -28.0
-offset_right = 1125.0
+offset_right = 1153.0
 offset_bottom = 649.0
 texture = ExtResource("4_327hv")
 
 [node name="seq01_4" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 1, 1, 0.839216)
 offset_right = 1153.0
 offset_bottom = 652.0
 texture = ExtResource("5_gwlrd")
 
 [node name="panel01" type="Panel" parent="."]
-visible = false
 offset_left = 343.0
 offset_top = 595.0
 offset_right = 815.0
 offset_bottom = 635.0
 
 [node name="Label01" type="Label" parent="."]
-visible = false
 offset_left = 354.0
 offset_top = 602.0
 offset_right = 808.0

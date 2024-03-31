@@ -5,4 +5,3 @@
 [node name="SequencePlayer" type="CanvasLayer"]
 
 [node name="Sequence" parent="." instance=ExtResource("1_t6cx6")]
-script = null
