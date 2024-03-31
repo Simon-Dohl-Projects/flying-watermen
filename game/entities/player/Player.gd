@@ -43,7 +43,7 @@ var abilities: Dictionary = {
 }
 # Shoottype
 var is_shooting_Water: bool = true
-var buildingFoam_shootcooldown: float = 0.3
+var buildingFoam_shootcooldown: float = 0.001
 
 func _ready():
 	animation_tree.active = true
@@ -125,10 +125,17 @@ func _on_death():
 func _physics_process(delta: float):
 	if Input.is_action_pressed("right_click") and !is_shooting_Water:
 		shoot()
+	adjust_shooting_location()
 	update_states()
 	movement(delta)
 	move_and_slide()
 	update_animation_parameters()
+
+func adjust_shooting_location():
+	var point: Vector2 = $Animation.position
+	var angle: float = point.angle_to(get_global_mouse_position())
+	ranged_component.position = point + (ranged_component.position - point).rotated(angle)
+
 
 func update_states():
 	set_expressions()

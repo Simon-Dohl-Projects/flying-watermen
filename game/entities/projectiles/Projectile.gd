@@ -15,8 +15,9 @@ class_name Projectile extends RigidBody2D
 var velocity_offset: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
 var start_parent: Node = get_parent()
-
-var time:float = 0.0
+var time: float = 0.0
+var new_position: Vector2
+var to_be_frozen: bool = false
 
 func _ready():
 	visible = false
@@ -35,9 +36,15 @@ func _ready():
 func _integrate_forces(state):
 	rotation = linear_velocity.angle()
 	if not visible: visible = true
+	if new_position != Vector2():
+		global_position = new_position
+		new_position = Vector2()
+		visible = true
+	if to_be_frozen:
+		call_deferred("set_freeze_enabled", true)
 
 func _on_area_2d_body_entered(body):
-	if freeze: return
+	if freeze or gravity_scale == 0: return
 	var health_component: HealthComponent = body.get_node_or_null("HealthComponent")
 	if !is_sticky:
 		if health_component:
@@ -48,12 +55,13 @@ func _on_area_2d_body_entered(body):
 	else:
 		if health_component:
 			health_component.take_damage_overtime(damage, element, 30)
-		#_set_tween()
-		call_deferred("set_freeze_enabled", true)
-		var curr_pos: Vector2 = global_position
-		top_level = false
+		linear_velocity = Vector2()
+		gravity_scale = 0
 		collision_layer = 1
-		global_position = curr_pos
+		to_be_frozen = true
+		new_position = global_position
+		top_level = false
+		visible = false
 		get_parent().call_deferred("reparent", body)
 
 # Removes parent if it's only a placeholder for the projectile scene
@@ -61,30 +69,25 @@ func _on_tree_exiting() -> void:
 	if start_parent == get_parent() and not get_parent().get_script():
 		get_parent().queue_free()
 
-func _set_tween():
+func set_tween():
 	var tween = get_tree().create_tween()
-	tween.tween_method(_set_blink, 1.0, life_time_seconds / 2, life_time_seconds) # args are: (method to call / start value / end value / duration of animation)
+	tween.tween_method(set_blink, 1.0, life_time_seconds/2, life_time_seconds)
 
 # tween value automatically gets passed into this function
-func _set_blink(value: float):
+func set_blink(value: float):
 	var sinTime = 0
 	var blink_speed = value
 	sinTime = abs(sin(blink_speed * time))
 	if time >= 5.0: modulate.a = 0.3 + 0.7 * sinTime
 
 func _on_tree_entered():
-	var parent_projectile = get_parent().get_parent()#.find_child("Projectile", false)
-	if parent_projectile is Projectile: return
-	else: if freeze: _set_tween()
-		#var distance_to_parent: Vector2 =  parent_projectile.global_position - global_position
-		#distance_to_parent *= (1 /(distance_to_parent.length())) * 20
-		#print(distance_to_parent)
-		#global_position =  parent_projectile.global_position #- distance_to_parent
-		#print("Parent_pos:" + str(parent_projectile.global_position))
-		#print("Self_pos:" + str(global_position))
-		#print("")
-		#self_modulate.a = parent_projectile.self_modulate.a
-		#material = parent_projectile.material
+	var parent_projectile = get_parent().get_parent()
+	if parent_projectile is Projectile:
+		var distance_to_parent: Vector2 =  parent_projectile.global_position - new_position
+		distance_to_parent *= (1/(distance_to_parent.length())) * 20
+		new_position =  parent_projectile.global_position - distance_to_parent
+	elif gravity_scale == 0: set_tween()
 
 func _process(delta):
 	time += delta
+

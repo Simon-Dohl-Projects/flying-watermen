@@ -6,10 +6,10 @@ extends Resource
 
 ## The saved states of any active child states
 ## Key is the name of the child state, value is the SavedState of the child state
-@export var child_states: Dictionary = {} 
+@export var child_states: Dictionary = {}
 
 ## The path to the currently pending transition, if any
-@export var pending_transition_name: NodePath 
+@export var pending_transition_name: NodePath
 
 ## The remaining time of the active transition, if any
 @export var pending_transition_time: float = 0

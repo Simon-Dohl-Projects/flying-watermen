@@ -691,7 +691,7 @@ shape = SubResource("CapsuleShape2D_fuycp")
 debug_color = Color(0.917647, 0.172549, 0.568627, 0.419608)
 
 [node name="RangedComponent" parent="." instance=ExtResource("2_32y2k")]
-position = Vector2(11.51, -21.28)
+position = Vector2(40, -25)
 use_cooldown = true
 
 [node name="HeatComponent" parent="." node_paths=PackedStringArray("health_component", "heat_reduction_delay", "heat_tick") instance=ExtResource("3_kjfn2")]
@@ -722,14 +722,13 @@ debug_color = Color(1, 1, 1, 0.419608)
 script = ExtResource("15_8nkrm")
 
 [node name="Animation" type="Node2D" parent="."]
-position = Vector2(0, -14.5)
+position = Vector2(0, -25)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animation"]
 unique_name_in_owner = true
-position = Vector2(0, -11.5)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_pbewx")
-animation = &"melee"
+animation = &"idle"
 autoplay = "idle"
 flip_h = true
 
