@@ -4,19 +4,26 @@ signal shot()
 
 @export var use_cooldown: bool = false
 @export var base_cooldown: float = 0.5
-var cooldown: float = base_cooldown
 
+@onready var cooldown: float = base_cooldown
 @onready var timer: Timer = $ShootCooldown
 @onready var shoot_position: Marker2D = $ShootPosition
-var is_enabled: bool = true
+
+signal projectile_shoot()
+
+var is_enabled: bool = true:
+	set(value):
+		if not value: timer.stop()
+		is_enabled = value
 
 func shoot(direction: Vector2, projectile: PackedScene, velocity_offset: Vector2):
 	if is_enabled:
+		projectile_shoot.emit()
 		var projectile_node: Node2D = projectile.instantiate()
 		var projectile_instance: Projectile = projectile_node.get_node("Projectile")
 		projectile_instance.position = shoot_position.global_position
 		projectile_instance.direction = direction
-		projectile_instance.velocity_offset = velocity_offset
+		projectile_instance.velocity_offset = velocity_offset/2
 		add_child(projectile_node)
 		shot.emit()
 		if use_cooldown:
@@ -26,7 +33,6 @@ func shoot(direction: Vector2, projectile: PackedScene, velocity_offset: Vector2
 
 func disable():
 	is_enabled = false
-	timer.stop()
 
 func enable():
 	is_enabled = true
@@ -36,3 +42,4 @@ func disable_timer():
 
 func enable_timer():
 	use_cooldown = true
+

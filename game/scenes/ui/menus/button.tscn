@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ga63x4i2ugw4"]
+
+[ext_resource type="Theme" uid="uid://bniwcx6k6wrx7" path="res://themes/button.tres" id="1_k1xex"]
+[ext_resource type="Script" path="res://scenes/ui/menus/button.gd" id="2_m1vxj"]
+[ext_resource type="AudioStream" uid="uid://1dovrli03f0q" path="res://assets/SFX/player/ui-hover.wav" id="3_7dmjd"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(200, 32)
+size_flags_horizontal = 4
+theme = ExtResource("1_k1xex")
+text = "Text"
+script = ExtResource("2_m1vxj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7dmjd")
+bus = &"SFX"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

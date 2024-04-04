@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdkicasp65o4b"]
+
+[ext_resource type="Script" path="res://scenes/ui/menus/optionMenu/optionMenu.gd" id="1_o5c20"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menus/menuTemplate.tscn" id="2_5rd8f"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menus/button.tscn" id="2_fyjd1"]
+[ext_resource type="Texture2D" uid="uid://2oefvaixj8il" path="res://assets/menu_pictures/forest.png" id="2_thror"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menus/slider.tscn" id="3_l5udh"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menus/menuLabel.tscn" id="3_yts85"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o5c20")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_thror")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(350, 550)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -250.0
+offset_right = 175.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.211765, 0.211765, 0.211765, 0.67451)
+
+[node name="MenuTemplate" parent="." instance=ExtResource("2_5rd8f")]
+layout_mode = 1
+
+[node name="Label" parent="MenuTemplate/VBoxContainer" index="0"]
+text = "Options"
+
+[node name="GridContainer" type="GridContainer" parent="MenuTemplate/VBoxContainer/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(267.92, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 16
+columns = 2
+
+[node name="MasterLabel" parent="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("3_yts85")]
+layout_mode = 2
+text = "Sound"
+
+[node name="MasterSlider" parent="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("3_l5udh")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MusicLabel" parent="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("3_yts85")]
+layout_mode = 2
+
+[node name="MusicSlider" parent="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("3_l5udh")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SFX" parent="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("3_yts85")]
+layout_mode = 2
+text = "SFX"
+
+[node name="SFXSlider" parent="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("3_l5udh")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Fullscreen" parent="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("3_yts85")]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="FullscreenCheckButton" type="CheckButton" parent="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Reset_Settings_Button" parent="MenuTemplate/VBoxContainer/VBoxContainer" index="1" instance=ExtResource("2_fyjd1")]
+layout_mode = 2
+text = "Reset Settings"
+
+[node name="Back_Button" parent="MenuTemplate/VBoxContainer/VBoxContainer" index="2" instance=ExtResource("2_fyjd1")]
+layout_mode = 2
+text = "Return"
+
+[connection signal="value_changed" from="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="toggled" from="MenuTemplate/VBoxContainer/VBoxContainer/GridContainer/FullscreenCheckButton" to="." method="_on_fullscreen_check_button_toggled"]
+[connection signal="pressed" from="MenuTemplate/VBoxContainer/VBoxContainer/Reset_Settings_Button" to="." method="_on_reset_settings_button_pressed"]
+[connection signal="pressed" from="MenuTemplate/VBoxContainer/VBoxContainer/Back_Button" to="." method="_on_back_button_pressed"]
+
+[editable path="MenuTemplate"]

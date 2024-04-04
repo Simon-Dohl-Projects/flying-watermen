@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0dr7finpfu4d"]
+
+[ext_resource type="Theme" uid="uid://bniwcx6k6wrx7" path="res://themes/menu.tres" id="1_561ij"]
+
+[node name="MusicSlider" type="HSlider"]
+custom_minimum_size = Vector2(200, 0)
+size_flags_vertical = 4
+theme = ExtResource("1_561ij")
+max_value = 1.0
+step = 0.001
+value = 0.5

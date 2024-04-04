@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://crlgm4wevjnxh"]
+
+[ext_resource type="Script" path="res://scenes/ui/menus/tablets/lore.gd" id="1_gmdci"]
+[ext_resource type="PackedScene" uid="uid://c640sr08cvsmo" path="res://entities/objects/stone-tablet/StoneTabletObject.tscn" id="1_rsn5p"]
+[ext_resource type="PackedScene" uid="uid://cxpuyaf3piwxm" path="res://scenes/ui/menus/tablets/StoneTabletOverlay.tscn" id="3_0c4cq"]
+
+[node name="Lore" type="Node2D"]
+script = ExtResource("1_gmdci")
+
+[node name="StoneTablet" parent="." instance=ExtResource("1_rsn5p")]
+
+[node name="StoneTabletOverlay" parent="." instance=ExtResource("3_0c4cq")]
+process_mode = 3
+
+[node name="Sequence" type="CanvasLayer" parent="."]
+
+[connection signal="read" from="StoneTablet" to="." method="_on_stone_tablet_read"]
+[connection signal="visibility_changed" from="StoneTabletOverlay" to="StoneTabletOverlay" method="pause"]

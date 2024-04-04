@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://jfq7dfysa03y"]
+
+[ext_resource type="Script" path="res://scenes/ui/menus/winscreen/winscreen.gd" id="1_h54h1"]
+[ext_resource type="Texture2D" uid="uid://1akl0pqn16nd" path="res://assets/menu_pictures/WinScreen.png" id="2_gc51o"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menus/button.tscn" id="3_ls0xm"]
+
+[node name="Winscreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h54h1")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gc51o")
+expand_mode = 1
+
+[node name="Button" parent="." instance=ExtResource("3_ls0xm")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -19.0
+offset_right = 100.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Return to menu
+"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

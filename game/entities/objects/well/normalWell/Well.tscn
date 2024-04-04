@@ -1,0 +1,113 @@
+[gd_scene load_steps=15 format=3 uid="uid://o5qajbk6mfjn"]
+
+[ext_resource type="Script" path="res://entities/objects/well/normalWell/Well.gd" id="1_ryms2"]
+[ext_resource type="Texture2D" uid="uid://cxe6hu7quuq4d" path="res://entities/objects/well/assets/wellEmpty.png" id="2_gdx0v"]
+[ext_resource type="Texture2D" uid="uid://4qlm6ho7173m" path="res://assets/light_noise/offset_glow.png" id="3_lodbv"]
+[ext_resource type="Texture2D" uid="uid://bfv2i6fh1wtaa" path="res://assets/buttons/Dark/E_Key_Dark.png" id="4_o6eiu"]
+[ext_resource type="AudioStream" uid="uid://b0cs6w8r867lq" path="res://assets/SFX/well/glow.ogg" id="4_rdbng"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_amob8"]
+radius = 95.0
+
+[sub_resource type="Gradient" id="Gradient_j2evw"]
+offsets = PackedFloat32Array(0, 0.584416)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_djkt6"]
+gradient = SubResource("Gradient_j2evw")
+fill = 1
+fill_from = Vector2(0.472477, 0.545872)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2wsyv"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_puv8v"]
+offsets = PackedFloat32Array(0.0430464, 0.327869, 0.631148, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hwhta"]
+gradient = SubResource("Gradient_puv8v")
+
+[sub_resource type="Curve" id="Curve_3c8ug"]
+_data = [Vector2(0, 0.502392), 0.0, 0.0, 0, 0, Vector2(0.515152, 0.782297), 0.0, 0.0, 0, 0, Vector2(1, 0.455742), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_nfndp"]
+curve = SubResource("Curve_3c8ug")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j1tol"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.15
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+angular_velocity_min = -250.0
+angular_velocity_max = 250.0
+gravity = Vector3(0, -150, 0)
+scale_min = 0.4
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_nfndp")
+color_ramp = SubResource("GradientTexture1D_hwhta")
+
+[node name="Well" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_ryms2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -22)
+shape = SubResource("CircleShape2D_amob8")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -5)
+scale = Vector2(28.5625, 21.9688)
+color = Color(0.643137, 0.690196, 1, 1)
+energy = 0.5
+range_layer_min = -101
+texture = SubResource("GradientTexture2D_djkt6")
+
+[node name="Texture" type="Sprite2D" parent="."]
+position = Vector2(0, -37)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_gdx0v")
+region_enabled = true
+region_rect = Rect2(234.355, 263.688, 918.995, 736.313)
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Texture"]
+scale = Vector2(6.66667, 6.66667)
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Texture/StaticBody2D"]
+position = Vector2(10.8713, -6)
+scale = Vector2(10.5794, 5.49783)
+polygon = PackedVector2Array(-6.98257, -4.91103, -6.98257, 7.82126, 4.73834, 7.82126, 4.73834, -5.09292, 3.60405, -6.91181, 1.52454, -8.00315, -1.02759, -8.36693, -3.8633, -8.00315, -5.94281, -6.91181)
+one_way_collision = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+modulate = Color(0.3, 1.5, 4, 1)
+material = SubResource("CanvasItemMaterial_2wsyv")
+position = Vector2(0, -70)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_j1tol")
+texture = ExtResource("3_lodbv")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+z_index = 1
+position = Vector2(0, -70)
+stream = ExtResource("4_rdbng")
+autoplay = true
+max_distance = 1000.0
+attenuation = 2.07052
+bus = &"SFX"
+
+[node name="RichTextLabel" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -168)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_o6eiu")
+
+[connection signal="interacted" from="." to="." method="fill_well"]

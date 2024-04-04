@@ -40,7 +40,7 @@ script = ExtResource("4_sngxa")
 
 [node name="ToCannotAttack" type="Node" parent="AttackStateChart/Root/Attack"]
 script = ExtResource("5_hspqm")
-to = NodePath("../../CannotAttack")
+to = NodePath("../../CanAttack")
 delay_seconds = 0.2
 
 [node name="ProgressBar" type="ProgressBar" parent="."]

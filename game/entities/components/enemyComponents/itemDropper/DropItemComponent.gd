@@ -1,7 +1,8 @@
 extends Node2D
 
-@export var carried_item: PackedScene
+@export var carried_item: Array[PackedScene] = []
 @onready var health_component: HealthComponent = get_parent().get_node_or_null("HealthComponent")
+@export_range(0, 1) var spawn_probability: float
 
 func _ready():
 	if health_component:
@@ -14,7 +15,7 @@ func drop_item():
 		call_deferred("spawn_item")
 
 func spawn_item():
-	var collectable_instance: Node2D = carried_item.instantiate()
-	collectable_instance.global_position = global_position
-	get_parent().get_parent().add_child(collectable_instance)
-
+	if randf_range(0,1) <= spawn_probability:
+		var collectable_instance: Node2D = carried_item.pick_random().instantiate()
+		collectable_instance.global_position = global_position
+		get_tree().get_first_node_in_group("map").add_child(collectable_instance)

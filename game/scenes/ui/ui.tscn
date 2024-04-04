@@ -1,17 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://cihcop35erg48"]
+[gd_scene load_steps=11 format=3 uid="uid://cihcop35erg48"]
 
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="1_hgyi1"]
 [ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_rfa25"]
 [ext_resource type="Texture2D" uid="uid://bd0dnm2tkxxth" path="res://assets/prototype-assets/healthbar_PROGRESS.png" id="3_5gpoy"]
 [ext_resource type="Texture2D" uid="uid://b7jx8lf3ku7ft" path="res://assets/prototype-assets/healthbar_BORDER.png" id="4_e202w"]
+[ext_resource type="Theme" uid="uid://rgpmfojqc2c" path="res://themes/ui.tres" id="4_s773t"]
 [ext_resource type="Script" path="res://scenes/ui/HealthHeatBar.gd" id="5_4qthl"]
 [ext_resource type="Script" path="res://scenes/ui/InventoryUI.gd" id="6_gvkls"]
 [ext_resource type="PackedScene" uid="uid://besblswfge6aw" path="res://scenes/ui/menus/pauseMenu/pauseMenu.tscn" id="7_hnkim"]
+[ext_resource type="Texture2D" uid="uid://2gmq2a8qnov1" path="res://entities/projectiles/animationProjectile/waterattack02.png" id="9_38kpn"]
+[ext_resource type="Texture2D" uid="uid://p7mpwlqg36oc" path="res://entities/projectiles/animationProjectile/waterattack05.png" id="10_01giu"]
 
 [node name="UI" type="CanvasLayer"]
+layer = 100
 script = ExtResource("1_rfa25")
 
 [node name="StateChartDebugger" parent="." instance=ExtResource("1_hgyi1")]
+visible = false
 offset_left = 897.0
 offset_top = 10.0
 offset_right = 232.0
@@ -21,18 +26,93 @@ ignore_events = true
 ignore_state_changes = true
 ignore_transitions = true
 
-[node name="Panel" type="Panel" parent="."]
-offset_left = 8.0
-offset_top = 7.0
-offset_right = 178.0
-offset_bottom = 35.0
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayerHealthBar" type="TextureProgressBar" parent="Panel" groups=["playerHealthHeatBar"]]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel2" type="Control" parent="CenterContainer/MarginContainer"]
+layout_mode = 2
+script = ExtResource("6_gvkls")
+
+[node name="InventoryItem" type="RichTextLabel" parent="CenterContainer/MarginContainer/Panel2"]
+layout_mode = 2
+offset_left = 911.0
+offset_top = 540.0
+offset_right = 1048.0
+offset_bottom = 623.0
+mouse_filter = 2
+theme = ExtResource("4_s773t")
+bbcode_enabled = true
+text = "[center]Inventory
+ Use [img=30]res://assets/buttons/Dark/F_Key_Dark.png[/img][/center]"
+
+[node name="ActiveItem" type="Control" parent="CenterContainer/MarginContainer/Panel2"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemBar" type="ProgressBar" parent="CenterContainer/MarginContainer/Panel2/ActiveItem"]
+layout_mode = 0
+offset_left = 1053.0
+offset_top = 503.0
+offset_right = 1069.0
+offset_bottom = 603.0
+theme = ExtResource("4_s773t")
+value = 25.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Amount" type="Label" parent="CenterContainer/MarginContainer/Panel2/ActiveItem"]
+layout_mode = 2
+offset_left = 1077.0
+offset_top = 575.0
+offset_right = 1142.0
+offset_bottom = 601.0
+theme = ExtResource("4_s773t")
+text = "1/4"
+
+[node name="Name" type="Label" parent="CenterContainer/MarginContainer/Panel2/ActiveItem"]
+layout_mode = 2
+offset_left = 1001.0
+offset_top = 605.0
+offset_right = 1120.0
+offset_bottom = 632.0
+theme = ExtResource("4_s773t")
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="RichTextLabel" parent="CenterContainer/MarginContainer/Panel2/ActiveItem"]
+layout_mode = 0
+offset_left = 1015.0
+offset_top = 465.0
+offset_right = 1108.0
+offset_bottom = 498.0
+mouse_filter = 2
+theme = ExtResource("4_s773t")
+bbcode_enabled = true
+text = "[img=30x30]res://assets/buttons/Dark/X_Key_Dark.png[/img]to Exit"
+scroll_active = false
+scroll_following = true
+
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="CenterContainer/MarginContainer" groups=["playerHealthHeatBar"]]
 texture_filter = 1
-layout_mode = 1
-offset_right = 170.0
-offset_bottom = 28.0
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+value = 50.0
 nine_patch_stretch = true
 stretch_margin_left = 3
 stretch_margin_top = 3
@@ -41,66 +121,81 @@ stretch_margin_bottom = 3
 texture_under = ExtResource("3_5gpoy")
 texture_over = ExtResource("4_e202w")
 texture_progress = ExtResource("3_5gpoy")
+tint_over = Color(0.701961, 0.701961, 0.701961, 1)
+tint_progress = Color(0, 0, 1, 1)
 script = ExtResource("5_4qthl")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="HP" type="Label" parent="CenterContainer/MarginContainer/PlayerHealthBar"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.00225019
+offset_top = 1.0
+offset_right = -0.0899963
+offset_bottom = -0.220001
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "AAAAAA"
 
-[node name="Panel2" type="Control" parent="."]
+[node name="PauseMenu" parent="." instance=ExtResource("7_hnkim")]
+visible = false
+size_flags_horizontal = 4
+
+[node name="Swap" type="Control" parent="."]
+visible = false
 layout_mode = 3
-anchors_preset = 0
-script = ExtResource("6_gvkls")
-
-[node name="ActiveItem" type="Control" parent="Panel2"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Name" type="RichTextLabel" parent="Panel2/ActiveItem"]
+[node name="Swap_ShootingType" type="RichTextLabel" parent="Swap"]
 layout_mode = 2
-offset_left = 1022.0
-offset_top = 601.0
-offset_right = 1147.0
-offset_bottom = 630.0
-text = "Inventory"
+offset_left = 25.0
+offset_top = 41.0
+offset_right = 217.0
+offset_bottom = 124.0
+theme = ExtResource("4_s773t")
+bbcode_enabled = true
+text = "Swap shot type on[img=40]res://assets/buttons/Dark/Q_Key_Dark.png"
 
-[node name="Amount" type="RichTextLabel" parent="Panel2/ActiveItem"]
-layout_mode = 2
-offset_left = 1073.0
-offset_top = 572.0
-offset_right = 1138.0
-offset_bottom = 598.0
-text = "1/4"
-
-[node name="ItemBar" type="ProgressBar" parent="Panel2/ActiveItem"]
+[node name="ColorRect" type="ColorRect" parent="Swap"]
 layout_mode = 0
-offset_left = 1049.0
-offset_top = 500.0
-offset_right = 1065.0
-offset_bottom = 600.0
-value = 25.0
-fill_mode = 3
-show_percentage = false
+offset_left = 32.0
+offset_top = 84.0
+offset_right = 152.0
+offset_bottom = 134.0
+color = Color(0, 0.788235, 0.929412, 1)
 
-[node name="InventoryItem" type="RichTextLabel" parent="Panel2"]
+[node name="MarginContainer" type="MarginContainer" parent="Swap/ColorRect"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ColorRect" type="ColorRect" parent="Swap/ColorRect/MarginContainer"]
 layout_mode = 2
-offset_left = 928.0
-offset_top = 546.0
-offset_right = 1049.0
-offset_bottom = 629.0
-text = "Inventory"
 
-[node name="Use _F_" type="RichTextLabel" parent="Panel2"]
-layout_mode = 2
-offset_left = 939.0
-offset_top = 571.0
-offset_right = 1060.0
-offset_bottom = 654.0
-text = "Use 'F'"
-
-[node name="PauseMenu" parent="." instance=ExtResource("7_hnkim")]
+[node name="Foam" type="Sprite2D" parent="Swap/ColorRect/MarginContainer/ColorRect"]
+unique_name_in_owner = true
 visible = false
+position = Vector2(55, 20)
+rotation = 4.71239
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("9_38kpn")
+
+[node name="Water" type="Sprite2D" parent="Swap/ColorRect/MarginContainer/ColorRect"]
+unique_name_in_owner = true
+position = Vector2(58, 21)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_01giu")

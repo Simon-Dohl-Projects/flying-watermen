@@ -1,16 +1,15 @@
 class_name MainMenu extends Control
 
-@onready var start_button: Button = $MarginContainer/HBoxContainer/VBoxContainer/Start_Button
-@onready var exit_button: Button = $MarginContainer/HBoxContainer/VBoxContainer/Exit_Button
+signal options_pressed()
 
-var main_level: PackedScene = load(Globals.main_scene)
+func _on_start_pressed() -> void:
+	Globals.load_with_loading_screen(Globals.main_scene)
 
-func _ready():
-	start_button.button_down.connect(on_start_pressed)
-	exit_button.button_down.connect(on_exit_pressed)
+func _on_option_pressed() -> void:
+	options_pressed.emit()
 
-func on_start_pressed() -> void:
-	get_tree().change_scene_to_packed(main_level)
-
-func on_exit_pressed() -> void:
+func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+func _on_delete_save_pressed():
+	Globals.delet_save()

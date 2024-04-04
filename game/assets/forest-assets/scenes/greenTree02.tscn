@@ -19,6 +19,7 @@ shader_parameter/offset = 0.0
 
 [node name="GreenTree02" type="Sprite2D"]
 show_behind_parent = true
+z_index = -10
 material = SubResource("ShaderMaterial_y8leg")
 texture = ExtResource("2_8fm1o")
 region_enabled = true

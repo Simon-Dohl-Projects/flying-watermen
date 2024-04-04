@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://v02odff5nyxo"]
+[gd_scene load_steps=12 format=3 uid="uid://v02odff5nyxo"]
 
-[ext_resource type="Texture2D" uid="uid://bwcm0n72t2xgp" path="res://assets/prototype-assets/GameOverBG.jpg" id="1_4hrlb"]
+[ext_resource type="Texture2D" uid="uid://dn43ufaukta8" path="res://assets/menu_pictures/GameOver.png" id="1_38wyq"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menus/button.tscn" id="2_t3uos"]
 [ext_resource type="Texture2D" uid="uid://bio4rf0meadhh" path="res://entities/player/assets/idleanimation/01Idle.png" id="2_ypsss"]
 [ext_resource type="Texture2D" uid="uid://bgd8x87u7urvs" path="res://entities/player/assets/idleanimation/02Idle.png" id="3_q3xq6"]
 [ext_resource type="Texture2D" uid="uid://b2o02fvn5tkcp" path="res://entities/player/assets/deathanimation/death01.png" id="4_3w7as"]
@@ -10,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b40f5avor3q0p" path="res://entities/player/assets/deathanimation/death05.png" id="8_ploqm"]
 
 [sub_resource type="GDScript" id="GDScript_1rgib"]
-script/source = "extends Node2D
+script/source = "extends Control
 
 func _on_button_pressed():
 	$AnimatedSprite2D.play(\"death\")
@@ -46,23 +47,39 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="GameOver" type="Node2D"]
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = SubResource("GDScript_1rgib")
 
 [node name="Background" type="TextureRect" parent="."]
-offset_left = -6.0
-offset_right = 1152.0
-offset_bottom = 646.0
-texture = ExtResource("1_4hrlb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_38wyq")
 expand_mode = 1
 
-[node name="Button" type="Button" parent="."]
-offset_left = 462.0
-offset_top = 279.0
-offset_right = 671.0
-offset_bottom = 352.0
-text = "Respawn
-"
+[node name="Button" parent="." instance=ExtResource("2_t3uos")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -19.0
+offset_right = 100.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Respawn"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(569, 529)

@@ -46,14 +46,14 @@ var has_event:bool:
 ## Evaluates the guard expression and returns true if the transition should be taken.
 ## If no guard expression is specified, this function will always return true.
 func evaluate_guard() -> bool:
-	if guard == null: 
+	if guard == null:
 		return true
 
 	var parent_state = get_parent()
 	if parent_state == null or not (parent_state is State):
 		push_error("Transitions must be children of states.")
-		return false	
-		
+		return false
+
 	return guard.is_satisfied(self, get_parent())
 
 ## Resolves the target state and returns it. If the target state is not found,
@@ -62,7 +62,7 @@ func resolve_target() -> State:
 	if to == null or to.is_empty():
 		return null
 
-	var result = get_node_or_null(to) 
+	var result = get_node_or_null(to)
 	if result is State:
 		return result
 
@@ -81,6 +81,6 @@ func _get_configuration_warnings():
 
 	if not (get_parent() is State):
 		warnings.append("Transitions must be children of states.")
-	
+
 	return warnings
 

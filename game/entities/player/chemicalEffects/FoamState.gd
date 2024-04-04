@@ -11,7 +11,7 @@ func _on_foam_state_entered():
 	player.ranged_component.shot.connect(shooting_cost)
 	player.ranged_component.cooldown = shooting_cooldown
 
-func _on_foam_state_processing(delta):
+func _on_foam_state_processing(_delta):
 	if Input.is_action_pressed("right_click"):
 		player.shoot()
 
@@ -19,6 +19,10 @@ func shooting_cost() -> void:
 	player.inventory.use_active_item(1)
 
 func _on_foam_state_exited():
-	player.projectile_scene = load("res://entities/projectiles/WaterProjectile.tscn")
+	if player.is_shooting_Water:
+		player.projectile_scene = load("res://entities/projectiles/WaterProjectile.tscn")
+		player.ranged_component.cooldown = player.ranged_component.base_cooldown
+	else:
+		player.projectile_scene = load("res://entities/projectiles/BuildingFoamProjectile.tscn")
+		player.ranged_component.cooldown = player.buildingFoam_shootcooldown
 	player.ranged_component.shot.disconnect(shooting_cost)
-	player.ranged_component.cooldown = player.ranged_component.base_cooldown

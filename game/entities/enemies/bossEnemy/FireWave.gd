@@ -18,31 +18,30 @@ var can_damage: bool = true
 
 func _ready():
 	change_scale()
-	print(timer)
-	
+
 func change_scale():
 	self.scale.x = current_scale
 	self.scale.y = current_scale
 	inner_radius = INNER_RADIUS * current_scale
 	outer_radius = OUTER_RADIUS * current_scale
 
-func _on_timer_timeout():		
+func _on_timer_timeout():
 	current_scale += SIZE_GROWTH
 	change_scale()
 	if can_damage:
 		deal_dmg()
 	tic_down()
-	
+
 func tic_down():
 	tics_per_life_time -= 1
 	if tics_per_life_time <= 0:
 		queue_free()
-		
+
 func deal_dmg():
 	var player_distance: int = (player.global_position - self.global_position).length()
 	if inner_radius <= player_distance && player_distance <= outer_radius:
-		var health_component = player.get_node("HealthComponent")
-		if health_component.can_take_damage:
+		var health_component: HealthComponent = player.get_node("HealthComponent")
+		if not health_component.is_invincible:
 			health_component.take_damage(damage, Element.Type.Fire)
 			player.get_node("HeatComponent").increase_heat(75)
 			can_damage = false

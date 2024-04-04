@@ -17,7 +17,7 @@ signal child_state_exited()
 		return initial_state
 	set(value):
 		initial_state = value
-		update_configuration_warnings() 
+		update_configuration_warnings()
 
 
 ## The currently active substate.
@@ -134,7 +134,7 @@ func _handle_transition(transition:Transition, source:State):
 	if not target is State:
 		push_error("The target state '" + str(transition.to) + "' of the transition from '" + source.name + "' is not a state.")
 		return
-	
+
 	# the target state can be
 	# 0. this state. in this case exit this state and re-enter it. This can happen when
 	#    a child state transfers to its parent state.
@@ -156,8 +156,8 @@ func _handle_transition(transition:Transition, source:State):
 		# all good, now first deactivate the current state
 		if is_instance_valid(_active_state):
 			_active_state._state_exit()
-		
-		# now check if the target is a history state, if this is the 
+
+		# now check if the target is a history state, if this is the
 		# case, we need to restore the saved state
 		if target is HistoryState:
 			# print("Target is history state, restoring saved state.")
@@ -181,12 +181,12 @@ func _handle_transition(transition:Transition, source:State):
 		_active_state = target
 		_active_state._state_enter()
 		return
-		
+
 	if self.is_ancestor_of(target):
 		# find the child which is the ancestor of the new target.
 		for child in get_children():
 			if child is State and child.is_ancestor_of(target):
-				# found it. 
+				# found it.
 				# change active state if necessary
 				if _active_state != child:
 					if is_instance_valid(_active_state):
@@ -197,12 +197,12 @@ func _handle_transition(transition:Transition, source:State):
 					# the transition to the child state right after we activate it.
 					# this avoids the child needlessly entering the initial state
 					_active_state._state_enter(true)
-					
+
 				# ask child to handle the transition
 				child._handle_transition(transition, source)
 				return
 		return
-	
+
 	# ask the parent
 	get_parent()._handle_transition(transition, source)
 
@@ -210,20 +210,20 @@ func _handle_transition(transition:Transition, source:State):
 func add_child(node:Node, force_readable_name:bool = false, internal:InternalMode = INTERNAL_MODE_DISABLED) -> void:
 	super.add_child(node, force_readable_name, internal)
 	# when a child is added in the editor and the child is a state
-	# and we don't have an initial state yet, set the initial state 
+	# and we don't have an initial state yet, set the initial state
 	# to the newly added child
 	if Engine.is_editor_hint() and node is State:
 		if initial_state.is_empty():
-			# the newly added node may have a random name now, 
+			# the newly added node may have a random name now,
 			# so we need to defer the call to build a node path
 			# to the next frame, so the editor has time to rename
 			# the node to its final name
 			(func(): initial_state = get_path_to(node)).call_deferred()
-			
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = super._get_configuration_warnings()
-	
+
 	# count the amount of child states
 	var child_count = 0
 	for child in get_children():
@@ -232,13 +232,13 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 	if child_count == 0:
 		warnings.append("Compound states should have at least one child state.")
-		
+
 	var the_initial_state = get_node_or_null(initial_state)
-	
+
 	if not is_instance_valid(the_initial_state):
 		warnings.append("Initial state could not be resolved, is the path correct?")
-		
+
 	elif the_initial_state.get_parent() != self:
 		warnings.append("Initial state must be a direct child of this compound state.")
-	
+
 	return warnings

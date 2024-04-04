@@ -21,14 +21,14 @@ var _animation_tree_state_machine:AnimationNodeStateMachinePlayback
 func _ready():
 	if Engine.is_editor_hint():
 		return
-		
+
 	super._ready()
-	
+
 	_animation_tree_state_machine = null
 	var the_tree = get_node_or_null(animation_tree)
 
 	if is_instance_valid(the_tree):
-		var state_machine = the_tree.get("parameters/playback") 
+		var state_machine = the_tree.get("parameters/playback")
 		if state_machine is AnimationNodeStateMachinePlayback:
 			_animation_tree_state_machine = state_machine
 		else:

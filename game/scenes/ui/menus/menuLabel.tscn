@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpx1mkfrxogqu"]
+
+[ext_resource type="Theme" uid="uid://bniwcx6k6wrx7" path="res://themes/menu.tres" id="1_sna6t"]
+
+[node name="MenuLabel" type="Label"]
+offset_right = 46.0
+offset_bottom = 23.0
+theme = ExtResource("1_sna6t")
+text = "Music"
+horizontal_alignment = 1

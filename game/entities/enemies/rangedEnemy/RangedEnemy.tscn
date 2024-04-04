@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dmeutg1f6t7sl"]
+[gd_scene load_steps=23 format=3 uid="uid://dmeutg1f6t7sl"]
 
 [ext_resource type="Script" path="res://entities/enemies/rangedEnemy/RangedEnemy.gd" id="1_itytb"]
 [ext_resource type="PackedScene" uid="uid://bxtfkclrv3vwa" path="res://entities/components/health/HealthComponent.tscn" id="1_otr82"]
@@ -7,10 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://b7lolmn4dqxpj" path="res://assets/ranged_enemy_assets/flyingEnemy01.png" id="3_yusil"]
 [ext_resource type="Texture2D" uid="uid://btb7dof6qg0tl" path="res://assets/ranged_enemy_assets/flyingEnemy02.png" id="4_v2pk0"]
 [ext_resource type="Texture2D" uid="uid://cq3nc2hweblcp" path="res://assets/ranged_enemy_assets/flyingEnemy03.png" id="5_2h1aa"]
-[ext_resource type="PackedScene" path="res://entities/components/heat/HeatArea.tscn" id="6_5vado"]
+[ext_resource type="PackedScene" uid="uid://u07y0x28am7y" path="res://entities/components/heat/HeatArea.tscn" id="6_5vado"]
 [ext_resource type="PackedScene" uid="uid://bkweew02mcaim" path="res://entities/components/enemyComponents/enemyAggro/AggroComponent.tscn" id="8_axj65"]
 [ext_resource type="PackedScene" uid="uid://61g8e7mlxwj" path="res://entities/components/enemyComponents/movement/MovementComponent.tscn" id="9_of3xe"]
 [ext_resource type="PackedScene" uid="uid://d71bkm5ic0tt" path="res://entities/components/ranged/RangedComponent.tscn" id="11_uinxd"]
+[ext_resource type="PackedScene" uid="uid://wamnd7014nsa" path="res://entities/components/enemyComponents/itemDropper/DropItemComponent.tscn" id="12_t6x7w"]
+[ext_resource type="PackedScene" uid="uid://bree81gljy661" path="res://entities/player/inventory/items/foamChemical/FoamChemical.tscn" id="13_lvug8"]
+[ext_resource type="PackedScene" uid="uid://dp6qth5jvcdhd" path="res://entities/player/inventory/items/iceChemical/IceChemical.tscn" id="14_5uflq"]
+[ext_resource type="PackedScene" uid="uid://dvv2sij5v2epd" path="res://entities/player/inventory/items/sodiumChemical/sodium.tscn" id="15_b3ixe"]
+[ext_resource type="Script" path="res://entities/enemies/EnemySFX.gd" id="16_tmaod"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm63b"]
 size = Vector2(74, 47)
@@ -31,6 +36,15 @@ animations = [{
 "name": &"idle",
 "speed": 10.0
 }]
+
+[sub_resource type="Gradient" id="Gradient_gkfsx"]
+offsets = PackedFloat32Array(0, 0.584416)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qyfpx"]
+gradient = SubResource("Gradient_gkfsx")
+fill = 1
+fill_from = Vector2(0.472477, 0.545872)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5bvq1"]
 radius = 414.0
@@ -59,6 +73,13 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.312619
 
+[node name="PointLight2D" type="PointLight2D" parent="EnemyGraphics"]
+position = Vector2(0, -17)
+scale = Vector2(5.21875, 5.125)
+energy = 0.4
+range_layer_min = -101
+texture = SubResource("GradientTexture2D_qyfpx")
+
 [node name="ViewArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 3
@@ -68,6 +89,7 @@ shape = SubResource("CircleShape2D_5bvq1")
 debug_color = Color(0.0196078, 0.639216, 0.360784, 0.419608)
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("_health_bar") instance=ExtResource("1_otr82")]
+max_health = 80
 _health_bar = NodePath("HealthBar")
 
 [node name="HealthBar" type="TextureProgressBar" parent="HealthComponent"]
@@ -109,4 +131,13 @@ nodes_to_flip = [NodePath("../EnemyGraphics")]
 wait_time = 5.0
 autostart = true
 
+[node name="ItemDropperComponent" parent="." instance=ExtResource("12_t6x7w")]
+carried_item = Array[PackedScene]([ExtResource("13_lvug8"), ExtResource("14_5uflq"), ExtResource("15_b3ixe")])
+spawn_probability = 1.0
+
+[node name="SFX" type="Node2D" parent="."]
+script = ExtResource("16_tmaod")
+
+[connection signal="health_changed" from="HealthComponent" to="SFX" method="_on_health_component_health_changed"]
+[connection signal="projectile_shoot" from="RangedComponent" to="SFX" method="_on_ranged_component_projectile_shoot"]
 [connection signal="timeout" from="MovementOscillation" to="." method="_on_movement_oscillation_timeout"]

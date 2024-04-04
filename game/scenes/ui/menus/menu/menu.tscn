@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://ydfb5feunofa"]
+
+[ext_resource type="Script" path="res://scenes/ui/menus/menu/menu.gd" id="1_xd4qb"]
+[ext_resource type="Texture2D" uid="uid://rf1okkc2cfhy" path="res://assets/menu_pictures/StartScreen.png" id="2_nhrra"]
+[ext_resource type="PackedScene" uid="uid://cyjvugqw3bid5" path="res://scenes/ui/menus/mainMenu/mainMenu.tscn" id="4_25hxw"]
+[ext_resource type="PackedScene" uid="uid://cdkicasp65o4b" path="res://scenes/ui/menus/optionMenu/options.tscn" id="4_vtlls"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xd4qb")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_nhrra")
+
+[node name="Main" parent="TextureRect" instance=ExtResource("4_25hxw")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="Options" parent="TextureRect" instance=ExtResource("4_vtlls")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="options_pressed" from="TextureRect/Main" to="." method="_on_main_options_pressed"]
+[connection signal="back_pressed" from="TextureRect/Options" to="." method="_on_options_back_pressed"]

@@ -16,7 +16,6 @@ func _physics_process(delta):
 	if not body.is_on_floor():
 		body.velocity.y += gravity * weight * delta
 	body.velocity.x = movement_speed * movement_direction;
-
 	body.move_and_slide()
 
 func jump(intensity: float):

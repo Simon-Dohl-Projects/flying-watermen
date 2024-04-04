@@ -1,5 +1,7 @@
 class_name MeleeComponent extends Area2D
 
+signal finished()
+
 @export var damage: int = 50
 @export var element: Element.Type
 @export var attack_shape: CollisionShape2D
@@ -9,6 +11,8 @@ class_name MeleeComponent extends Area2D
 @onready var tmp_animation_bar: ProgressBar = $ProgressBar
 @onready var parent: CharacterBody2D = get_parent()
 @onready var ranged_component: RangedComponent = parent.get_node_or_null("RangedComponent")
+
+signal melee_attack_started()
 
 const ATTACK_DURATION: float = 0.1
 ## To makes sure no body is hit twice
@@ -47,6 +51,7 @@ func _on_body_entered(body):
 			bodies_hit.erase(body)
 
 func _on_attack_state_entered():
+	melee_attack_started.emit()
 	if ranged_component: ranged_component.disable()
 	tmp_animation_bar.visible = true
 	tmp_animation_bar.value = 0
@@ -58,3 +63,4 @@ func _on_attack_state_exited():
 	if ranged_component: ranged_component.enable()
 	tmp_animation_bar.visible = false
 	attack_shape.disabled = true
+	finished.emit()

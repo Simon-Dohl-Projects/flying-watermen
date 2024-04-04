@@ -34,6 +34,12 @@ func increase_heat(amount: int):
 
 func _on_heat_tick():
 	if heat >= HEAT_DAMAGE_THRESHOLD:
-		health_component.take_damage_no_iframes(HEAT_DAMAGE_PER_TICK, Element.Type.Fire)
+		health_component.take_damage(HEAT_DAMAGE_PER_TICK, Element.Type.Fire, false)
 	if heat_reduction_delay.is_stopped():
 		heat = maxi(heat - HEAT_REDUCTION_PER_TICK, 0)
+
+func get_heat():
+	return heat
+
+func set_heat(value: int):
+	heat = value

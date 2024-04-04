@@ -3,6 +3,8 @@ class_name ChemicalStateManager extends Node
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var state_chart: StateChart = %StateChart
 
+signal ice_entered()
+
 func _ready() -> void:
 	player.ready.connect(connect_inventory)
 
@@ -22,3 +24,7 @@ func connect_inventory() -> void:
 func check_item_left(_left, _max) -> void:
 	if player.inventory.active_item_left == 0:
 		state_chart.send_event("to_default")
+
+
+func _on_ice_state_entered() -> void:
+	ice_entered.emit()

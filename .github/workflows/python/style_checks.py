@@ -75,7 +75,7 @@ def missnamedBoolean(line: str):
         if i == 0:
             continue
         if 'bool' in words[i]:
-            return not any([w in words[i-1] for w in ["is", "has", "can", "use"]])
+            return not any([w in word for word in words for w in ["is", "has", "can", "use"]])
     return False
 
 def hasTooManyLineBreaks(line: str):

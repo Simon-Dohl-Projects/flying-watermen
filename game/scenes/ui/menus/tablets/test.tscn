@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://clwx8awv5hsbx"]
+
+[ext_resource type="PackedScene" uid="uid://u3b2cusxjx30" path="res://scenes/ui/menus/tablets/sequence.tscn" id="1_rk286"]
+
+[node name="SequencePlayer" type="CanvasLayer"]
+
+[node name="Sequence" parent="." instance=ExtResource("1_rk286")]

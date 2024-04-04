@@ -19,6 +19,7 @@ shader_parameter/offset = 0.0
 
 [node name="Stone" type="Sprite2D"]
 show_behind_parent = true
+z_index = -10
 texture_filter = 1
 material = SubResource("ShaderMaterial_5lein")
 texture = ExtResource("1_6ulot")

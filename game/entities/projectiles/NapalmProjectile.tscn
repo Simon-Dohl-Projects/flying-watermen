@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://nshvq2t5ihc4"]
+
+[ext_resource type="PackedScene" uid="uid://ckxjw27a061ub" path="res://entities/projectiles/Projectile.tscn" id="1_la18k"]
+[ext_resource type="PackedScene" uid="uid://cxqsoc8anmpvj" path="res://entities/objects/fire/fire.tscn" id="2_gyd2f"]
+
+[node name="NapalmProjectile" type="Node2D"]
+
+[node name="Projectile" parent="." instance=ExtResource("1_la18k")]
+element = 1
+speed = 750
+damage = 5
+new_collision_mask = 1
+to_spawn_on_impact = ExtResource("2_gyd2f")

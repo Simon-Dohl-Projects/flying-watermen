@@ -1,0 +1,72 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bniwcx6k6wrx7"]
+
+[ext_resource type="Texture2D" uid="uid://dpb0u5rshgkn4" path="res://assets/ui/uipack_rpg_sheet.png" id="1_hrton"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e5agl"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 4.0
+texture = ExtResource("1_hrton")
+region_rect = Rect2(0, 189, 190, 48)
+modulate_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xr6kh"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 4.0
+texture = ExtResource("1_hrton")
+region_rect = Rect2(0, 189, 190, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5etx7"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+texture = ExtResource("1_hrton")
+region_rect = Rect2(0, 143, 190, 46)
+modulate_color = Color(0.666667, 0.666667, 0.666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfamd"]
+bg_color = Color(0.419608, 0.443137, 0.470588, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uodyv"]
+bg_color = Color(0.419608, 0.443137, 0.470588, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_874xf"]
+content_margin_top = 2.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_size = 1
+anti_aliasing_size = 0.529
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 4
+Button/font_sizes/font_size = 24
+Button/styles/hover = SubResource("StyleBoxTexture_e5agl")
+Button/styles/normal = SubResource("StyleBoxTexture_xr6kh")
+Button/styles/pressed = SubResource("StyleBoxTexture_5etx7")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_vfamd")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_uodyv")
+HSlider/styles/slider = SubResource("StyleBoxFlat_874xf")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 2

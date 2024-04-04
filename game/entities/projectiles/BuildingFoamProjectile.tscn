@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://iks0es7pu4cl"]
+
+[ext_resource type="PackedScene" uid="uid://ckxjw27a061ub" path="res://entities/projectiles/Projectile.tscn" id="1_amoi4"]
+[ext_resource type="Shader" path="res://shader/Fade.gdshader" id="2_vfgrt"]
+[ext_resource type="Texture2D" uid="uid://2gmq2a8qnov1" path="res://entities/projectiles/animationProjectile/waterattack02.png" id="3_qjhpp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wffrx"]
+resource_local_to_scene = true
+shader = ExtResource("2_vfgrt")
+shader_parameter/blink_speed = 1.0
+shader_parameter/blink_toogle = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iiol6"]
+
+[node name="BuildingFoamProjectile" type="Node2D"]
+
+[node name="Projectile" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_amoi4")]
+material = SubResource("ShaderMaterial_wffrx")
+element = 2
+speed = 1200
+damage = 0
+sprite = NodePath("Ball")
+new_collision_mask = 1
+is_sticky = true
+life_time_seconds = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile"]
+shape = SubResource("CircleShape2D_iiol6")
+
+[node name="Ball" type="Sprite2D" parent="Projectile"]
+scale = Vector2(-0.29, -0.29)
+texture = ExtResource("3_qjhpp")

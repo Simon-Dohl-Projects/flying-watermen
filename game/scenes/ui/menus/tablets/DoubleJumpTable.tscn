@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://4a5uyw208q4h"]
+
+[ext_resource type="PackedScene" uid="uid://c640sr08cvsmo" path="res://entities/objects/stone-tablet/StoneTabletObject.tscn" id="1_3hhbt"]
+[ext_resource type="Script" path="res://scenes/ui/menus/tablets/scripts/DoubleJumpTable.gd" id="1_d8n0s"]
+[ext_resource type="PackedScene" uid="uid://cxpuyaf3piwxm" path="res://scenes/ui/menus/tablets/StoneTabletOverlay.tscn" id="2_jppa4"]
+[ext_resource type="Texture2D" uid="uid://dnr2j8xsiarfo" path="res://entities/objects/stone-tablet/double_jump.png" id="4_mhttx"]
+
+[node name="DoubleJumpTable" type="Node2D"]
+script = ExtResource("1_d8n0s")
+
+[node name="StoneTablet" parent="." instance=ExtResource("1_3hhbt")]
+
+[node name="StoneTabletOverlay" parent="." instance=ExtResource("2_jppa4")]
+
+[node name="TextureRect2" type="TextureRect" parent="StoneTabletOverlay"]
+offset_left = 270.0
+offset_top = 11.0
+offset_right = 1815.0
+offset_bottom = 1639.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_mhttx")
+
+[connection signal="read" from="StoneTablet" to="." method="_on_stone_tablet_read"]

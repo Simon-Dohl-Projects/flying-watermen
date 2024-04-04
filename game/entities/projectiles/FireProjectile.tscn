@@ -1,9 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://1kqni5b4lpm"]
+[gd_scene load_steps=3 format=3 uid="uid://1kqni5b4lpm"]
 
+[ext_resource type="Texture2D" path="res://entities/enemies/assets/featherProjectile.png" id="2_fgvtd"]
 [ext_resource type="PackedScene" uid="uid://ckxjw27a061ub" path="res://entities/projectiles/Projectile.tscn" id="2_uorqn"]
 
 [node name="FireProjectile" type="Node2D"]
 
-[node name="Projectile" parent="." instance=ExtResource("2_uorqn")]
+[node name="Projectile" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_uorqn")]
 element = 1
+speed = 1000
+sprite = NodePath("Sprite2D2")
 new_collision_mask = 3
+
+[node name="Sprite2D2" type="Sprite2D" parent="Projectile"]
+rotation = 3.14159
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_fgvtd")

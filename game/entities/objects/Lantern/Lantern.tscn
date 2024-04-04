@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://vnownse3oxg0"]
+
+[ext_resource type="Texture2D" uid="uid://5gillsm2j8h5" path="res://entities/objects/Lantern/lamp_1.png" id="1_plckw"]
+
+[sub_resource type="Gradient" id="Gradient_8hvb6"]
+offsets = PackedFloat32Array(0.123377, 0.304813, 0.727273)
+colors = PackedColorArray(1, 1, 1, 1, 0.478179, 0.478179, 0.478179, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fl1fu"]
+gradient = SubResource("Gradient_8hvb6")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Lantern" type="Sprite2D"]
+z_index = -1
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_plckw")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-6, -331)
+scale = Vector2(475.188, 355.969)
+color = Color(0.803922, 0.792157, 1, 1)
+energy = 0.7
+texture = SubResource("GradientTexture2D_fl1fu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = -100
+offset_left = -22180.0
+offset_top = -12740.0
+offset_right = 22900.0
+offset_bottom = 13500.0
+color = Color(0.352941, 0.215686, 0.0901961, 1)

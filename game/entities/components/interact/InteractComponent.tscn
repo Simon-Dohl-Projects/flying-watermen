@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://beplu26uk0t1y"]
+
+[ext_resource type="Script" path="res://entities/components/interact/InteractComponent.gd" id="1_qk1nu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwd1g"]
+size = Vector2(128, 58)
+
+[node name="InteractComponent" type="Area2D"]
+script = ExtResource("1_qk1nu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, -29)
+shape = SubResource("RectangleShape2D_dwd1g")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

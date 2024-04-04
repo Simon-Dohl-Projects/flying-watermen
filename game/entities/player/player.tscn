@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://djmlmtr41m2ce"]
+[gd_scene load_steps=142 format=3 uid="uid://djmlmtr41m2ce"]
 
 [ext_resource type="Script" path="res://entities/player/Player.gd" id="1_n7144"]
 [ext_resource type="PackedScene" uid="uid://d71bkm5ic0tt" path="res://entities/components/ranged/RangedComponent.tscn" id="2_32y2k"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_dhjab"]
 [ext_resource type="Texture2D" uid="uid://5cvhucuvdfj7" path="res://entities/player/assets/dashanimation/dash01.png" id="2_o30bq"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_7lhhd"]
+[ext_resource type="Texture2D" uid="uid://ihorffrdym4j" path="res://icon.svg" id="3_7vtgm"]
 [ext_resource type="Texture2D" uid="uid://dn55maekx6gbb" path="res://entities/player/assets/deathanimation/death02.png" id="3_gotyv"]
 [ext_resource type="PackedScene" uid="uid://bvq77pvlf1qxo" path="res://entities/components/heat/HeatComponent.tscn" id="3_kjfn2"]
 [ext_resource type="Texture2D" uid="uid://dghemaohtfy28" path="res://entities/player/assets/dashanimation/dash02.png" id="3_nvxda"]
@@ -14,6 +15,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_klwk4"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_dadqm"]
 [ext_resource type="Texture2D" uid="uid://dhdyqc1oe0j4w" path="res://entities/player/assets/deathanimation/death04.png" id="5_o1qs4"]
+[ext_resource type="PackedScene" uid="uid://beplu26uk0t1y" path="res://entities/components/interact/InteractComponent.tscn" id="6_01ygf"]
 [ext_resource type="Texture2D" uid="uid://b40f5avor3q0p" path="res://entities/player/assets/deathanimation/death05.png" id="6_5ni3t"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_aaxtf"]
 [ext_resource type="Texture2D" uid="uid://bio4rf0meadhh" path="res://entities/player/assets/idleanimation/01Idle.png" id="6_oqgpa"]
@@ -46,22 +48,46 @@
 [ext_resource type="Texture2D" uid="uid://0n04oh1rheg8" path="res://entities/player/assets/fliped_walk_test.png" id="20_l5uo2"]
 [ext_resource type="Texture2D" uid="uid://crr3ie3vth84m" path="res://entities/player/assets/jumpanimation/jump06.png" id="20_wfuat"]
 [ext_resource type="Texture2D" uid="uid://b4setwdaw2rbn" path="res://entities/player/assets/jumpanimation/jump07.png" id="21_elgpx"]
-[ext_resource type="AudioStream" uid="uid://bbxhs7f4v3t41" path="res://assets/SFX/dash.wav" id="31_e7ort"]
 [ext_resource type="Texture2D" uid="uid://fv775xqmgpmo" path="res://assets/light_noise/white.jpg" id="32_b04or"]
+[ext_resource type="Texture2D" uid="uid://cy1gqd4iqmji5" path="res://entities/player/assets/meleeanimation/hit01.png" id="32_rvn34"]
+[ext_resource type="Texture2D" uid="uid://1yix35hwqnex" path="res://entities/player/assets/meleeanimation/hit02.png" id="33_yvmad"]
+[ext_resource type="Texture2D" uid="uid://cxv42pvt7lo8s" path="res://entities/player/assets/meleeanimation/hit03.png" id="34_u48qo"]
+[ext_resource type="Texture2D" uid="uid://cycvpu6ksi205" path="res://entities/player/assets/meleeanimation/hit04.png" id="35_sqauw"]
 [ext_resource type="PackedScene" uid="uid://ch6xnk5tnb5k8" path="res://visualEffects/monitorEffects.tscn" id="36_hryvp"]
+[ext_resource type="Texture2D" uid="uid://bstsr0xvgn5et" path="res://entities/player/assets/meleeanimation/hit05.png" id="36_ykxb2"]
+[ext_resource type="Texture2D" uid="uid://dgvvipptwpkn3" path="res://entities/player/assets/meleeanimation/hit06.png" id="37_fxy0t"]
+[ext_resource type="Texture2D" uid="uid://dewcvwmxjcg6l" path="res://entities/player/assets/meleeanimation/hit07.png" id="38_n4fxb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/animation_tree_state.gd" id="42_m0dwi"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/all_of_guard.gd" id="43_c4ing"]
 [ext_resource type="PackedScene" uid="uid://c5yieglatmln5" path="res://entities/player/chemicalEffects/chemicalEffectsManager.tscn" id="51_52a8d"]
+[ext_resource type="Script" path="res://entities/player/PlayerSFX.gd" id="53_830yn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fuycp"]
-radius = 15.25
-height = 49.0
+radius = 24.75
+height = 81.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obf3n"]
-size = Vector2(67.9998, 44.5003)
+size = Vector2(85.5, 72)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pbewx"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_dqgwl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_daquo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_wfuat")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_elgpx")
+}],
+"loop": true,
+"name": &"airborne",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.5,
 "texture": ExtResource("2_o30bq")
@@ -157,6 +183,32 @@ animations = [{
 "speed": 10.0
 }, {
 "frames": [{
+"duration": 0.7,
+"texture": ExtResource("32_rvn34")
+}, {
+"duration": 2.4,
+"texture": ExtResource("33_yvmad")
+}, {
+"duration": 0.7,
+"texture": ExtResource("34_u48qo")
+}, {
+"duration": 0.7,
+"texture": ExtResource("35_sqauw")
+}, {
+"duration": 2.5,
+"texture": ExtResource("36_ykxb2")
+}, {
+"duration": 2.0,
+"texture": ExtResource("37_fxy0t")
+}, {
+"duration": 0.3,
+"texture": ExtResource("38_n4fxb")
+}],
+"loop": false,
+"name": &"melee",
+"speed": 40.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("13_cmf1i")
 }, {
@@ -177,8 +229,9 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_m8twy"]
-length = 0.3
+[sub_resource type="Animation" id="Animation_pkkn3"]
+length = 0.8
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -186,7 +239,34 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["airborne"]
+}
+
+[sub_resource type="Animation" id="Animation_m8twy"]
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
@@ -314,6 +394,34 @@ tracks/1/keys = {
 "values": ["jump"]
 }
 
+[sub_resource type="Animation" id="Animation_3h8xa"]
+resource_name = "melee"
+length = 0.2325
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0175, 0.0775, 0.095, 0.1125, 0.175, 0.225),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["melee"]
+}
+
 [sub_resource type="Animation" id="Animation_kbvwp"]
 length = 0.5
 loop_mode = 1
@@ -344,13 +452,18 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u65v8"]
 _data = {
+"airborne": SubResource("Animation_pkkn3"),
 "dash": SubResource("Animation_m8twy"),
 "death": SubResource("Animation_qf5mt"),
 "ice": SubResource("Animation_by2ts"),
 "idle": SubResource("Animation_d84i6"),
 "jump": SubResource("Animation_gieuj"),
+"melee": SubResource("Animation_3h8xa"),
 "run": SubResource("Animation_kbvwp")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i2jmy"]
+animation = &"airborne"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b5g3e"]
 animation = &"dash"
@@ -373,17 +486,17 @@ blend_point_2/node = SubResource("AnimationNodeAnimation_denoe")
 blend_point_2/pos = -0.8
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c2nnl"]
-animation = &"jump"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wlofg"]
-animation = &"death"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dmnx8"]
 animation = &"ice"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7fmv2"]
-animation = &"ice"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c2nnl"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_we478"]
+animation = &"melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wlofg"]
+animation = &"death"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b1nr5"]
 advance_mode = 2
@@ -396,23 +509,45 @@ advance_condition = &"entered_ice"
 advance_mode = 2
 advance_condition = &"exited_ice"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h2isx"]
+advance_mode = 2
+advance_condition = &"entered_ice"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vmc66"]
+advance_mode = 2
+advance_condition = &"entered_ice"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n3n3s"]
+advance_mode = 2
+advance_condition = &"entered_ice"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m807c"]
+advance_mode = 2
+advance_condition = &"entered_ice"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_he8y2"]
+advance_mode = 2
+advance_condition = &"entered_ice"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_arr00"]
+states/Airborne/node = SubResource("AnimationNodeAnimation_i2jmy")
+states/Airborne/position = Vector2(580.667, 66.1482)
 states/Dash/node = SubResource("AnimationNodeAnimation_b5g3e")
-states/Dash/position = Vector2(475, 224)
+states/Dash/position = Vector2(458.333, 231.556)
 states/Default/node = SubResource("AnimationNodeBlendSpace1D_rocsi")
 states/Default/position = Vector2(298, 152)
-states/End/position = Vector2(926, 152)
+states/End/position = Vector2(815.333, 151.63)
+states/Ice/node = SubResource("AnimationNodeAnimation_dmnx8")
+states/Ice/position = Vector2(298, 230)
 states/Jump/node = SubResource("AnimationNodeAnimation_c2nnl")
-states/Jump/position = Vector2(494, 152)
+states/Jump/position = Vector2(458.667, 152.889)
+states/Melee/node = SubResource("AnimationNodeAnimation_we478")
+states/Melee/position = Vector2(298.222, 66.5556)
 states/Start/position = Vector2(96, 152)
 states/death/node = SubResource("AnimationNodeAnimation_wlofg")
-states/death/position = Vector2(733, 122)
-states/ice/node = SubResource("AnimationNodeAnimation_7fmv2")
-states/ice/position = Vector2(503, 25)
-"states/ice 2/node" = SubResource("AnimationNodeAnimation_dmnx8")
-"states/ice 2/position" = Vector2(298, 230)
-transitions = ["Start", "Default", SubResource("AnimationNodeStateMachineTransition_b1nr5"), "Default", "ice 2", SubResource("AnimationNodeStateMachineTransition_v43ie"), "ice 2", "Default", SubResource("AnimationNodeStateMachineTransition_e6j7h")]
-graph_offset = Vector2(-23, 95)
+states/death/position = Vector2(457.222, 67.6296)
+transitions = ["Start", "Default", SubResource("AnimationNodeStateMachineTransition_b1nr5"), "Default", "Ice", SubResource("AnimationNodeStateMachineTransition_v43ie"), "Ice", "Default", SubResource("AnimationNodeStateMachineTransition_e6j7h"), "Jump", "Ice", SubResource("AnimationNodeStateMachineTransition_h2isx"), "Melee", "Ice", SubResource("AnimationNodeStateMachineTransition_vmc66"), "death", "Ice", SubResource("AnimationNodeStateMachineTransition_n3n3s"), "Dash", "Ice", SubResource("AnimationNodeStateMachineTransition_m807c"), "Airborne", "Ice", SubResource("AnimationNodeStateMachineTransition_he8y2")]
+graph_offset = Vector2(-289, 12)
 
 [sub_resource type="Gradient" id="Gradient_5hdqj"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
@@ -430,6 +565,7 @@ curve = SubResource("Curve_cxabh")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sivy7"]
 particle_flag_disable_z = true
 particle_flag_damping_as_friction = true
+emission_shape_scale = Vector3(3.44, 0.055, 1)
 emission_shape = 1
 emission_sphere_radius = 14.5
 direction = Vector3(-1, -0.8, 0)
@@ -539,22 +675,6 @@ guard = SubResource("Resource_p8ca0")
 script = ExtResource("8_3t36e")
 state = NodePath("../../../Cooldowns/Dash/Useable")
 
-[sub_resource type="Resource" id="Resource_323lm"]
-script = ExtResource("8_3t36e")
-state = NodePath("../../../Movement/Interruptible/Airborne/Jumping")
-
-[sub_resource type="Resource" id="Resource_gs6bx"]
-script = ExtResource("9_qrtxb")
-guard = SubResource("Resource_323lm")
-
-[sub_resource type="Resource" id="Resource_5bgcs"]
-script = ExtResource("8_3t36e")
-state = NodePath("../../../Movement/Dash")
-
-[sub_resource type="Resource" id="Resource_c33nr"]
-script = ExtResource("9_qrtxb")
-guard = SubResource("Resource_5bgcs")
-
 [sub_resource type="Resource" id="Resource_04r6y"]
 script = ExtResource("8_3t36e")
 state = NodePath("../../Movement/Interruptible/Airborne/Jumping")
@@ -587,8 +707,73 @@ guard = SubResource("Resource_djar4")
 script = ExtResource("43_c4ing")
 guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_8q6k4"), SubResource("Resource_xgmgk")])
 
+[sub_resource type="Resource" id="Resource_moppb"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Default")
+
+[sub_resource type="Resource" id="Resource_x6iml"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_moppb")
+
+[sub_resource type="Resource" id="Resource_ctsct"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../Movement/Interruptible/Grounded")
+
+[sub_resource type="Resource" id="Resource_ctppa"]
+script = ExtResource("43_c4ing")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_x6iml"), SubResource("Resource_ctsct")])
+
+[sub_resource type="Resource" id="Resource_w6jnb"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Melee")
+
+[sub_resource type="Resource" id="Resource_vhgyu"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_w6jnb")
+
+[sub_resource type="Resource" id="Resource_32t3b"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../Movement/Melee")
+
+[sub_resource type="Resource" id="Resource_8l6iq"]
+script = ExtResource("43_c4ing")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_vhgyu"), SubResource("Resource_32t3b")])
+
+[sub_resource type="Resource" id="Resource_303r3"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../Movement/Interruptible/Airborne/Jumping")
+
+[sub_resource type="Resource" id="Resource_smd5c"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_303r3")
+
+[sub_resource type="Resource" id="Resource_ciomi"]
+script = ExtResource("8_3t36e")
+state = NodePath("../Airborne")
+
+[sub_resource type="Resource" id="Resource_rhrqw"]
+script = ExtResource("9_qrtxb")
+guard = SubResource("Resource_ciomi")
+
+[sub_resource type="Resource" id="Resource_nkgmn"]
+script = ExtResource("8_3t36e")
+state = NodePath("../../Movement/Interruptible/Airborne")
+
+[sub_resource type="Resource" id="Resource_x8iuh"]
+script = ExtResource("43_c4ing")
+guards = Array[Resource("res://addons/godot_state_charts/guard.gd")]([SubResource("Resource_smd5c"), SubResource("Resource_rhrqw"), SubResource("Resource_nkgmn")])
+
+[sub_resource type="Gradient" id="Gradient_uqgdu"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mi7o7"]
+gradient = SubResource("Gradient_uqgdu")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-scale = Vector2(2, 2)
+z_index = 10
 collision_layer = 2
 collision_mask = 5
 floor_constant_speed = true
@@ -596,15 +781,19 @@ floor_snap_length = 23.0
 script = ExtResource("1_n7144")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-show_behind_parent = true
-position = Vector2(0, -15.5)
+position = Vector2(0, -25)
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_fuycp")
 debug_color = Color(0.917647, 0.172549, 0.568627, 0.419608)
 
 [node name="RangedComponent" parent="." instance=ExtResource("2_32y2k")]
-position = Vector2(11.51, -21.28)
+unique_name_in_owner = true
+position = Vector2(0, -24.595)
 use_cooldown = true
+
+[node name="Sprite2D" type="Sprite2D" parent="RangedComponent"]
+scale = Vector2(0.171875, 0.140625)
+texture = ExtResource("3_7vtgm")
 
 [node name="HeatComponent" parent="." node_paths=PackedStringArray("health_component", "heat_reduction_delay", "heat_tick") instance=ExtResource("3_kjfn2")]
 health_component = NodePath("../HealthComponent")
@@ -613,18 +802,22 @@ heat_tick = NodePath("../Timers/HeatTick")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("_heal_tick") instance=ExtResource("16_vgsyb")]
 element = 0
+max_health = 150
 _heal_tick = NodePath("../Timers/HealTick")
 use_damage_effect = true
 
 [node name="MeleeComponent" parent="." node_paths=PackedStringArray("attack_shape") instance=ExtResource("14_pebxf")]
 collision_mask = 4
+damage = 65
 attack_shape = NodePath("AttackShape")
 attack_color = Color(0.188235, 0.560784, 0.709804, 1)
 
 [node name="AttackShape" type="CollisionShape2D" parent="MeleeComponent"]
-position = Vector2(45.5001, -16.9998)
+position = Vector2(39.0001, -23.9998)
 shape = SubResource("RectangleShape2D_obf3n")
 debug_color = Color(1, 1, 1, 0.419608)
+
+[node name="InteractComponent" parent="." instance=ExtResource("6_01ygf")]
 
 [node name="ChemicalEffectsManager" parent="." instance=ExtResource("51_52a8d")]
 
@@ -632,14 +825,13 @@ debug_color = Color(1, 1, 1, 0.419608)
 script = ExtResource("15_8nkrm")
 
 [node name="Animation" type="Node2D" parent="."]
-position = Vector2(0, -14.5)
+position = Vector2(0, -25)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animation"]
 unique_name_in_owner = true
-position = Vector2(1, -0.125001)
-scale = Vector2(0.3, 0.303125)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_pbewx")
-animation = &"dash"
+animation = &"idle"
 autoplay = "idle"
 flip_h = true
 
@@ -686,16 +878,16 @@ script = ExtResource("19_kqys4")
 
 [node name="WalkingParticles" type="GPUParticles2D" parent="Particles"]
 modulate = Color(0.1, 0.9, 100, 1)
-show_behind_parent = true
-position = Vector2(0, -14.5)
+position = Vector2(-7, -1)
+emitting = false
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_sivy7")
 texture = ExtResource("18_l2hsd")
-lifetime = 0.35
+lifetime = 0.3
 
 [node name="DashTrail" type="GPUParticles2D" parent="Particles"]
 material = SubResource("CanvasItemMaterial_tf7cu")
-position = Vector2(0, -14.5)
+position = Vector2(0, -24)
 emitting = false
 amount = 10
 sub_emitter = NodePath(".")
@@ -705,6 +897,7 @@ lifetime = 0.4
 one_shot = true
 
 [node name="Timers" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="HeatTick" type="Timer" parent="Timers"]
 autostart = true
@@ -829,6 +1022,11 @@ to = NodePath("../../Dash")
 event = &"dash"
 guard = SubResource("Resource_scptp")
 
+[node name="On Melee" type="Node" parent="StateChart/Mechanics/Movement/Interruptible"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Melee")
+event = &"melee"
+
 [node name="Dash" type="Node" parent="StateChart/Mechanics/Movement"]
 script = ExtResource("5_dadqm")
 
@@ -849,6 +1047,14 @@ event = &"enable"
 script = ExtResource("6_aaxtf")
 to = NodePath("../Disabled")
 event = &"disable"
+
+[node name="Melee" type="Node" parent="StateChart/Mechanics/Movement"]
+script = ExtResource("5_dadqm")
+
+[node name="Melee End" type="Node" parent="StateChart/Mechanics/Movement/Melee"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../../Interruptible")
+event = &"melee_end"
 
 [node name="Cooldowns" type="Node" parent="StateChart/Mechanics"]
 script = ExtResource("3_7lhhd")
@@ -885,21 +1091,13 @@ animation_tree = NodePath("../../../../Animation/AnimationTree")
 script = ExtResource("42_m0dwi")
 animation_tree = NodePath("../../../../Animation/AnimationTree")
 
-[node name="OnDefault" type="Node" parent="StateChart/Mechanics/Animation/Jump"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../Default")
-event = &"tick"
-guard = SubResource("Resource_gs6bx")
-
 [node name="Dash" type="Node" parent="StateChart/Mechanics/Animation"]
 script = ExtResource("42_m0dwi")
 animation_tree = NodePath("../../../../Animation/AnimationTree")
 
-[node name="OnDefault" type="Node" parent="StateChart/Mechanics/Animation/Dash"]
-script = ExtResource("6_aaxtf")
-to = NodePath("../../Default")
-event = &"tick"
-guard = SubResource("Resource_c33nr")
+[node name="Melee" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("42_m0dwi")
+animation_tree = NodePath("../../../../Animation/AnimationTree")
 
 [node name="OnJump" type="Node" parent="StateChart/Mechanics/Animation"]
 script = ExtResource("6_aaxtf")
@@ -913,16 +1111,54 @@ to = NodePath("../Dash")
 event = &"tick"
 guard = SubResource("Resource_wmonw")
 
+[node name="OnDefault" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Default")
+event = &"tick"
+guard = SubResource("Resource_ctppa")
+
+[node name="OnMelee" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Melee")
+event = &"tick"
+guard = SubResource("Resource_8l6iq")
+
+[node name="Airborne" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("42_m0dwi")
+animation_tree = NodePath("../../../../Animation/AnimationTree")
+
+[node name="OnAirborne" type="Node" parent="StateChart/Mechanics/Animation"]
+script = ExtResource("6_aaxtf")
+to = NodePath("../Airborne")
+event = &"tick"
+guard = SubResource("Resource_x8iuh")
+
 [node name="MonitorEffects" parent="." instance=ExtResource("36_hryvp")]
+layer = 5
 
-[node name="SFX" type="Node" parent="."]
+[node name="SFX" type="Node2D" parent="."]
+script = ExtResource("53_830yn")
 
-[node name="dash" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("31_e7ort")
-volume_db = -15.0
-pitch_scale = 0.81
+[node name="PointLight2D" type="PointLight2D" parent="."]
+rotation = -1.57079
+scale = Vector2(23.3509, 40.4555)
+energy = 0.7
+range_layer_min = -101
+shadow_filter_smooth = 1.8
+texture = SubResource("GradientTexture2D_mi7o7")
+metadata/_edit_lock_ = true
 
+[node name="MeleeCD" type="Timer" parent="."]
+wait_time = 0.6
+
+[connection signal="projectile_shoot" from="RangedComponent" to="SFX" method="_on_ranged_component_projectile_shoot"]
 [connection signal="death" from="HealthComponent" to="." method="_on_death"]
+[connection signal="finished" from="MeleeComponent" to="." method="_on_melee_component_finished"]
+[connection signal="melee_attack_started" from="MeleeComponent" to="SFX" method="_on_melee_component_melee_attack_started"]
+[connection signal="on_item_activated" from="Inventory" to="." method="_on_inventory_on_item_activated"]
+[connection signal="on_item_activated" from="Inventory" to="SFX" method="_on_inventory_on_item_activated"]
+[connection signal="on_item_in_inventory_updated" from="Inventory" to="SFX" method="_on_inventory_on_item_in_inventory_updated"]
+[connection signal="on_item_used" from="Inventory" to="SFX" method="_on_inventory_on_item_used"]
 [connection signal="timeout" from="Timers/HeatTick" to="." method="_on_heat_tick_timeout"]
 [connection signal="timeout" from="Timers/HealTick" to="." method="_on_heal_tick_timeout"]
 [connection signal="child_state_exited" from="StateChart/Mechanics/Movement" to="." method="reset_variables"]
@@ -935,8 +1171,11 @@ pitch_scale = 0.81
 [connection signal="child_state_exited" from="StateChart/Mechanics/Movement/Interruptible/Airborne" to="." method="_on_movement_child_state_exited"]
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Airborne" to="." method="_on_airborne_state_entered"]
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Airborne/Jumping" to="." method="_on_jumping_state_entered"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Airborne/Jumping" to="SFX" method="_on_jumping_state_entered"]
 [connection signal="state_input" from="StateChart/Mechanics/Movement/Interruptible/Airborne/Jumping" to="." method="_on_airborn_not_coyote_state_input"]
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/Airborne/Falling" to="." method="_on_falling_state_entered"]
-[connection signal="state_entered" from="StateChart/Mechanics/Movement/Interruptible/WallSlide" to="." method="_on_wall_slide_state_entered"]
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Dash" to="." method="_on_dash_state_entered"]
+[connection signal="state_entered" from="StateChart/Mechanics/Movement/Dash" to="SFX" method="_on_dash_state_entered"]
+[connection signal="state_exited" from="StateChart/Mechanics/Movement/Dash" to="." method="_on_dash_state_exited"]
 [connection signal="state_entered" from="StateChart/Mechanics/Movement/Disabled" to="." method="_on_disabled_state_entered"]
+[connection signal="timeout" from="MeleeCD" to="." method="_on_melee_cd_timeout"]

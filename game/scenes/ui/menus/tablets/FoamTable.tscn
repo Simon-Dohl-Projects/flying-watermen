@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://7f337v7tf1gt"]
+
+[ext_resource type="Script" path="res://scenes/texteVisualizer/ShowText.gd" id="1_q7c5h"]
+[ext_resource type="PackedScene" uid="uid://c640sr08cvsmo" path="res://entities/objects/stone-tablet/StoneTabletObject.tscn" id="1_wbaqd"]
+[ext_resource type="PackedScene" uid="uid://cxpuyaf3piwxm" path="res://scenes/ui/menus/tablets/StoneTabletOverlay.tscn" id="2_7mh8a"]
+[ext_resource type="Texture2D" uid="uid://bx2br06mfcoq1" path="res://entities/objects/stone-tablet/attack_foam.png" id="3_tbhft"]
+[ext_resource type="PackedScene" uid="uid://dhimpw5fqa64u" path="res://scenes/texteVisualizer/text_visualizer.tscn" id="4_lhlrx"]
+
+[node name="FoamTable" type="Node2D"]
+script = ExtResource("1_q7c5h")
+
+[node name="StoneTablet" parent="." instance=ExtResource("1_wbaqd")]
+
+[node name="StoneTabletOverlay" parent="." instance=ExtResource("2_7mh8a")]
+
+[node name="TextureRect2" type="TextureRect" parent="StoneTabletOverlay"]
+offset_left = 234.0
+offset_top = -19.0
+offset_right = 1729.0
+offset_bottom = 1534.0
+scale = Vector2(0.455, 0.455)
+texture = ExtResource("3_tbhft")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextVisualizer" parent="StoneTabletOverlay" instance=ExtResource("4_lhlrx")]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = -74.0
+offset_right = 4.0
+offset_bottom = -74.0
+message = "- Extinguishes fire when shot at"
+
+[node name="TextVisualizer2" parent="StoneTabletOverlay" instance=ExtResource("4_lhlrx")]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = -50.0
+offset_right = 60.0
+offset_bottom = -50.0
+
+[connection signal="interacted" from="StoneTablet" to="." method="_on_stone_tablet_interacted"]

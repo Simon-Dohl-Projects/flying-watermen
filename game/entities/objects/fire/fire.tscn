@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://cxqsoc8anmpvj"]
+
+[ext_resource type="Script" path="res://entities/objects/fire/fire.gd" id="1_p2r7l"]
+[ext_resource type="Texture2D" uid="uid://wc3tovfbvv7g" path="res://assets/fire_barrier/fire_1.png" id="2_0u14y"]
+[ext_resource type="Shader" path="res://shader/wobbleEffect.gdshader" id="2_8nx8l"]
+[ext_resource type="PackedScene" uid="uid://bxtfkclrv3vwa" path="res://entities/components/health/HealthComponent.tscn" id="3_p8tfa"]
+[ext_resource type="Texture2D" uid="uid://32uxotk6128m" path="res://entities/enemies/assets/healthbar_under.png" id="4_m5hfb"]
+[ext_resource type="Texture2D" uid="uid://drqht0p82ryru" path="res://entities/enemies/assets/healthbar_progress.png" id="5_8rkk6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tmkil"]
+resource_local_to_scene = true
+shader = ExtResource("2_8nx8l")
+shader_parameter/speed = 4.0
+shader_parameter/minStrength = 0.1
+shader_parameter/maxStrength = 0.15
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[sub_resource type="Gradient" id="Gradient_he26q"]
+offsets = PackedFloat32Array(0, 0.584416)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8d18q"]
+gradient = SubResource("Gradient_he26q")
+fill = 1
+fill_from = Vector2(0.472477, 0.545872)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aftnp"]
+radius = 120.0
+height = 540.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gds7h"]
+radius = 220.0
+height = 680.0
+
+[node name="Fire" type="RigidBody2D"]
+z_index = -1
+collision_layer = 8
+collision_mask = 0
+freeze = true
+script = ExtResource("1_p2r7l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tmkil")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_0u14y")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
+position = Vector2(0, 40)
+scale = Vector2(51.25, 43.4375)
+energy = 0.5
+range_layer_min = -101
+texture = SubResource("GradientTexture2D_8d18q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 13)
+rotation = 1.57079
+scale = Vector2(0.3, 0.3)
+shape = SubResource("CapsuleShape2D_aftnp")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.5411e-21, 4)
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+shape = SubResource("CapsuleShape2D_gds7h")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("_health_bar") instance=ExtResource("3_p8tfa")]
+element = 2
+max_health = 70
+_health_bar = NodePath("HealthBar")
+single_damage_element = 3
+
+[node name="HealthBar" type="TextureProgressBar" parent="HealthComponent"]
+visible = false
+offset_left = -50.5
+offset_top = -166.0
+offset_right = 149.5
+offset_bottom = -126.0
+scale = Vector2(0.5, 0.5)
+value = 100.0
+texture_under = ExtResource("4_m5hfb")
+texture_progress = ExtResource("5_8rkk6")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]

@@ -1,0 +1,102 @@
+[gd_scene load_steps=16 format=3 uid="uid://d3fci01ety45h"]
+
+[ext_resource type="Script" path="res://entities/objects/max-health-plant/plant.gd" id="1_2q2m2"]
+[ext_resource type="Texture2D" uid="uid://s4rpkn4au3kf" path="res://entities/objects/max-health-plant/Blue Umbrella.png" id="2_phiv6"]
+[ext_resource type="Shader" path="res://shader/wobbleEffect.gdshader" id="2_yjr0p"]
+[ext_resource type="Texture2D" uid="uid://bfv2i6fh1wtaa" path="res://assets/buttons/Dark/E_Key_Dark.png" id="3_ndxwx"]
+[ext_resource type="Texture2D" uid="uid://4qlm6ho7173m" path="res://assets/light_noise/offset_glow.png" id="4_ha8mg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mc6aj"]
+shader = ExtResource("2_yjr0p")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.077
+shader_parameter/maxStrength = 0.08
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.025
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[sub_resource type="Gradient" id="Gradient_pw0k1"]
+offsets = PackedFloat32Array(0, 0.584416)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d77il"]
+gradient = SubResource("Gradient_pw0k1")
+fill = 1
+fill_from = Vector2(0.472477, 0.545872)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ciqrd"]
+radius = 282.044
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yt0b6"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_7whsk"]
+offsets = PackedFloat32Array(0.0430464, 0.337748, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ds3dp"]
+gradient = SubResource("Gradient_7whsk")
+
+[sub_resource type="Curve" id="Curve_8csxp"]
+_data = [Vector2(0, 0.502392), 0.0, 0.0, 0, 0, Vector2(0.515152, 0.782297), 0.0, 0.0, 0, 0, Vector2(1, 0.455742), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_y8olf"]
+curve = SubResource("Curve_8csxp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tta2d"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(4, 20, 1)
+emission_shape = 3
+emission_box_extents = Vector3(200, 3, 1)
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+angular_velocity_min = -250.0
+angular_velocity_max = 250.0
+gravity = Vector3(0, -150, 0)
+scale_min = 0.4
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_y8olf")
+color_ramp = SubResource("GradientTexture1D_ds3dp")
+
+[node name="Plant" type="Area2D"]
+z_index = -1
+scale = Vector2(0.4, 0.4)
+script = ExtResource("1_2q2m2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_mc6aj")
+texture = ExtResource("2_phiv6")
+region_enabled = true
+region_rect = Rect2(25, 35, 626, 611)
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
+scale = Vector2(32.1094, 26.3281)
+color = Color(0.219608, 0.447059, 1, 1)
+energy = 1.5
+texture = SubResource("GradientTexture2D_d77il")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, -2)
+shape = SubResource("CircleShape2D_ciqrd")
+
+[node name="E_key_dark" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -282)
+texture = ExtResource("3_ndxwx")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1.775, 0.698, 41.42, 1)
+material = SubResource("CanvasItemMaterial_yt0b6")
+position = Vector2(-37.5, 150)
+scale = Vector2(0.5, 0.5)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_tta2d")
+texture = ExtResource("4_ha8mg")
+
+[connection signal="interacted" from="." to="." method="_on_interacted"]

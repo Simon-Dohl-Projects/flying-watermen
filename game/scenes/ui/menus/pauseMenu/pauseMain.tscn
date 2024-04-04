@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhiir77ni7ulx"]
+
+[ext_resource type="Script" path="res://scenes/ui/menus/pauseMenu/pauseMain.gd" id="1_bfgq5"]
+[ext_resource type="PackedScene" uid="uid://bnl4aymwagsqa" path="res://scenes/ui/menus/menuTemplate.tscn" id="1_kwjyf"]
+[ext_resource type="PackedScene" uid="uid://ga63x4i2ugw4" path="res://scenes/ui/menus/button.tscn" id="2_8jybv"]
+
+[node name="PauseMain" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bfgq5")
+
+[node name="MenuTemplate" parent="." instance=ExtResource("1_kwjyf")]
+layout_mode = 1
+
+[node name="Label" parent="MenuTemplate/VBoxContainer" index="0"]
+text = "Paused"
+
+[node name="Resume" parent="MenuTemplate/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("2_8jybv")]
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" parent="MenuTemplate/VBoxContainer/VBoxContainer" index="1" instance=ExtResource("2_8jybv")]
+layout_mode = 2
+text = "Options"
+
+[node name="Menu" parent="MenuTemplate/VBoxContainer/VBoxContainer" index="2" instance=ExtResource("2_8jybv")]
+layout_mode = 2
+text = "Quit to Menu"
+
+[node name="Quit" parent="MenuTemplate/VBoxContainer/VBoxContainer" index="3" instance=ExtResource("2_8jybv")]
+layout_mode = 2
+text = "Quit to Desktop"
+
+[connection signal="pressed" from="MenuTemplate/VBoxContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MenuTemplate/VBoxContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MenuTemplate/VBoxContainer/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="MenuTemplate/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+
+[editable path="MenuTemplate"]

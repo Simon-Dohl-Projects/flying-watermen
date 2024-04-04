@@ -18,6 +18,7 @@ shader_parameter/offset = 0.0
 
 [node name="redTree02" type="Sprite2D"]
 show_behind_parent = true
+z_index = -10
 material = SubResource("ShaderMaterial_demst")
 texture = ExtResource("1_sjpe3")
 region_enabled = true

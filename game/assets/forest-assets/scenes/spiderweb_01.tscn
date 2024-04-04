@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0qqb6y1scgni"]
+
+[ext_resource type="Shader" path="res://shader/wobbleEffect.gdshader" id="1_he3dl"]
+[ext_resource type="Texture2D" uid="uid://obwra0usmk3a" path="res://assets/forest-assets/spiderweb01.png" id="1_l5geq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqpp5"]
+shader = ExtResource("1_he3dl")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.01
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[node name="Spiderweb01" type="Sprite2D"]
+z_index = -10
+material = SubResource("ShaderMaterial_hqpp5")
+position = Vector2(239, 199)
+rotation = 0.0349066
+texture = ExtResource("1_l5geq")
+region_rect = Rect2(300, 165, 501, 414)

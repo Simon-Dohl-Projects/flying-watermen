@@ -86,6 +86,7 @@ to = NodePath("../Sodium")
 event = &"to_chemical"
 guard = SubResource("Resource_r1xv3")
 
+[connection signal="state_entered" from="StateChart/Chemicals/Ice" to="." method="_on_ice_state_entered"]
 [connection signal="state_entered" from="StateChart/Chemicals/Ice" to="Effects/Ice" method="_on_ice_state_entered"]
 [connection signal="state_exited" from="StateChart/Chemicals/Ice" to="Effects/Ice" method="_on_ice_state_exited"]
 [connection signal="state_entered" from="StateChart/Chemicals/Foam" to="Effects/Foam" method="_on_foam_state_entered"]

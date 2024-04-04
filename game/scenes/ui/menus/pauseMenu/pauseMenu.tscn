@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://besblswfge6aw"]
+[gd_scene load_steps=4 format=3 uid="uid://besblswfge6aw"]
 
+[ext_resource type="PackedScene" uid="uid://bhiir77ni7ulx" path="res://scenes/ui/menus/pauseMenu/pauseMain.tscn" id="1_5tsro"]
 [ext_resource type="Script" path="res://scenes/ui/menus/pauseMenu/PauseMenu.gd" id="1_osadj"]
+[ext_resource type="PackedScene" uid="uid://cdkicasp65o4b" path="res://scenes/ui/menus/optionMenu/options.tscn" id="3_qru53"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -21,38 +23,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.25098, 0.25098, 0.25098, 0.705882)
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="PauseMain" parent="." instance=ExtResource("1_5tsro")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/v_separation = 16
 
-[node name="Label" type="Label" parent="GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "    Paused"
+[node name="Options" parent="." instance=ExtResource("3_qru53")]
+visible = false
+layout_mode = 1
+has_background = false
 
-[node name="Resume_Button" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "Resume Game"
-
-[node name="Return_to_menu_Button" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "Return to main menu"
-
-[node name="Quit_Game_Button" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "Quit Game"
-
-[connection signal="pressed" from="GridContainer/Resume_Button" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="GridContainer/Return_to_menu_Button" to="." method="_on_return_to_menu_button_pressed"]
-[connection signal="pressed" from="GridContainer/Quit_Game_Button" to="." method="_on_quit_game_button_pressed"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="menu_pressed" from="PauseMain" to="." method="_on_pause_main_menu_pressed"]
+[connection signal="options_pressed" from="PauseMain" to="." method="_on_pause_main_options_pressed"]
+[connection signal="quit_pressed" from="PauseMain" to="." method="_on_pause_main_quit_pressed"]
+[connection signal="resume_pressed" from="PauseMain" to="." method="_on_pause_main_resume_pressed"]
+[connection signal="back_pressed" from="Options" to="." method="_on_options_back_pressed"]
