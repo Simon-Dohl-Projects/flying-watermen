@@ -1,4 +1,4 @@
-# Itch: https://malte-wagenknecht.itch.io/aquaflame-chronicles
+# [Link to Itch.io](https://malte-wagenknecht.itch.io/aquaflame-chronicles)
 # Flying Watermen
 
 ![+k7abW](https://github.com/Malte0/flying-watermen/assets/116385114/0293063a-591b-4c86-8c35-2f1f36d1e44e)
